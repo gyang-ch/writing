@@ -1,0 +1,126 @@
+/* CSS Variables for easy Theming */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #333333;
+    --accent-color: #2c3e50;
+    --font-serif: "Merriweather", serif;
+    --font-sans: "Inter", sans-serif;
+    --current-font: var(--font-serif);
+    --base-size: 18px;
+    --line-height: 1.8;
+}
+
+/* Dark Mode Variables */
+[data-theme="dark"] {
+    --bg-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --accent-color: #8ab4f8;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: var(--current-font);
+    font-size: var(--base-size);
+    line-height: var(--line-height);
+    transition:
+        background 0.3s,
+        color 0.3s; /* Smooth transition */
+    margin: 0;
+}
+
+/* Progress Bar at top */
+.progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: transparent;
+    z-index: 100;
+}
+.progress-bar {
+    height: 5px;
+    background: var(--accent-color);
+    width: 0%;
+}
+
+/* Layout for Reading Mode */
+.content-wrapper {
+    max-width: 700px; /* Optimal reading width */
+    margin: 0 auto;
+    padding: 60px 20px;
+}
+
+/* Typography */
+h1,
+h2,
+h3 {
+    font-family: var(--font-sans);
+    color: var(--text-color);
+}
+
+h1 {
+    font-size: 2.2em;
+    margin-bottom: 0.2em;
+}
+.subtitle {
+    color: #666;
+    font-style: italic;
+    margin-bottom: 30px;
+}
+blockquote {
+    border-left: 4px solid var(--accent-color);
+    margin: 20px 0;
+    padding-left: 20px;
+    font-style: italic;
+    opacity: 0.8;
+}
+
+/* Floating Control Panel */
+.controls {
+    position: fixed;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: var(--bg-color);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button,
+.download-btn {
+    background: none;
+    border: 1px solid var(--text-color);
+    color: var(--text-color);
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: var(--font-sans);
+    font-size: 0.8rem;
+    text-decoration: none;
+    text-align: center;
+}
+
+button:hover,
+.download-btn:hover {
+    opacity: 0.7;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 900px) {
+    .controls {
+        position: static;
+        flex-direction: row;
+        transform: none;
+        justify-content: center;
+        margin-top: 20px;
+        border: none;
+        box-shadow: none;
+    }
+}

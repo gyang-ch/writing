@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Thoughts on Topics in Digital Humanities</title>
+        <link rel="stylesheet" href="style.css" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,700;1,300&family=Inter:wght@400;600&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <aside class="controls">
+            <div class="control-group">
+                <button
+                    onclick="toggleTheme()"
+                    id="themeBtn"
+                    aria-label="Toggle Dark Mode"
+                >
+                    🌙
+                </button>
+            </div>
+            <div class="control-group">
+                <button
+                    onclick="adjustFontSize('decrease')"
+                    aria-label="Decrease Font"
+                >
+                    A-
+                </button>
+                <button
+                    onclick="adjustFontSize('increase')"
+                    aria-label="Increase Font"
+                >
+                    A+
+                </button>
+            </div>
+            <div class="control-group">
+                <button
+                    onclick="toggleFont()"
+                    id="fontBtn"
+                    aria-label="Change Font Style"
+                >
+                    Serif
+                </button>
+            </div>
+            <div class="control-group">
+                <a href="essay.pdf" download class="download-btn"
+                    >Download PDF</a
+                >
+            </div>
+        </aside>
+
+        <main class="content-wrapper">
+            <header>
+                <h1>Thoughts on Topics in the Digital Humanities Course</h1>
+                <p class="subtitle">
+                    An essay on TEI, Open Access, and GLAM Digitisation
+                </p>
+                <hr />
+            </header>
+
+            <article>
+                <p class="intro">
+                    This essay will discuss topics covered in the course,
+                    reflecting on markup languages, the ethics of open access,
+                    and the value of cultural digitization.
+                </p>
+
+                <section>
+                    <h2>1. TEI and XML</h2>
+                    <p>
+                        HTML and XML are both mark-up languages, and there are
+                        other mark-up languages such as YAML. Different from
+                        HTML, XML is only targeted at storing text information,
+                        preserving the hierarchical traits of the text, but not
+                        containing anything about displaying the text.
+                    </p>
+
+                    <blockquote>
+                        XML is used in many places in today’s digital lives of
+                        people. For instance, Files like .docx, .xlsx, .pptx are
+                        essentially ZIP archives containing many XML files.
+                    </blockquote>
+
+                    <p>
+                        If you rename a .docx file to .zip and extract it, you
+                        will find a collection of XML files.
+                    </p>
+                </section>
+
+                <section>
+                    <h2>2. Open Access – The Internet’s Own Boy</h2>
+                    <p>
+                        I learnt a lot from the problem discussed in this film,
+                        which I think is about the accessibility of research
+                        journal articles, which is also related to copyright
+                        issues.
+                    </p>
+
+                    <p>
+                        After watching the film and engaging in our class, my
+                        understanding now is that the copyright of the journal
+                        articles usually belong to the publishers (e.g.
+                        Elsevier, JSTOR). Am I right? Then the question is
+                        whether it is fair for the publishers to charge.
+                    </p>
+
+                    <p>
+                        The current inequality in access of knowledge for the
+                        public and scholars in educational institutions is
+                        because the publishers charge. Scholars in educational
+                        institutions having privilege is because the
+                        institutions have paid. However, I agree that we should
+                        find a better model for the society to give more equal
+                        access to knowledge to everyone.
+                    </p>
+
+                    <p>
+                        I know that some scholars use funding to pay for their
+                        publications to be open source. Beyond journal articles,
+                        I also have a concern about published books. Should
+                        published books be free to the public as well? What are
+                        the differences between published books and journal
+                        articles? Websites like Z-library are important for
+                        students who are frightened by the high prices of books,
+                        but many of them are illegal.
+                    </p>
+
+                    <p>
+                        As a consumer of intellectual resources, such as books,
+                        journals, music, films, I would prefer them to be free,
+                        and I would enjoy using special technical skills to
+                        obtain them, but I wouldn't dare to circulate them in
+                        fear of legal risks.
+                    </p>
+                </section>
+
+                <section>
+                    <h2>3. Digitisation in GLAM Section</h2>
+                    <p>
+                        The digitisation in GLAMs (Galleries, Libraries,
+                        Archives, and Museums) provides many benefits. For
+                        example, it helps with scholarly studies. In the past
+                        year, I have been obsessed with two research works by a
+                        group of visualisation (as a part of computer science)
+                        researchers.
+                    </p>
+
+                    <p>
+                        Their works <em>OldVisOnline</em> and
+                        <em>ZuantuSet</em> retrieves images about historical
+                        visualisations from major digital collections around the
+                        world, and build them as a database. Their work targeted
+                        at the history of visualisation can be viewed in the
+                        discipline of history of science. Such works cannot be
+                        realistic without great digitisation works by the
+                        museums beforehand.
+                    </p>
+                </section>
+            </article>
+
+            <footer>
+                <hr />
+                <p>Posted on GitHub Pages | Digital Humanities Coursework</p>
+            </footer>
+        </main>
+
+        <script src="script.js"></script>
+    </body>
+</html>
