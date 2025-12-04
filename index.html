@@ -1,0 +1,826 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Thoughts on Topics in Digital Humanities</title>
+        <link rel="stylesheet" href="style.css" />
+
+        <!-- Added Chart.js for the Open Access Graph -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Merriweather:ital,wght@0,300;0,700;1,300&family=Lora:ital,wght@0,400;0,700;1,400&family=Roboto+Mono&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body data-theme="light" data-width="normal">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <button
+            id="settingsToggle"
+            class="floating-btn"
+            aria-label="Open Settings"
+        >
+            ⚙️
+        </button>
+
+        <aside id="settingsPanel" class="settings-panel hidden">
+            <div class="panel-header">
+                <h3>Reader View</h3>
+                <button id="closeSettings" class="close-btn">×</button>
+            </div>
+
+            <div class="setting-group">
+                <label>Theme</label>
+                <div class="theme-buttons">
+                    <button
+                        class="theme-btn light"
+                        onclick="setTheme('light')"
+                        title="Light"
+                    >
+                        Aa
+                    </button>
+                    <button
+                        class="theme-btn sepia"
+                        onclick="setTheme('sepia')"
+                        title="Paper"
+                    >
+                        Aa
+                    </button>
+                    <button
+                        class="theme-btn grey"
+                        onclick="setTheme('grey')"
+                        title="Low Contrast"
+                    >
+                        Aa
+                    </button>
+                    <button
+                        class="theme-btn dark"
+                        onclick="setTheme('dark')"
+                        title="Dark"
+                    >
+                        Aa
+                    </button>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label for="fontSelect">Typeface</label>
+                <select id="fontSelect" onchange="setFont(this.value)">
+                    <option value="'Merriweather', serif">
+                        Merriweather (Serif)
+                    </option>
+                    <option value="'Times New Roman', Times, serif">
+                        Times New Roman
+                    </option>
+                    <option value="'Inter', sans-serif">
+                        Inter (Modern Sans)
+                    </option>
+                    <option value="Arial, Helvetica, sans-serif">Arial</option>
+                    <option value="'Aptos', sans-serif">Aptos (System)</option>
+                    <option value="'Roboto Mono', monospace">Monospace</option>
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <label>Size & Spacing</label>
+                <div class="size-controls">
+                    <button onclick="adjustFontSize(-2)">A-</button>
+                    <span id="currentSizeLabel">18px</span>
+                    <button onclick="adjustFontSize(2)">A+</button>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label>Page Width</label>
+                <div class="width-buttons">
+                    <button onclick="setWidth('narrow')" title="Narrow">
+                        Narrow
+                    </button>
+                    <button onclick="setWidth('normal')" title="Normal">
+                        Normal
+                    </button>
+                    <button onclick="setWidth('wide')" title="Wide">
+                        Wide
+                    </button>
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="setting-group">
+                <a href="essay.pdf" download class="download-link"
+                    >Download PDF ⇩</a
+                >
+            </div>
+        </aside>
+
+        <main class="content-wrapper" id="contentArea">
+            <header>
+                <h1>Thoughts on Topics in the Digital Humanities Course</h1>
+                <p class="subtitle">
+                    An essay on TEI, Open Access, and GLAM Digitisation
+                </p>
+                <hr />
+            </header>
+
+            <article>
+                <p class="intro">
+                    This essay will discuss topics in the course, reflecting on
+                    TEI-XML and other text encoding scenarios, the problems and
+                    controversy of open access, and digitisation in the GLAM
+                    sector.
+                </p>
+
+                <!-- SECTION 1: TEI -->
+                <section>
+                    <h2>1. TEI and XML</h2>
+                    <p>
+                        HTML and XML are both mark-up languages, and there are
+                        other mark-up languages such as YAML. Different from
+                        HTML, which is based on XML, XML is only targeted at
+                        storing text information, preserving the hierarchical
+                        traits of the text, but not containing anything about
+                        displaying the text.
+                    </p>
+                    <p>
+                        XML is used in many places in today’s digital lives of
+                        people. For instance, files like <code>.docx</code>,
+                        <code>.xlsx</code>, <code>.pptx</code> are essentially
+                        ZIP archives containing many XML files. If you rename a
+                        <code>.docx</code> file to <code>.zip</code> and extract
+                        it, you will find a collection of XML files.
+                    </p>
+
+                    <p>Beyond TEI-XML, there are other encoding frameworks:</p>
+                    <ul>
+                        <li>
+                            <strong>EpiDoc</strong> – an XML standard built on
+                            TEI, used for inscriptions, papyri, and ancient
+                            documents.
+                        </li>
+                        <li>
+                            <strong>MEI (Music Encoding Initiative)</strong> – a
+                            TEI-like encoding for music notation.
+                        </li>
+                        <li>
+                            <strong
+                                >IIIF (International Image Interoperability
+                                Framework)</strong
+                            >
+                            – not a mark-up language, but a standard enabling
+                            rich digital presentation of manuscripts and images
+                            across institutions.
+                        </li>
+                        <li>
+                            <strong
+                                >YAML / JSON for born-digital archives</strong
+                            >
+                            – used increasingly in digital asset management
+                            systems because they are lightweight and
+                            machine-friendly.
+                        </li>
+                        <li>
+                            <strong>Text mining corpora</strong> – often encoded
+                            in stand-off annotation formats rather than TEI to
+                            allow multiple layers of annotation.
+                        </li>
+                    </ul>
+
+                    <blockquote>
+                        TEI preserves scholarly nuance, but it is labour-
+                        intensive, which means large-scale TEI projects are more
+                        likely to be accomplished by well-resourced
+                        institutions.
+                    </blockquote>
+
+                    <p>
+                        To visualise how this semantic tagging works in
+                        practice, I have included an interactive example below:
+                    </p>
+
+                    <!-- ARTEFACT 1: TEI VISUALIZER -->
+                    <div class="artefact-card">
+                        <div class="card-header">
+                            <span class="card-label"
+                                >Interactive Figure 1: TEI Visualization</span
+                            >
+                            <div class="toggle-group">
+                                <button
+                                    onclick="toggleTei('render')"
+                                    id="btn-render"
+                                    class="active"
+                                >
+                                    Reader
+                                </button>
+                                <button
+                                    onclick="toggleTei('code')"
+                                    id="btn-code"
+                                >
+                                    XML Code
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Render View -->
+                        <div
+                            id="tei-render"
+                            class="card-content center-content"
+                        >
+                            <h3>The Red Wheelbarrow</h3>
+                            <p style="font-style: italic; opacity: 0.7">
+                                William Carlos Williams
+                            </p>
+                            <br />
+                            <div class="poem-body">
+                                <p>so much depends<br />upon</p>
+                                <p>
+                                    a
+                                    <span class="tei-entity" title="Object"
+                                        >red wheel<br />barrow</span
+                                    >
+                                </p>
+                                <p>
+                                    glazed with
+                                    <span class="tei-entity" title="Substance"
+                                        >rain<br />water</span
+                                    >
+                                </p>
+                                <p>
+                                    beside the
+                                    <span class="tei-entity" title="Animal"
+                                        >white<br />chickens</span
+                                    >
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Code View -->
+                        <div
+                            id="tei-code"
+                            class="card-content code-content hidden"
+                        >
+                            <pre>
+&lt;lg type="stanza"&gt;
+  &lt;l&gt;so much depends&lt;/l&gt;
+  &lt;l&gt;upon&lt;/l&gt;
+&lt;/lg&gt;
+&lt;lg type="stanza"&gt;
+  &lt;l&gt;a &lt;rs type="object"&gt;red wheel&lt;/l&gt;
+  &lt;l&gt;barrow&lt;/rs&gt;&lt;/l&gt;
+&lt;/lg&gt;
+&lt;lg type="stanza"&gt;
+  &lt;l&gt;glazed with &lt;rs type="substance"&gt;rain&lt;/l&gt;
+  &lt;l&gt;water&lt;/rs&gt;&lt;/l&gt;
+&lt;/lg&gt;</pre
+                            >
+                        </div>
+                    </div>
+                </section>
+
+                <!-- SECTION 2: OPEN ACCESS -->
+                <section>
+                    <h2>2. Open Access – The Internet’s Own Boy</h2>
+                    <p>
+                        I learnt a lot from the problem discussed in this film,
+                        which I think is about the accessibility of research
+                        journal articles, which is also related to copyright
+                        issues.
+                    </p>
+                    <p>
+                        After watching the film and engaging in our class, my
+                        understanding now is that the copyright of journal
+                        articles usually belongs to the publishers (e.g.
+                        Elsevier, JSTOR). Am I right? Then the question is
+                        whether it is fair for the publishers to charge.
+                    </p>
+                    <p>
+                        The current inequality in access to knowledge for the
+                        public and scholars in educational institutions is in
+                        part because publishers charge for access. Scholars in
+                        institutions have privileged access because their
+                        institutions subscribe. I agree that we should find a
+                        better model to give more equal access to knowledge to
+                        everyone. I also know that some scholars use funding to
+                        pay APCs so their publications can be open access.
+                    </p>
+
+                    <!-- ARTEFACT 2: OPEN ACCESS CHART -->
+                    <div class="artefact-card">
+                        <div class="card-header">
+                            <span class="card-label"
+                                >Figure 2: The Rise of Open Access</span
+                            >
+                        </div>
+                        <div class="card-content">
+                            <canvas id="oaChart"></canvas>
+                            <p class="caption">
+                                Simulated data showing the growth of "Gold" Open
+                                Access journals (2014-2024).
+                            </p>
+                        </div>
+                    </div>
+
+                    <p>
+                        Beyond journal articles, I am also concerned about the
+                        status of books in the open-access debate. While journal
+                        articles typically generate no income for their
+                        authors—who are usually salaried researchers—books
+                        belong to a different economic and labour structure.
+                        Monographs often represent years of work, and authors
+                        may rely, even modestly, on royalties as part of their
+                        income. This makes the ethics of providing free access
+                        to books more complicated than those surrounding journal
+                        articles. At the same time, students and independent
+                        learners frequently struggle with the high cost of
+                        academic books, which partly explains the appeal of
+                        websites like Z-Library, even though many of these
+                        platforms operate illegally. My own experience reflects
+                        this tension: as a consumer of intellectual resources, I
+                        appreciate the accessibility that piracy provides, yet I
+                        remain cautious about participating in it because of the
+                        legal risks and the potential impact on authors whose
+                        livelihood may depend on book sales. These differences
+                        suggest that open access cannot adopt a single, uniform
+                        model, and that books require a more nuanced and
+                        sustainable approach.
+                    </p>
+
+                    <!-- Table: Books vs Journal Articles -->
+                    <div class="artefact-card">
+                        <div class="card-header">
+                            <span class="card-label"
+                                >Table: Book vs Journal Publishing</span
+                            >
+                        </div>
+                        <div class="card-content">
+                            <table
+                                id="pubComparison"
+                                style="width: 100%; border-collapse: collapse"
+                            >
+                                <thead>
+                                    <tr>
+                                        <th
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                text-align: left;
+                                                background: #f5f5f5;
+                                            "
+                                        >
+                                            Aspect
+                                        </th>
+                                        <th
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                text-align: left;
+                                                background: #f5f5f5;
+                                            "
+                                        >
+                                            Books (Monographs)
+                                        </th>
+                                        <th
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                text-align: left;
+                                                background: #f5f5f5;
+                                            "
+                                        >
+                                            Journal Articles
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Typical economic model
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Sales and royalties; university
+                                            press subsidies; occasional funder
+                                            support for OA monographs
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Subscription revenue for publishers,
+                                            or APC-funded open access
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Author income
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            May receive royalties (small to
+                                            moderate); often important to some
+                                            authors
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Authors typically receive no
+                                            royalties
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Typical funding
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Often unfunded; long-term research
+                                            may need grants for travel/archives
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Often produced as part of funded
+                                            projects or salaried roles
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            APCs / OA costs
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            OA monograph fees can be very high
+                                            (£5k–£12k+); models are less
+                                            standardised
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            APCs common for Gold OA (variable;
+                                            often lower than OA monographs)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Production timescale
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Years of work, long editorial
+                                            process
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Months to 1–2 years; faster
+                                            turnaround
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Rights & licensing
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Royalties and subsidiary rights
+                                            matter; contracts more complex
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Authors usually transfer some or all
+                                            rights; licensing often simpler
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Equity implications
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            High OA costs risk excluding
+                                            unfunded scholars; sales-based
+                                            models also make access unequal
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            APCs can exclude unfunded
+                                            researchers; Green OA helps but is
+                                            uneven
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Piracy impact
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Directly reduces sales/royalties;
+                                            can harm authors on whom royalties
+                                            matter
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Sci-Hub-style access undermines
+                                            paywalls but doesn't provide a
+                                            sustainable publishing model
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Recommended OA approach
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Develop funding pools, national
+                                            support for OA monographs, and
+                                            experiment with library-publish
+                                            models
+                                        </td>
+                                        <td
+                                            style="
+                                                border: 1px solid #ddd;
+                                                padding: 8px;
+                                                vertical-align: top;
+                                            "
+                                        >
+                                            Mix of Green OA, transformative
+                                            Read-and-Publish deals, and
+                                            well-governed Gold OA
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <p>
+                        As a consumer of intellectual resources, such as books,
+                        journals, music, films, I would prefer them to be free,
+                        and I would enjoy using special technical skills to
+                        obtain them, but I wouldn't dare to circulate them in
+                        fear of legal risks.
+                    </p>
+                </section>
+
+                <!-- SECTION 3: GLAM -->
+                <section>
+                    <h2>3. Digitisation in the GLAM sector</h2>
+                    <p>
+                        The digitisation in GLAMs provides many benefits. For
+                        example, it helps with scholarly studies. In the past
+                        year, I have been obsessed with two research works by a
+                        group of visualisation (as a part of computer science)
+                        researchers. Their works <em>OldVisOnline</em> and
+                        <em>ZuantuSet</em> retrieve images about historical
+                        visualisations from major digital collections around the
+                        world and build them as a database. Their work, targeted
+                        at the history of visualisation, can be viewed in the
+                        discipline of history of science. Such works cannot be
+                        realistic without great digitisation efforts by museums
+                        and cultural institutions.
+                    </p>
+
+                    <p>
+                        Digitisation is often legally blocked because scanning
+                        or copying an artwork, book, or photograph constitutes
+                        making a “copy” under copyright law. GLAM institutions
+                        often cannot digitise works unless they can find (or
+                        pay) the copyright holders. Because of these
+                        constraints, institutions sometimes digitise items based
+                        on the ease of rights clearance rather than cultural
+                        significance, producing a distorted, unrepresentative
+                        online cultural memory.
+                    </p>
+
+                    <p>
+                        Digitisation also enables
+                        <strong>digital repatriation</strong>, which can be a
+                        powerful tool for indigenous communities seeking access
+                        to cultural artefacts that cannot be physically
+                        returned. Digital surrogates, 3D imaging, and shared
+                        databases allow dispersed cultural property to be
+                        reassembled virtually, supporting community recovery and
+                        research. For example, beginning last year, a group
+                        working on oracle bones at Anyang Normal University in
+                        China has visited museums worldwide to digitise oracle
+                        bones stored there, creating a distributed digital
+                        corpus for researchers and descendant communities.
+                    </p>
+
+                    <!-- ARTEFACT 3: SKETCHFAB 3D MODEL (unchanged) -->
+                    <div class="artefact-card">
+                        <div class="card-header">
+                            <span class="card-label">
+                                Interactive Figure 3: 1606 Terrestrial Globe
+                            </span>
+                        </div>
+
+                        <div class="card-content no-padding">
+                            <div class="sketchfab-embed-wrapper">
+                                <iframe
+                                    title="Willem Janszoon Blaeu, Terrestrial Globe, 1606"
+                                    frameborder="0"
+                                    allowfullscreen
+                                    mozallowfullscreen="true"
+                                    webkitallowfullscreen="true"
+                                    allow="
+                                        autoplay;
+                                        fullscreen;
+                                        xr-spatial-tracking;
+                                    "
+                                    xr-spatial-tracking
+                                    execution-while-out-of-viewport
+                                    execution-while-not-rendered
+                                    web-share
+                                    src="https://sketchfab.com/models/c22ff82e3530492f91d66fcd0c24d568/embed"
+                                >
+                                </iframe>
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <p>
+                                Willem Janszoon Blaeu, Terrestrial Globe (1606).
+                                Use mouse or touch to rotate.
+                            </p>
+                            <p
+                                class="caption"
+                                style="font-size: 0.9em; opacity: 0.8"
+                            >
+                                Model:
+                                <a
+                                    href="https://sketchfab.com/3d-models/willem-janszoon-blaeu-terrestrial-globe-1606-c22ff82e3530492f91d66fcd0c24d568"
+                                    target="_blank"
+                                >
+                                    Willem Janszoon Blaeu, Terrestrial Globe,
+                                    1606
+                                </a>
+                                by
+                                <a
+                                    href="https://sketchfab.com/britishlibrary"
+                                    target="_blank"
+                                >
+                                    British Library
+                                </a>
+                                on
+                                <a href="https://sketchfab.com" target="_blank">
+                                    Sketchfab </a
+                                >.
+                            </p>
+                        </div>
+                    </div>
+
+                    <p>
+                        Such works cannot be realistic without the extensive
+                        digitisation efforts undertaken by museums and cultural
+                        institutions.
+                    </p>
+                </section>
+            </article>
+
+            <footer>
+                <hr />
+                <p>Posted on GitHub Pages | Digital Humanities Coursework</p>
+            </footer>
+        </main>
+
+        <script src="script.js"></script>
+    </body>
+</html>
