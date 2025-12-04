@@ -1,43 +1,24 @@
-/* --- CSS VARIABLES & THEMES --- */
+/* --- VARIABLES --- */
 :root {
     --bg-color: #ffffff;
     --text-color: #222222;
+    --toc-text: #888888;
+    --toc-active: #2c3e50;
     --panel-bg: rgba(255, 255, 255, 0.95);
     --accent-color: #2c3e50;
     --border-color: #ddd;
     --base-size: 18px;
-    --max-width: 700px;
     --font-family: 'Merriweather', serif;
 }
 
-/* 1. SEPIA THEME (Paper-like) */
+/* THEMES (Add your other themes here as before) */
 [data-theme="sepia"] {
-    --bg-color: #f4ecd8;
-    --text-color: #5b4636;
-    --panel-bg: rgba(244, 236, 216, 0.95);
-    --accent-color: #8f6b4e;
-    --border-color: #dccfb8;
+    --bg-color: #f4ecd8; --text-color: #5b4636; --toc-text: #a69b8d; --toc-active: #5b4636; --panel-bg: rgba(244, 236, 216, 0.95); --accent-color: #8f6b4e;
 }
-
-/* 2. GREY THEME (Half Dark) */
-[data-theme="grey"] {
-    --bg-color: #3e3e3e;
-    --text-color: #e0e0e0;
-    --panel-bg: rgba(62, 62, 62, 0.95);
-    --accent-color: #a0a0a0;
-    --border-color: #555;
-}
-
-/* 3. DARK THEME (Full Dark/OLED) */
 [data-theme="dark"] {
-    --bg-color: #121212;
-    --text-color: #d1d1d1;
-    --panel-bg: rgba(25, 25, 25, 0.95);
-    --accent-color: #8ab4f8;
-    --border-color: #333;
+    --bg-color: #121212; --text-color: #d1d1d1; --toc-text: #555; --toc-active: #d1d1d1; --panel-bg: rgba(25, 25, 25, 0.95); --accent-color: #8ab4f8;
 }
 
-/* --- BASE STYLES --- */
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
@@ -48,122 +29,118 @@ body {
     transition: background 0.3s, color 0.3s;
 }
 
-/* --- PAGE WIDTH MODES --- */
-[data-width="narrow"] .content-wrapper { max-width: 550px; }
-[data-width="normal"] .content-wrapper { max-width: 700px; }
-[data-width="wide"] .content-wrapper { max-width: 1000px; }
-
-.content-wrapper {
+/* --- LAYOUT GRID --- */
+.layout-grid {
+    display: grid;
+    /* Sidebar takes 250px, Content takes remaining space */
+    grid-template-columns: 250px minmax(0, 1fr);
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 80px 20px;
-    transition: max-width 0.3s ease;
+    gap: 40px;
 }
 
-/* --- TYPOGRAPHY --- */
-h1, h2, h3 { font-family: 'Inter', sans-serif; margin-top: 1.5em; }
-h1 { line-height: 1.2; margin-top: 0; }
-a { color: var(--accent-color); }
-blockquote {
-    border-left: 4px solid var(--accent-color);
-    margin: 20px 0;
+/* --- TABLE OF CONTENTS (SIDEBAR) --- */
+.toc-sidebar {
+    padding-top: 120px; /* Aligns visually with title */
+    display: block;
+}
+
+.toc-sticky {
+    position: sticky;
+    top: 100px; /* Stays 100px from top when scrolling */
     padding-left: 20px;
-    font-style: italic;
-    opacity: 0.85;
+    border-left: 2px solid var(--border-color);
 }
 
-/* --- PROGRESS BAR --- */
-.progress-container {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 4px; z-index: 1000;
-}
-.progress-bar {
-    height: 100%;
-    background: var(--accent-color);
-    width: 0%;
-}
-
-/* --- SETTINGS PANEL (FANCY UI) --- */
-.floating-btn {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 20px;
-    z-index: 200;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: transform 0.2s;
-}
-.floating-btn:hover { transform: rotate(45deg); }
-
-.settings-panel {
-    position: fixed;
-    top: 75px;
-    right: 20px;
-    width: 300px;
-    background: var(--panel-bg);
-    backdrop-filter: blur(10px); /* Glassmorphism */
-    -webkit-backdrop-filter: blur(10px);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
-    z-index: 199;
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.3s, transform 0.3s;
-}
-
-.settings-panel.hidden {
-    opacity: 0;
-    transform: translateY(-20px);
-    pointer-events: none;
-}
-
-.panel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.toc-sticky h4 {
+    margin-top: 0;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--toc-text);
     margin-bottom: 15px;
 }
-.panel-header h3 { margin: 0; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
 
-.setting-group { margin-bottom: 20px; }
-.setting-group label { display: block; font-size: 0.85rem; margin-bottom: 8px; font-family: 'Inter', sans-serif; opacity: 0.7; }
-
-/* Theme Buttons */
-.theme-buttons { display: flex; gap: 10px; }
-.theme-btn {
-    width: 100%; height: 40px; border: 1px solid #ccc; border-radius: 6px; cursor: pointer;
-}
-.theme-btn.light { background: #fff; color: #000; }
-.theme-btn.sepia { background: #f4ecd8; color: #5b4636; }
-.theme-btn.grey { background: #3e3e3e; color: #e0e0e0; }
-.theme-btn.dark { background: #121212; color: #fff; }
-
-/* Dropdown & Buttons */
-select {
-    width: 100%; padding: 8px; border-radius: 6px; border: 1px solid var(--border-color); background: var(--bg-color); color: var(--text-color);
-}
-button { cursor: pointer; }
-.size-controls, .width-buttons { display: flex; gap: 5px; align-items: center; }
-.size-controls button, .width-buttons button {
-    flex: 1; padding: 6px; background: transparent; border: 1px solid var(--border-color); color: var(--text-color); border-radius: 4px;
-}
-.size-controls button:hover, .width-buttons button:hover { background: rgba(0,0,0,0.05); }
-
-.close-btn { background: none; border: none; font-size: 1.5rem; color: var(--text-color); }
-.download-link {
-    display: block; text-align: center; padding: 10px; background: var(--accent-color); color: #fff !important; text-decoration: none; border-radius: 6px; font-size: 0.9rem;
+.toc-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-/* Print Styles - Hides controls when printing */
-@media print {
-    .floating-btn, .settings-panel, .progress-container { display: none; }
-    body { background: #fff; color: #000; }
-    .content-wrapper { max-width: 100%; }
+.toc-sidebar li { margin-bottom: 12px; }
+
+.toc-link {
+    text-decoration: none;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    color: var(--toc-text);
+    transition: all 0.2s ease;
+    display: block;
+}
+
+.toc-link:hover { color: var(--accent-color); }
+
+/* The "Active" state for the current section */
+.toc-link.active {
+    color: var(--toc-active);
+    font-weight: 700;
+    transform: translateX(5px); /* Subtle shift right */
+}
+
+/* --- MAIN CONTENT --- */
+.content-wrapper {
+    padding: 80px 20px 100px 0; /* Right padding handled by grid gap */
+    max-width: 700px; /* Default width */
+    margin: 0 auto;   /* Centers in its grid cell */
+    width: 100%;
+}
+
+/* Width variations affect the internal container */
+[data-width="narrow"] .content-wrapper { max-width: 550px; }
+[data-width="wide"] .content-wrapper { max-width: 900px; }
+
+/* --- NEW: PILL DISPLAY BUTTON --- */
+.display-pill-btn {
+    position: fixed;
+    top: 20px;
+    right: 30px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 8px 16px;
+    border-radius: 50px; /* Pill shape */
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 200;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.display-pill-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.display-pill-btn .icon { font-family: serif; font-size: 1.1rem; }
+
+/* Keep Settings Panel and Progress Bar styles from previous response */
+/* Add mobile responsiveness */
+
+@media (max-width: 900px) {
+    .layout-grid {
+        grid-template-columns: 1fr; /* Stack layout */
+    }
+    .toc-sidebar {
+        display: none; /* Hide sidebar on mobile */
+    }
+    .content-wrapper {
+        padding: 80px 20px;
+        margin: 0 auto;
+    }
 }
