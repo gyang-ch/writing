@@ -1,65 +1,76 @@
-// DOM Elements
+// --- DOM ELEMENTS ---
 const body = document.body;
-const themeBtn = document.getElementById("themeBtn");
-const fontBtn = document.getElementById("fontBtn");
-const progressBar = document.getElementById("progressBar");
+const settingsPanel = document.getElementById('settingsPanel');
+const settingsToggle = document.getElementById('settingsToggle');
+const closeSettings = document.getElementById('closeSettings');
+const progressBar = document.getElementById('progressBar');
+const fontSelect = document.getElementById('fontSelect');
+const sizeLabel = document.getElementById('currentSizeLabel');
 
-// 1. Theme Toggle (Light/Dark)
-function toggleTheme() {
-  const currentTheme = body.getAttribute("data-theme");
-  const newTheme = currentTheme === "dark" ? "light" : "dark";
+let currentSize = 18;
 
-  body.setAttribute("data-theme", newTheme);
-  themeBtn.textContent = newTheme === "dark" ? "☀️" : "🌙";
+// --- INITIALIZATION ---
+window.onload = () => {
+    // Load Saved Settings
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedFont = localStorage.getItem('font') || "'Merriweather', serif";
+    const savedSize = parseInt(localStorage.getItem('size')) || 18;
+    const savedWidth = localStorage.getItem('width') || 'normal';
 
-  // Save preference
-  localStorage.setItem("theme", newTheme);
-}
+    setTheme(savedTheme);
+    setFont(savedFont);
+    currentSize = savedSize;
+    applyFontSize();
+    setWidth(savedWidth);
 
-// 2. Font Size Adjustment
-let currentSize = 18; // Matches CSS base-size
-
-function adjustFontSize(action) {
-  if (action === "increase") {
-    currentSize += 2;
-  } else if (action === "decrease") {
-    currentSize = Math.max(12, currentSize - 2); // Minimum 12px
-  }
-  document.documentElement.style.setProperty("--base-size", `${currentSize}px`);
-}
-
-// 3. Font Family Toggle
-function toggleFont() {
-  const root = document.documentElement;
-  const currentFont = getComputedStyle(root)
-    .getPropertyValue("--current-font")
-    .trim();
-  const serif = getComputedStyle(root).getPropertyValue("--font-serif").trim();
-
-  if (currentFont === serif) {
-    root.style.setProperty("--current-font", "var(--font-sans)");
-    fontBtn.textContent = "Serif";
-  } else {
-    root.style.setProperty("--current-font", "var(--font-serif)");
-    fontBtn.textContent = "Sans";
-  }
-}
-
-// 4. Scroll Progress Bar
-window.onscroll = function () {
-  let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-  let height =
-    document.documentElement.scrollHeight -
-    document.documentElement.clientHeight;
-  let scrolled = (winScroll / height) * 100;
-  progressBar.style.width = scrolled + "%";
+    // Sync Dropdown UI
+    fontSelect.value = savedFont;
 };
 
-// Check for saved user preferences on load
-window.onload = () => {
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme) {
-    body.setAttribute("data-theme", savedTheme);
-    themeBtn.textContent = savedTheme === "dark" ? "☀️" : "🌙";
-  }
+// --- SETTINGS PANEL TOGGLE ---
+settingsToggle.addEventListener('click', () => {
+    settingsPanel.classList.toggle('hidden');
+});
+closeSettings.addEventListener('click', () => {
+    settingsPanel.classList.add('hidden');
+});
+
+// --- THEME FUNCTION ---
+function setTheme(themeName) {
+    body.setAttribute('data-theme', themeName);
+    localStorage.setItem('theme', themeName);
+}
+
+// --- FONT FAMILY FUNCTION ---
+function setFont(fontName) {
+    document.documentElement.style.setProperty('--font-family', fontName);
+    localStorage.setItem('font', fontName);
+}
+
+// --- FONT SIZE FUNCTION ---
+function adjustFontSize(delta) {
+    currentSize += delta;
+    if (currentSize < 12) currentSize = 12;
+    if (currentSize > 32) currentSize = 32;
+    applyFontSize();
+}
+
+function applyFontSize() {
+    document.documentElement.style.setProperty('--base-size', `${currentSize}px`);
+    sizeLabel.textContent = `${currentSize}px`;
+    localStorage.setItem('size', currentSize);
+}
+
+// --- PAGE WIDTH FUNCTION ---
+function setWidth(widthMode) {
+    body.setAttribute('data-width', widthMode);
+    localStorage.setItem('width', widthMode);
+}
+
+// --- SCROLL PROGRESS ---
+window.onscroll = function() {
+    let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    let scrolled = (winScroll / height) * 100;
+    progressBar.style.width = scrolled + "%";
 };
