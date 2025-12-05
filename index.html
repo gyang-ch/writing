@@ -1,0 +1,803 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Thoughts on Topics in the DH6033 Course</title>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Merriweather:ital,wght@0,300;0,700;1,300&family=Lora:ital,wght@0,400;0,700;1,400&family=Roboto+Mono&display=swap"
+            rel="stylesheet"
+        />
+
+        <link rel="stylesheet" href="style.css" />
+    </head>
+
+    <body data-theme="light" data-width="wide">
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <button
+            id="settingsToggle"
+            class="floating-btn"
+            aria-label="Open Settings"
+        >
+            ⚙️
+        </button>
+
+        <aside id="settingsPanel" class="settings-panel hidden">
+            <div class="panel-header">
+                <h3>Reader View</h3>
+                <button id="closeSettings" class="close-btn">×</button>
+            </div>
+
+            <div class="setting-group">
+                <label>Theme</label>
+                <div class="theme-buttons">
+                    <button
+                        class="theme-btn light"
+                        onclick="setTheme('light')"
+                        title="Light"
+                    >
+                        Aa
+                    </button>
+                    <button
+                        class="theme-btn sepia"
+                        onclick="setTheme('sepia')"
+                        title="Paper"
+                    >
+                        Aa
+                    </button>
+                    <button
+                        class="theme-btn grey"
+                        onclick="setTheme('grey')"
+                        title="Low Contrast"
+                    >
+                        Aa
+                    </button>
+                    <button
+                        class="theme-btn dark"
+                        onclick="setTheme('dark')"
+                        title="Dark"
+                    >
+                        Aa
+                    </button>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label for="fontSelect">Typeface</label>
+                <select id="fontSelect" onchange="setFont(this.value)">
+                    <option value="'Merriweather', serif">
+                        Merriweather (Serif)
+                    </option>
+                    <option value="'Times New Roman', Times, serif">
+                        Times New Roman
+                    </option>
+                    <option value="'Inter', sans-serif">
+                        Inter (Modern Sans)
+                    </option>
+                    <option value="Arial, Helvetica, sans-serif">Arial</option>
+                    <option value="'Aptos', sans-serif">Aptos (System)</option>
+                    <option value="'Roboto Mono', monospace">Monospace</option>
+                </select>
+            </div>
+
+            <div class="setting-group">
+                <label>Size & Spacing</label>
+                <div class="size-controls">
+                    <button onclick="adjustFontSize(-2)">A-</button>
+                    <span id="currentSizeLabel">18px</span>
+                    <button onclick="adjustFontSize(2)">A+</button>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label>Page Width</label>
+                <div class="width-buttons">
+                    <button onclick="setWidth('narrow')" title="Narrow">
+                        Narrow
+                    </button>
+                    <button onclick="setWidth('normal')" title="Normal">
+                        Normal
+                    </button>
+                    <button onclick="setWidth('wide')" title="Wide">
+                        Wide
+                    </button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-wrapper" id="contentArea">
+            <header>
+                <h1>Thoughts on Topics in the DH6033 Course</h1>
+                <p class="subtitle">
+                    An essay on TEI, Open Access, and GLAM Digitisation
+                </p>
+                <hr />
+            </header>
+
+            <article>
+                <p class="intro">
+                    This essay will discuss topics in the course DH6033. While
+                    there are many Digital Humanities related concepts in the
+                    course, I will focus on these three: TEI-XML and other text
+                    encoding scenarios, the problems and controversy of open
+                    access, and digitisation in the GLAM sector. They are either
+                    of interest to me, or have a quite debatable situation.
+                </p>
+
+                <section>
+                    <h2>1. TEI and XML</h2>
+                    <p>
+                        Markup languages are the tools we use to structure text
+                        digitally. While HTML is all about how data looks on a
+                        screen, XML (eXtensible Markup Language) is designed to
+                        store and transport data. It focuses on the meaning and
+                        hierarchy of the text rather than its visual appearance.
+                    </p>
+                    <p>
+                        XML is actually used everywhere in our digital lives,
+                        even if we don't see it. For example, standard files
+                        like <code>.docx</code>, <code>.xlsx</code>, and
+                        <code>.pptx</code> are really just ZIP folders full of
+                        XML files. If you rename a <code>.docx</code> file to
+                        <code>.zip</code> and extract it, you can actually see
+                        the collection of XML files that make up your document.
+                    </p>
+
+                    <p>
+                        In Digital Humanities, the Text Encoding Initiative
+                        (TEI) is the main standard for using XML. However, there
+                        are several other frameworks depending on what you are
+                        trying to encode:
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>EpiDoc</strong> – A version of TEI XML made
+                            specifically for ancient documents like inscriptions
+                            and papyri.
+                        </li>
+                        <li>
+                            <strong>MEI (Music Encoding Initiative)</strong> – A
+                            community project that defines a TEI-like system for
+                            encoding music notation.
+                        </li>
+                        <li>
+                            <strong
+                                >IIIF (International Image Interoperability
+                                Framework)</strong
+                            >
+                            – This isn't a markup language itself, but it’s a
+                            standard that helps institutions share and present
+                            high-quality images and manuscripts smoothly.
+                        </li>
+                        <li>
+                            <strong
+                                >YAML / JSON for born-digital archives</strong
+                            >
+                            – These are lighter formats that machines can read
+                            easily. Reimann et al. (2024) [cite_start][cite:
+                            1664] argue that capturing born-digital data—like
+                            online forum threads full of emojis and
+                            upvotes—often needs custom schemas. These schemas
+                            need to handle the nested, tree-like structure of
+                            digital conversations, which traditional linear text
+                            encoding struggles with.
+                        </li>
+                        <li>
+                            <strong>Text mining corpora</strong> – These often
+                            use "stand-off" annotation formats instead of
+                            embedding TEI directly, which allows researchers to
+                            add multiple layers of interpretation without
+                            breaking the XML structure.
+                        </li>
+                    </ul>
+
+                    <blockquote>
+                        TEI preserves scholarly nuance, but it is
+                        labour-intensive, which means large-scale TEI projects
+                        are more likely to be accomplished by well-resourced
+                        institutions.
+                    </blockquote>
+
+                    <p>
+                        It is also important to note that TEI isn't static; it
+                        changes to meet new technical and social challenges.
+                        Bauman et al. (2024) [cite_start][cite: 2161] point out
+                        that maintaining the tools that process TEI (the ODD
+                        processor) is technically difficult, leading to new
+                        projects like "ATOP" that aim to rebuild these tools
+                        from scratch. At the same time, the guidelines are
+                        evolving to be more inclusive. Beshero-Bondar et al.
+                        (2024) [cite_start][cite: 2460] describe recent updates
+                        that move away from binary definitions of sex and
+                        gender, allowing encoders to describe people in digital
+                        editions in a way that is more culturally accurate.
+                    </p>
+
+                    <p>
+                        To visualise how this tagging works in practice, I have
+                        included an interactive example below using Percy Bysshe
+                        Shelley's <em>Ozymandias</em>:
+                    </p>
+
+                    <div class="artefact-card">
+                        <div class="card-header">
+                            <span class="card-label"
+                                >Interactive Figure 1: TEI Visualization</span
+                            >
+                            <div class="toggle-group">
+                                <button
+                                    onclick="toggleTei('render')"
+                                    id="btn-render"
+                                    class="active"
+                                >
+                                    Reader
+                                </button>
+                                <button
+                                    onclick="toggleTei('code')"
+                                    id="btn-code"
+                                >
+                                    XML Code
+                                </button>
+                            </div>
+                        </div>
+
+                        <div
+                            id="tei-render"
+                            class="card-content center-content"
+                        >
+                            <h3 class="poem-title">Ozymandias</h3>
+                            <p style="font-style: italic; opacity: 0.7">
+                                Percy Bysshe Shelley
+                            </p>
+                            <br />
+                            <div class="poem-body">
+                                <p>
+                                    I met a
+                                    <span
+                                        class="tei-entity"
+                                        title="Person (Role)"
+                                        >traveller</span
+                                    >
+                                    from an
+                                    <span class="tei-entity" title="Place"
+                                        >antique land</span
+                                    >,
+                                </p>
+                                <p>
+                                    Who said—“Two vast and
+                                    <span
+                                        class="tei-entity"
+                                        title="Physical Condition"
+                                        >trunkless</span
+                                    >
+                                    legs of stone
+                                </p>
+                                <p>
+                                    Stand in the desert. . . . Near them, on the
+                                    sand,
+                                </p>
+                                <p>
+                                    Half sunk a
+                                    <span
+                                        class="tei-entity"
+                                        title="Object (Part)"
+                                        >shattered visage</span
+                                    >
+                                    lies...
+                                </p>
+                            </div>
+                        </div>
+
+                        <div
+                            id="tei-code"
+                            class="card-content code-content hidden"
+                        >
+                            <pre>
+<span class="tag">&lt;l&gt;</span><span class="txt">I met a </span><span class="tag">&lt;rs</span> <span class="attr">type</span>=<span class="val">"person"</span> <span class="attr">role</span>=<span class="val">"traveler"</span><span class="tag">&gt;</span><span class="txt">traveller</span><span class="tag">&lt;/rs&gt;</span>
+<span class="txt">from an </span><span class="tag">&lt;placeName</span> <span class="attr">type</span>=<span class="val">"generic"</span><span class="tag">&gt;</span><span class="txt">antique land</span><span class="tag">&lt;/placeName&gt;</span>,<span class="tag">&lt;/l&gt;</span>
+
+<span class="tag">&lt;l&gt;</span><span class="txt">Who said—“Two vast and </span><span class="tag">&lt;rs</span> <span class="attr">type</span>=<span class="val">"condition"</span><span class="tag">&gt;</span><span class="txt">trunkless</span><span class="tag">&lt;/rs&gt;</span> <span class="txt">legs of stone</span><span class="tag">&lt;/l&gt;</span>
+
+<span class="tag">&lt;l&gt;</span><span class="txt">Stand in the desert. . . . Near them, on the sand,</span><span class="tag">&lt;/l&gt;</span>
+
+<span class="tag">&lt;l&gt;</span><span class="txt">Half sunk a </span><span class="tag">&lt;rs</span> <span class="attr">type</span>=<span class="val">"object_part"</span><span class="tag">&gt;</span><span class="txt">shattered visage</span><span class="tag">&lt;/rs&gt;</span> <span class="txt">lies...</span><span class="tag">&lt;/l&gt;</span>
+</pre>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
+                    <h2>2. Open Access – The Internet’s Own Boy</h2>
+                    <p>
+                        The documentary <em>The Internet’s Own Boy</em> is a
+                        really strong introduction to the problems with how
+                        academic knowledge is produced. It shows how copyright
+                        laws often restrict access to journal articles. These
+                        rights usually belong to companies like Elsevier and
+                        JSTOR, not the people who actually did the work. This
+                        raises a big ethical question: is it fair for publishers
+                        to sell knowledge that was mostly paid for by public
+                        funding and academic labour?
+                    </p>
+                    <p>
+                        The current system creates a divide. If you are part of
+                        a well-funded university, you can access library
+                        subscriptions easily. But the general public and
+                        independent researchers are effectively locked out.
+                        While moving towards Open Access tries to fix this, the
+                        transition is complicated financially.
+                    </p>
+                    <p>
+                        Specifically, the "Gold Open Access" model, which often
+                        relies on Article Processing Charges, might actually
+                        create new unfairness. Papillon et al. (2019)
+                        [cite_start][cite: 4133] argue that while this model
+                        makes things readable for the public, it shifts the cost
+                        to the author. This could exclude researchers in the
+                        humanities and social sciences who don't have large
+                        grants, as well as junior scholars and those in the
+                        Global South. It risks becoming a "pay-to-publish"
+                        system where only well-funded voices are heard.
+                    </p>
+
+                    <p>
+                        It is also important to distinguish between different
+                        types of scholarship. While journal articles don't
+                        usually make money for their authors, books are
+                        different. Monographs take years to write, and authors
+                        often rely on royalties as part of their income. Because
+                        of this, it is more ethically complicated to demand that
+                        books should be free compared to journal articles.
+                        However, academic books are so expensive that many
+                        students resort to "shadow libraries" like Z-Library,
+                        even though these sites exist in a legal grey area.
+                    </p>
+
+                    <p>
+                        The definition of what counts as a "research output"
+                        also complicates things, especially in the GLAM sector.
+                        [cite_start]Rees Koerner and Ackrell (2025) [cite: 5033]
+                        note that while universities mostly produce text,
+                        museums produce things like exhibitions, gallery labels,
+                        and engagement activities. Traditional digital
+                        repositories often can't handle these kinds of outputs
+                        well, so we need new infrastructure to ensure museum
+                        research is as open and accessible as university
+                        research.
+                    </p>
+
+                    <div class="artefact-card">
+                        <div class="card-header">
+                            <span class="card-label"
+                                >Table: Book vs Journal Publishing</span
+                            >
+                        </div>
+                        <div class="card-content no-padding">
+                            <table id="pubComparison">
+                                <thead>
+                                    <tr>
+                                        <th>Aspect</th>
+                                        <th>Books (Monographs)</th>
+                                        <th>Journal Articles</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong
+                                                >Typical economic model</strong
+                                            >
+                                        </td>
+                                        <td>
+                                            Sales and royalties; university
+                                            press subsidies; occasional funder
+                                            support for Open Access monographs
+                                        </td>
+                                        <td>
+                                            Subscription revenue for publishers,
+                                            or Article Processing Charge funded
+                                            Open Access
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Author income</strong></td>
+                                        <td>
+                                            May receive royalties (small to
+                                            moderate); often important to some
+                                            authors
+                                        </td>
+                                        <td>
+                                            Authors typically receive no
+                                            royalties
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Typical funding</strong>
+                                        </td>
+                                        <td>
+                                            Often unfunded; long-term research
+                                            may need grants for travel/archives
+                                        </td>
+                                        <td>
+                                            Often produced as part of funded
+                                            projects or salaried roles
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong
+                                                >Article Processing Charges /
+                                                Open Access costs</strong
+                                            >
+                                        </td>
+                                        <td>
+                                            Open Access monograph fees can be
+                                            very high (£5k–£12k+); models are
+                                            less standardised
+                                        </td>
+                                        <td>
+                                            Article Processing Charges common
+                                            for Gold Open Access (variable;
+                                            often lower than Open Access
+                                            monographs)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong
+                                                >Production timescale</strong
+                                            >
+                                        </td>
+                                        <td>
+                                            Years of work, long editorial
+                                            process
+                                        </td>
+                                        <td>
+                                            Months to 1–2 years; faster
+                                            turnaround
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Rights & licensing</strong>
+                                        </td>
+                                        <td>
+                                            Royalties and subsidiary rights
+                                            matter; contracts more complex
+                                        </td>
+                                        <td>
+                                            Authors usually transfer some or all
+                                            rights; licensing often simpler
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Equity implications</strong>
+                                        </td>
+                                        <td>
+                                            High Open Access costs risk
+                                            excluding unfunded scholars;
+                                            sales-based models also make access
+                                            unequal
+                                        </td>
+                                        <td>
+                                            Article Processing Charges can
+                                            exclude unfunded researchers; Green
+                                            Open Access helps but is uneven
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Piracy impact</strong></td>
+                                        <td>
+                                            Directly reduces sales/royalties;
+                                            can harm authors on whom royalties
+                                            matter
+                                        </td>
+                                        <td>
+                                            Sci-Hub-style access undermines
+                                            paywalls but doesn't provide a
+                                            sustainable publishing model
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <p>
+                        This creates a bit of a personal dilemma: as someone who
+                        consumes intellectual resources, I love the immediate
+                        access that digital platforms provide. But I am cautious
+                        about supporting systems that might hurt authors
+                        financially. These differences show that Open Access
+                        can't just be one single model; books and
+                        non-traditional outputs need their own sustainable
+                        approaches that balance access with the economic reality
+                        of producing them.
+                    </p>
+                </section>
+
+                <section>
+                    <h2>3. Digitisation in the GLAM sector</h2>
+                    <p>
+                        Digitisation in GLAMs provides many benefits. For
+                        example, it really helps with research. Over the past
+                        year, I have been very interested in two projects by
+                        visualisation researchers: <em>OldVisOnline</em> and
+                        <em>ZuantuSet</em>. They collect images of historical
+                        visualisations from digital collections all over the
+                        world.
+                    </p>
+
+                    <p>
+                        Zhang et al. (2023) note that historical visualisations
+                        are often scattered across different libraries, museums,
+                        and archives, and they all have different metadata. This
+                        makes a unified dataset crucial for studying the history
+                        of science. Furthermore, Mei et al. (2025) highlight a
+                        big gap in digital humanities: the lack of non-Western
+                        materials. Their <em>ZuantuSet</em> focuses specifically
+                        on Chinese historical visualisations, challenging the
+                        Eurocentric bias we often see in general datasets.
+                    </p>
+
+                    <p>
+                        [cite_start]However, even after thirty years of
+                        investment, only about 22% of heritage collections in
+                        Europe are actually digitised (Terras, 2022)[cite: 79].
+                        Even when objects are digitised, they can be hard to
+                        find or use because of poor metadata. [cite_start]Lim
+                        and Liew (2011) [cite: 4576] found that while many
+                        institutions use basic standards like Dublin Core, the
+                        lack of technical metadata and the reliance on
+                        proprietary systems creates "silos." This means data
+                        can't be easily shared or harvested. If the metadata
+                        isn't compatible, these digitised items are basically
+                        invisible.
+                    </p>
+
+                    <p>
+                        Digitisation itself uses a range of technical methods.
+                        Traditional techniques include
+                        <strong>2D scanning</strong> for flat objects like
+                        manuscripts,
+                        <strong>high‑resolution photography</strong> for
+                        artworks, and <strong>multispectral imaging</strong> to
+                        reveal faded text. More advanced projects use
+                        <strong>photogrammetry</strong>, which builds 3D models
+                        from photographs, or <strong>laser scanning</strong> to
+                        create highly accurate 3D meshes of sculptures or
+                        artefacts.
+                    </p>
+
+                    <p>
+                        While these technologies are impressive, they have
+                        limitations. Tausch et al. (2019) [cite_start][cite:
+                        5430] describe how difficult it is to automate 3D
+                        digitization for large collections, especially for shiny
+                        objects like gold which need special techniques. Also,
+                        just because images exist doesn't mean they are easy to
+                        use. Valeonti et al. (2019) [cite_start][cite: 3367]
+                        note that many so-called "Open Access" museums still
+                        provide low-resolution images or hide them behind long
+                        download forms to track usage, which discourages people
+                        from actually using them.
+                    </p>
+
+                    <p>
+                        Digitisation is often blocked by legal issues because
+                        scanning an artwork counts as making a "copy" under
+                        copyright law. GLAM institutions often can't digitise
+                        works unless they can find and pay the copyright
+                        holders. Because of this, institutions sometimes
+                        prioritize items that are easy to clear legally rather
+                        than what is culturally significant. [cite_start]Coad
+                        (2019) [cite: 584] calls this the "digital skew." It
+                        means our online cultural memory is full of older,
+                        public domain works, while modern history remains hidden
+                        behind copyright walls. [cite_start]This creates a
+                        distorted view of history that doesn't accurately
+                        reflect our recent past[cite: 582].
+                    </p>
+
+                    <p>
+                        Digitisation also enables
+                        <strong>digital repatriation</strong>. This can be a
+                        powerful tool for indigenous communities to access
+                        cultural artefacts that cannot be physically returned to
+                        them.
+                    </p>
+
+                    <div class="artefact-card">
+                        <div class="card-header">
+                            <span class="card-label"
+                                >Interactive Figure 3: 1606 Terrestrial
+                                Globe</span
+                            >
+                        </div>
+
+                        <div class="card-content no-padding">
+                            <div class="sketchfab-embed-wrapper">
+                                <iframe
+                                    title="Willem Janszoon Blaeu, Terrestrial Globe, 1606"
+                                    frameborder="0"
+                                    allowfullscreen
+                                    mozallowfullscreen="true"
+                                    webkitallowfullscreen="true"
+                                    allow="
+                                        autoplay;
+                                        fullscreen;
+                                        xr-spatial-tracking;
+                                    "
+                                    xr-spatial-tracking
+                                    execution-while-out-of-viewport
+                                    execution-while-not-rendered
+                                    web-share
+                                    src="https://sketchfab.com/models/c22ff82e3530492f91d66fcd0c24d568/embed"
+                                >
+                                </iframe>
+                            </div>
+                        </div>
+
+                        <div class="card-footer">
+                            <p>
+                                Willem Janszoon Blaeu, Terrestrial Globe (1606).
+                                Use mouse or touch to rotate.
+                            </p>
+                            <p class="caption">
+                                Model:
+                                <a
+                                    href="https://sketchfab.com/3d-models/willem-janszoon-blaeu-terrestrial-globe-1606-c22ff82e3530492f91d66fcd0c24d568"
+                                    target="_blank"
+                                    >Willem Janszoon Blaeu, Terrestrial Globe,
+                                    1606</a
+                                >
+                                by
+                                <a
+                                    href="https://sketchfab.com/britishlibrary"
+                                    target="_blank"
+                                    >British Library</a
+                                >
+                                on
+                                <a href="https://sketchfab.com" target="_blank"
+                                    >Sketchfab</a
+                                >.
+                            </p>
+                        </div>
+                    </div>
+
+                    <p>
+                        Such works cannot be realistic without the extensive
+                        digitisation efforts undertaken by museums and cultural
+                        institutions. However, we must remain critical of the
+                        process, ensuring that digitisation efforts prioritize
+                        data quality, interoperability, and legal frameworks
+                        that allow for true accessibility, rather than creating
+                        new digital silos.
+                    </p>
+                </section>
+
+                <section>
+                    <h2>Bibliography</h2>
+                    <ul class="bibliography-list">
+                        <li>
+                            Bauman, S., Holmes, M., Bermúdez Sabel, H. and Maus,
+                            D. (2024) ‘ATOP: Another TEI ODD Processor’,
+                            <em>Journal of the Text Encoding Initiative</em>,
+                            17.
+                        </li>
+
+                        <li>
+                            Beshero-Bondar, E.E., Viglianti, R., Bermúdez-Sabel,
+                            H. and Jenstad, J. (2024) ‘Revising sex and gender
+                            in the TEI Guidelines’,
+                            <em>Journal of the Text Encoding Initiative</em>,
+                            17.
+                        </li>
+
+                        <li>
+                            Clark, A. and Connell, S. (2024) ‘Texts All the Way
+                            Down: The Intertextual Networks Project’,
+                            <em>Journal of the Text Encoding Initiative</em>,
+                            17.
+                        </li>
+
+                        <li>
+                            Coad, S. (2019) ‘Digitisation, Copyright and the
+                            GLAM Sector: Constructing a Fit-for-Purpose Safe
+                            Harbour Regime’,
+                            <em>Victoria University of Wellington Law Review</em
+                            >, 50, pp. 1–32.
+                        </li>
+
+                        <li>
+                            Lim, S. and Liew, C.L. (2011) ‘Metadata quality and
+                            interoperability of GLAM digital images’,
+                            <em>Aslib Proceedings</em>, 63(5), pp. 484–498.
+                        </li>
+
+                        <li>
+                            Mei, X., Zhang, Y., Yang, C., Shi, R. and Yuan, X.
+                            (2025) ‘ZuantuSet: A Collection of Historical
+                            Chinese Visualizations and Illustrations’, in
+                            <em
+                                >Proceedings of the 2025 CHI Conference on Human
+                                Factors in Computing Systems</em
+                            >, pp. 1-15.
+                        </li>
+
+                        <li>
+                            Papillon, M., O’Neill, B., Bourque, M., Marland, A.
+                            and White, G. (2019) ‘Open Access and Academic
+                            Journals in Canada: A Political Science
+                            Perspective’,
+                            <em>Canadian Journal of Political Science</em>,
+                            52(4), pp. 903–922.
+                        </li>
+
+                        <li>
+                            Rees Koerner, E. and Ackrell, L. (2025) ‘Making
+                            museum research more visible: Open Access in the
+                            GLAM sector’, <em>Science Museum Group Journal</em>.
+                        </li>
+
+                        <li>
+                            Reimann, S., Rodenhausen, L., Elwert, F. and
+                            Scheffler, T. (2024) ‘By a Thread: Encoding Online
+                            Forum Data in TEI’,
+                            <em>Journal of the Text Encoding Initiative</em>,
+                            17.
+                        </li>
+
+                        <li>
+                            Tausch, R., Domajnko, M., Ritz, M., Knuth, M.,
+                            Santos, P. and Fellner, D.W. (2019) ‘Towards 3D
+                            Digitization in the GLAM Sector – Lessons Learned
+                            and Future Outlook’,
+                            <em
+                                >Fraunhofer Institute for Computer Graphics
+                                Research</em
+                            >.
+                        </li>
+
+                        <li>
+                            Terras, M. (2022) ‘Digital humanities and digitised
+                            cultural heritage’, in O'Sullivan, J. (ed.)
+                            <em
+                                >The Bloomsbury Handbook to the Digital
+                                Humanities</em
+                            >. London: Bloomsbury, pp. 255–266.
+                        </li>
+
+                        <li>
+                            Valeonti, F., Terras, M. and Hudson-Smith, A. (2019)
+                            ‘How open is OpenGLAM? Identifying barriers to
+                            commercial and non-commercial reuse of digitised art
+                            images’, <em>Journal of Documentation</em>, 76(1).
+                        </li>
+
+                        <li>
+                            Zhang, Y., Jiang, R., Xie, L., Zhao, Y., Liu, C.,
+                            Ding, T., Chen, S. and Yuan, X. (2023)
+                            ‘OldVisOnline: Curating a dataset of historical
+                            visualizations’,
+                            <em
+                                >IEEE Transactions on Visualization and Computer
+                                Graphics</em
+                            >, 30(1), pp. 551-561.
+                        </li>
+                    </ul>
+                </section>
+            </article>
+        </main>
+
+        <script src="script.js"></script>
+    </body>
+</html>
