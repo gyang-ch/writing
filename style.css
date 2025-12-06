@@ -9,15 +9,18 @@
     --max-width: 1000px; /* Default wide */
     --font-family: "Merriweather", serif;
 
-    /* Card Variables */
-    --card-bg: #f8f9fa;
-    --card-header-bg: #e9ecef;
+    /* Card Variables (Default Light) */
+    --card-bg: #ffffff;
+    --card-header-bg: #2c3e50; /* Bold header color */
+    --card-header-text: #ffffff;
+    --card-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
 
     /* Syntax Highlighting Base Colors (Light Mode Defaults) */
     --code-tag: #22863a;
     --code-attr: #6f42c1;
     --code-val: #032f62;
-    --code-text: #c9d1d9; /* Specifically set to light grey for dark background */
+    --code-text: #c9d1d9;
 }
 
 /* 1. SEPIA THEME */
@@ -27,8 +30,12 @@
     --panel-bg: rgba(244, 236, 216, 0.95);
     --accent-color: #8f6b4e;
     --border-color: #dccfb8;
-    --card-bg: #ede5ce;
-    --card-header-bg: #e0d5b5;
+
+    --card-bg: #fdf6e3;
+    --card-header-bg: #8f6b4e; /* Warm brown header */
+    --card-header-text: #ffffff;
+    --card-shadow: 0 15px 35px rgba(91, 70, 54, 0.15);
+
     /* Code Highlighting Adjustments */
     --code-tag: #7ee787;
     --code-attr: #d2a8ff;
@@ -43,8 +50,12 @@
     --panel-bg: rgba(62, 62, 62, 0.95);
     --accent-color: #a0a0a0;
     --border-color: #555;
+
     --card-bg: #4a4a4a;
-    --card-header-bg: #333333;
+    --card-header-bg: #2d2d2d; /* Dark grey header */
+    --card-header-text: #ffffff;
+    --card-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+
     /* Code Highlighting Adjustments */
     --code-tag: #7ee787;
     --code-attr: #d2a8ff;
@@ -59,8 +70,12 @@
     --panel-bg: rgba(25, 25, 25, 0.95);
     --accent-color: #8ab4f8;
     --border-color: #333;
+
     --card-bg: #1e1e1e;
-    --card-header-bg: #2d2d2d;
+    --card-header-bg: #2c3e50; /* Use the nice blue for header to pop against black bg */
+    --card-header-text: #ffffff;
+    --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+
     /* Code Highlighting Adjustments */
     --code-tag: #7ee787;
     --code-attr: #d2a8ff;
@@ -303,24 +318,34 @@ button {
     }
 }
 
-/* --- INTERACTIVE ARTEFACTS --- */
+/* --- INTERACTIVE ARTEFACTS (Modified for Beauty) --- */
 .artefact-card {
     background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
+    border: none; /* Remove border, use shadow instead */
     border-radius: 12px;
-    margin: 40px 0;
+    margin: 60px 0; /* More breathing room */
     overflow: hidden;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s ease;
+    box-shadow: var(--card-shadow); /* BEAUTIFICATION: Strong shadow */
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+/* Hover effect on desktop */
+.artefact-card:hover {
+    transform: translateY(-2px);
 }
 
 .card-header {
-    background-color: var(--card-header-bg);
-    padding: 12px 24px;
+    background-color: var(
+        --card-header-bg
+    ); /* BEAUTIFICATION: Solid color header */
+    color: var(--card-header-text);
+    padding: 14px 24px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: none; /* Seamless look */
 }
 
 .card-label {
@@ -329,7 +354,8 @@ button {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    opacity: 0.8;
+    opacity: 0.95;
+    color: var(--card-header-text); /* Ensure text is readable on colored bg */
 }
 
 .card-content {
@@ -339,11 +365,12 @@ button {
     padding: 0;
 }
 
+/* Toggle Group - Glassmorphism style */
 .toggle-group {
-    background: var(--bg-color);
+    background: rgba(255, 255, 255, 0.2); /* Semi-transparent background */
     padding: 3px;
     border-radius: 6px;
-    border: 1px solid var(--border-color);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     gap: 2px;
 }
@@ -353,14 +380,18 @@ button {
     border-radius: 4px;
     border: none;
     background: transparent;
-    color: var(--text-color);
-    font-weight: 500;
+    color: rgba(255, 255, 255, 0.8); /* Light text inactive */
+    font-weight: 600;
     transition: all 0.2s;
 }
+.toggle-group button:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+}
 .toggle-group button.active {
-    background: var(--accent-color);
-    color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background: #ffffff; /* White active background */
+    color: var(--card-header-bg); /* Text takes the color of the header */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 /* Rendered Poem Styling */
@@ -377,19 +408,19 @@ button {
     margin-bottom: 5px;
 }
 
-/* Code View Styling (Syntax Highlighting) */
+/* Code View Styling */
 .hidden {
     display: none !important;
 }
 
 .code-content {
-    background-color: #1e1e1e; /* Editor Dark Background */
+    background-color: #1e1e1e;
     color: #c9d1d9;
     overflow-x: auto;
     font-family: "Roboto Mono", monospace;
     font-size: 0.9rem;
     line-height: 1.5;
-    border-radius: 0 0 12px 12px;
+    /* No border radius needed at bottom as card handles it */
     text-align: left;
 }
 
@@ -434,7 +465,7 @@ table {
 }
 
 th {
-    background-color: var(--accent-color);
+    background-color: var(--card-header-bg); /* Match the card header */
     color: #fff;
     font-weight: 600;
     text-align: left;
@@ -442,6 +473,7 @@ th {
     letter-spacing: 0.5px;
     position: sticky;
     top: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Subtle separator */
 }
 
 td {
@@ -462,7 +494,6 @@ tbody tr:hover {
     background-color: rgba(0, 0, 0, 0.03);
 }
 
-/* Dark mode adjustments for table */
 [data-theme="dark"] tbody tr:hover,
 [data-theme="grey"] tbody tr:hover {
     background-color: rgba(255, 255, 255, 0.05);
@@ -478,7 +509,7 @@ tbody tr:hover {
 .card-footer {
     padding: 15px 24px;
     font-size: 0.85rem;
-    background-color: var(--card-header-bg);
+    background-color: var(--card-bg); /* Blend with card body */
     border-top: 1px solid var(--border-color);
     color: var(--text-color);
 }
