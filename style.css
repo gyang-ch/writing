@@ -613,52 +613,10 @@ blockquote::before {
 }
 
 .citation-trigger {
-    border-bottom: 1px dotted var(--accent-color);
-    cursor: text;
-    position: relative;
-    color: var(--accent-color);
-}
-
-.citation-trigger::after {
-    content: attr(data-cite);
-    visibility: hidden;
-    width: 280px;
-
-    /* CHANGED: Use new distinct background variable */
-    background-color: var(--tooltip-bg);
-    color: var(--text-color);
-
-    text-align: left;
-    border-radius: 8px;
-    padding: 12px;
-    position: absolute;
-    z-index: 1000;
-    bottom: 140%;
-    left: 50%;
-    margin-left: -140px;
-
-    /* STEREOSCOPIC EFFECT */
-    box-shadow: var(--pop-shadow);
-    /* OPTIONAL: Use accent color for border to make it pop more */
-    border: 1px solid var(--accent-color);
-
-    font-size: 0.85rem;
-    font-family: "Inter", sans-serif;
-    line-height: 1.5;
-
-    opacity: 0;
-    transition:
-        opacity 0.2s ease,
-        transform 0.2s ease;
-    pointer-events: none;
-    transform: translateY(10px);
-}
-
-/* Add the hover animation */
-.citation-trigger:hover::after {
-    visibility: visible;
-    opacity: 1;
-    transform: translateY(0); /* Floats up into place */
+    cursor: auto;
+    border-bottom: none;
+    color: inherit; /* Or keep var(--accent-color) if you still want them colored */
+    position: static; /* Reset positioning */
 }
 
 #url-tooltip {
