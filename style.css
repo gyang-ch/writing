@@ -14,9 +14,9 @@
     --card-header-bg: #2c3e50; /* Bold header color */
     --card-header-text: #ffffff;
 
-    /* FIX 1: Updated shadow to show on all sides (added spread and adjusted blur) */
     --card-shadow:
-        0 10px 40px -5px rgba(0, 0, 0, 0.15), 0 0 20px rgba(0, 0, 0, 0.05);
+        0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05),
+        0 0 35px rgba(0, 0, 0, 0.06);
 
     /* Syntax Highlighting Base Colors (Light Mode Defaults) */
     --code-tag: #22863a;
@@ -590,4 +590,39 @@ blockquote::before {
     opacity: 0.15;
     font-family: "Times New Roman", serif;
     line-height: 1;
+}
+
+.citation-trigger {
+    border-bottom: 1px dotted var(--accent-color);
+    cursor: text;
+    position: relative;
+    color: var(--accent-color);
+}
+
+/* The Tooltip Box */
+.citation-trigger::after {
+    content: attr(data-cite); /* Pulls text from HTML */
+    visibility: hidden;
+    width: 250px;
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    text-align: left;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%; /* Position above */
+    left: 50%;
+    margin-left: -125px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-color);
+    font-size: 0.85rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.citation-trigger:hover::after {
+    visibility: visible;
+    opacity: 1;
 }
