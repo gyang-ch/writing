@@ -240,94 +240,110 @@
                     </p>
 
                     <p>
-                        To visualise how this semantic tagging works in
-                        practice, I have included an interactive example below
-                        using Percy Bysshe Shelley's <em>Ozymandias</em>:
+                        Below is a really interesting example about the use of
+                        TEI, which is a research about early Manila Hokkien
+                        language. Below is an example of TEI-XML encoding that
+                        they used in their research.
                     </p>
 
                     <div class="artefact-card">
                         <div class="card-header">
                             <span class="card-label"
-                                >Interactive Figure 1: TEI Visualization</span
+                                >Interactive Figure 1: Early Manila Hokkien
+                                TEI</span
                             >
                             <div class="toggle-group">
                                 <button
-                                    onclick="toggleTei('render')"
-                                    id="btn-render"
-                                    class="active"
-                                >
-                                    Reader
-                                </button>
-                                <button
                                     onclick="toggleTei('code')"
                                     id="btn-code"
+                                    class="active"
                                 >
                                     XML Code
                                 </button>
+                                <button
+                                    onclick="toggleTei('render')"
+                                    id="btn-render"
+                                >
+                                    Reader
+                                </button>
                             </div>
+                        </div>
+
+                        <div id="tei-code" class="card-content code-content">
+                            <pre>
+<span class="tag">&lt;entry</span> <span class="attr">type</span>=<span class="val">"translation"</span> <span class="attr">corresp</span>=<span class="val">"#entry.0738"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;form</span> <span class="attr">type</span>=<span class="val">"lemma"</span><span class="tag">&gt;</span>
+        <span class="tag">&lt;orth</span> <span class="attr">xml:lang</span>=<span class="val">"nan-Latn-tailo"</span><span class="tag">&gt;</span><span class="txt">Ké</span><span class="tag">&lt;/orth&gt;</span>
+        <span class="tag">&lt;orth</span> <span class="attr">xml:lang</span>=<span class="val">"nan-Hani-PH"</span><span class="tag">&gt;</span><span class="txt">觧</span><span class="tag">&lt;note</span> <span class="attr">n</span>=<span class="val">"1"</span><span class="tag">&gt;&lt;p&gt;</span><span class="txt">[...]</span><span class="tag">&lt;/p&gt;&lt;/note&gt;</span><span class="tag">&lt;/orth&gt;</span>
+    <span class="tag">&lt;/form&gt;</span>
+    <span class="tag">&lt;sense</span> <span class="attr">xml:lang</span>=<span class="val">"en-Latn"</span><span class="tag">&gt;</span>
+        <span class="txt">means </span><span class="tag">&lt;def&gt;</span><span class="txt">to confess</span><span class="tag">&lt;/def&gt;</span><span class="txt">; e.g.</span>
+        <span class="tag">&lt;cit</span> <span class="attr">type</span>=<span class="val">"example"</span> <span class="attr">xml:lang</span>=<span class="val">"nan-Latn-tailo"</span> <span class="attr">corresp</span>=<span class="val">"#entry.0738.ex.1"</span><span class="tag">&gt;</span>
+            <span class="tag">&lt;quote&gt;</span><span class="txt">lú ài ké tsuē</span><span class="tag">&lt;/quote&gt;</span>
+            <span class="tag">&lt;cit</span> <span class="attr">type</span>=<span class="val">"translation"</span> <span class="attr">xml:lang</span>=<span class="val">"nan-Hani-PH"</span><span class="tag">&gt;</span>
+                <span class="tag">&lt;quote&gt;</span><span class="txt">你愛觧罪</span><span class="tag">&lt;/quote&gt;</span>
+            <span class="tag">&lt;/cit&gt;</span>
+            <span class="tag">&lt;cit</span> <span class="attr">type</span>=<span class="val">"translation"</span> <span class="attr">xml:lang</span>=<span class="val">"en-Latn"</span><span class="tag">&gt;</span>
+                <span class="tag">&lt;quote&gt;</span><span class="txt">you want to confess yourself</span><span class="tag">&lt;note</span> <span class="attr">n</span>=<span class="val">"2"</span><span class="tag">&gt;&lt;p&gt;</span><span class="txt">[...]</span><span class="tag">&lt;/p&gt;&lt;/note&gt;</span>
+                <span class="tag">&lt;/quote&gt;</span>
+            <span class="tag">&lt;/cit&gt;</span>
+        <span class="tag">&lt;/cit&gt;</span>
+    <span class="tag">&lt;/sense&gt;</span>
+<span class="tag">&lt;/entry&gt;</span>
+</pre>
                         </div>
 
                         <div
                             id="tei-render"
-                            class="card-content center-content"
+                            class="card-content center-content hidden"
                         >
-                            <h3 class="poem-title">Ozymandias</h3>
-                            <p style="font-style: italic; opacity: 0.7">
-                                Percy Bysshe Shelley
-                            </p>
-                            <br />
-                            <div class="poem-body">
-                                <p>
-                                    I met a
-                                    <span
-                                        class="tei-entity"
-                                        title="Person (Role)"
-                                        >traveller</span
+                            <div
+                                style="
+                                    text-align: left;
+                                    padding: 1rem;
+                                    width: 100%;
+                                "
+                            >
+                                <h3
+                                    class="entry-title"
+                                    style="
+                                        font-family: serif;
+                                        margin-bottom: 0.5rem;
+                                    "
+                                >
+                                    Ké
+                                    <span style="font-weight: normal">觧</span>
+                                </h3>
+                                <p style="line-height: 1.6">
+                                    means <strong>to confess</strong>; e.g.
+                                </p>
+                                <div
+                                    class="example-block"
+                                    style="
+                                        margin-left: 1.5rem;
+                                        margin-top: 0.8rem;
+                                        padding-left: 1rem;
+                                        border-left: 3px solid #ddd;
+                                    "
+                                >
+                                    <p
+                                        style="
+                                            font-style: italic;
+                                            font-family:
+                                                &quot;Times New Roman&quot;,
+                                                serif;
+                                        "
                                     >
-                                    from an
-                                    <span class="tei-entity" title="Place"
-                                        >antique land</span
-                                    >,
-                                </p>
-                                <p>
-                                    Who said—“Two vast and
-                                    <span
-                                        class="tei-entity"
-                                        title="Physical Condition"
-                                        >trunkless</span
-                                    >
-                                    legs of stone
-                                </p>
-                                <p>
-                                    Stand in the desert. . . . Near them, on the
-                                    sand,
-                                </p>
-                                <p>
-                                    Half sunk a
-                                    <span
-                                        class="tei-entity"
-                                        title="Object (Part)"
-                                        >shattered visage</span
-                                    >
-                                    lies...
-                                </p>
+                                        lú ài ké tsuē
+                                    </p>
+                                    <p style="font-family: serif; color: #444">
+                                        你愛觧罪
+                                    </p>
+                                    <p style="color: #666; font-size: 0.95em">
+                                        "you want to confess yourself"
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-
-                        <div
-                            id="tei-code"
-                            class="card-content code-content hidden"
-                        >
-                            <pre>
-<span class="tag">&lt;l&gt;</span><span class="txt">I met a </span><span class="tag">&lt;rs</span> <span class="attr">type</span>=<span class="val">"person"</span> <span class="attr">role</span>=<span class="val">"traveler"</span><span class="tag">&gt;</span><span class="txt">traveller</span><span class="tag">&lt;/rs&gt;</span>
-<span class="txt">from an </span><span class="tag">&lt;placeName</span> <span class="attr">type</span>=<span class="val">"generic"</span><span class="tag">&gt;</span><span class="txt">antique land</span><span class="tag">&lt;/placeName&gt;</span>,<span class="tag">&lt;/l&gt;</span>
-
-<span class="tag">&lt;l&gt;</span><span class="txt">Who said—“Two vast and </span><span class="tag">&lt;rs</span> <span class="attr">type</span>=<span class="val">"condition"</span><span class="tag">&gt;</span><span class="txt">trunkless</span><span class="tag">&lt;/rs&gt;</span> <span class="txt">legs of stone</span><span class="tag">&lt;/l&gt;</span>
-
-<span class="tag">&lt;l&gt;</span><span class="txt">Stand in the desert. . . . Near them, on the sand,</span><span class="tag">&lt;/l&gt;</span>
-
-<span class="tag">&lt;l&gt;</span><span class="txt">Half sunk a </span><span class="tag">&lt;rs</span> <span class="attr">type</span>=<span class="val">"object_part"</span><span class="tag">&gt;</span><span class="txt">shattered visage</span><span class="tag">&lt;/rs&gt;</span> <span class="txt">lies...</span><span class="tag">&lt;/l&gt;</span>
-</pre>
                         </div>
                     </div>
                 </section>
@@ -511,8 +527,8 @@
                                             matter; contracts more complex
                                         </td>
                                         <td>
-                                            Authors usually transfer some or all
-                                            rights; licensing often simpler
+                                            Authors typically transfer some or
+                                            all rights; licensing often simpler
                                         </td>
                                     </tr>
                                     <tr>
