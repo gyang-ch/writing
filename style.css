@@ -13,8 +13,10 @@
     --card-bg: #ffffff;
     --card-header-bg: #2c3e50; /* Bold header color */
     --card-header-text: #ffffff;
+
+    /* FIX 1: Updated shadow to show on all sides (added spread and adjusted blur) */
     --card-shadow:
-        0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
+        0 10px 40px -5px rgba(0, 0, 0, 0.15), 0 0 20px rgba(0, 0, 0, 0.05);
 
     /* Syntax Highlighting Base Colors (Light Mode Defaults) */
     --code-tag: #22863a;
@@ -159,30 +161,51 @@ blockquote {
     width: 0%;
 }
 
-/* --- SETTINGS PANEL --- */
+/* --- SETTINGS PANEL & FLOATING BUTTON --- */
 .floating-btn {
     position: fixed;
-    top: 20px;
-    right: 20px;
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    width: 45px;
-    height: 45px;
+    top: 25px;
+    right: 25px;
+    background: var(--accent-color);
+    color: #ffffff;
+    border: none;
+    width: 60px;
+    height: 60px;
     border-radius: 50%;
     cursor: pointer;
-    font-size: 20px;
+    /* FIX 2a: Removed font-size 28px as we are using an image now */
     z-index: 200;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    transition: transform 0.2s;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0; /* Ensure no padding messes up image centering */
+    overflow: hidden;
 }
 .floating-btn:hover {
-    transform: rotate(45deg);
+    transform: rotate(45deg) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+}
+
+/* FIX 2b: Style the new image icon */
+.floating-btn img {
+    width: 32px; /* Adjust size to fit comfortably in the 60px button */
+    height: 32px;
+    object-fit: contain;
+    pointer-events: none; /* Prevents image from blocking clicks */
+    /* Move the original image 80px to the right (out of sight) */
+    transform: translateX(80px);
+    /* Cast a shadow 80px to the left (back into view) using your dynamic background color */
+    filter: drop-shadow(-80px 0 0 var(--bg-color));
 }
 
 .settings-panel {
     position: fixed;
-    top: 75px;
-    right: 20px;
+    top: 90px;
+    right: 25px;
     width: 300px;
     background: var(--panel-bg);
     backdrop-filter: blur(10px);
@@ -325,7 +348,7 @@ button {
     border-radius: 12px;
     margin: 60px 0; /* More breathing room */
     overflow: hidden;
-    box-shadow: var(--card-shadow); /* BEAUTIFICATION: Strong shadow */
+    box-shadow: var(--card-shadow);
     transition:
         transform 0.3s ease,
         box-shadow 0.3s ease;
@@ -539,4 +562,32 @@ tbody tr:hover {
     text-indent: -30px;
     margin-bottom: 10px;
     line-height: 1.6;
+}
+
+/* --- 3. ENHANCED BLOCKQUOTES --- */
+blockquote {
+    position: relative;
+    background: var(--card-bg); /* Use card background */
+    border-left: none; /* Remove old border */
+    border-radius: 0 12px 12px 0;
+    padding: 30px 40px;
+    margin: 40px 0;
+    font-family: "Georgia", serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: var(--text-color);
+    box-shadow: inset 4px 0 0 var(--accent-color); /* Inner border line */
+}
+
+/* Big Decorative Quote Mark */
+blockquote::before {
+    content: "“";
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    font-size: 6rem;
+    color: var(--accent-color);
+    opacity: 0.15;
+    font-family: "Times New Roman", serif;
+    line-height: 1;
 }
