@@ -6,26 +6,31 @@
     --accent-color: #2c3e50;
     --border-color: #ddd;
     --base-size: 18px;
-    --max-width: 1000px; /* Default wide */
+    --max-width: 1000px;
     --font-family: "Merriweather", serif;
 
-    /* Card Variables (Default Light) */
+    /* Card Variables */
     --card-bg: #ffffff;
-    --card-header-bg: #2c3e50; /* Bold header color */
+    --card-header-bg: #2c3e50;
     --card-header-text: #ffffff;
-
     --card-shadow:
-        0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05),
-        0 0 35px rgba(0, 0, 0, 0.06);
+        0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
 
-    /* Syntax Highlighting Base Colors (Light Mode Defaults) */
+    /* NEW: Tooltip Specific Variables (Light Mode) */
+    /* A very light blue-grey (tint of the accent #2c3e50) */
+    --tooltip-bg: #f0f4f8;
+
+    /* Stronger "Pop" Shadow for 3D effect */
+    --pop-shadow:
+        0 4px 6px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.15);
+
+    /* Syntax Highlighting Base Colors */
     --code-tag: #22863a;
     --code-attr: #6f42c1;
     --code-val: #032f62;
     --code-text: #c9d1d9;
 }
 
-/* 1. SEPIA THEME */
 [data-theme="sepia"] {
     --bg-color: #f4ecd8;
     --text-color: #5b4636;
@@ -34,18 +39,23 @@
     --border-color: #dccfb8;
 
     --card-bg: #fdf6e3;
-    --card-header-bg: #8f6b4e; /* Warm brown header */
+    --card-header-bg: #8f6b4e;
     --card-header-text: #ffffff;
     --card-shadow: 0 15px 35px rgba(91, 70, 54, 0.15);
 
-    /* Code Highlighting Adjustments */
+    /* NEW: Tooltip Bg (Sepia) - A slightly darker/richer cream */
+    --tooltip-bg: #eaddc5;
+
+    --pop-shadow:
+        0 4px 6px rgba(91, 70, 54, 0.2), 0 12px 24px rgba(91, 70, 54, 0.2);
+
+    /* Code Highlighting */
     --code-tag: #7ee787;
     --code-attr: #d2a8ff;
     --code-val: #a5d6ff;
     --code-text: #c9d1d9;
 }
 
-/* 2. GREY THEME */
 [data-theme="grey"] {
     --bg-color: #3e3e3e;
     --text-color: #e0e0e0;
@@ -54,11 +64,16 @@
     --border-color: #555;
 
     --card-bg: #4a4a4a;
-    --card-header-bg: #2d2d2d; /* Dark grey header */
+    --card-header-bg: #2d2d2d;
     --card-header-text: #ffffff;
     --card-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 
-    /* Code Highlighting Adjustments */
+    /* NEW: Tooltip Bg (Grey) - Darker grey to stand out from background */
+    --tooltip-bg: #2b2b2b;
+
+    --pop-shadow: 0 5px 10px rgba(0, 0, 0, 0.5), 0 15px 35px rgba(0, 0, 0, 0.4);
+
+    /* Code Highlighting */
     --code-tag: #7ee787;
     --code-attr: #d2a8ff;
     --code-val: #a5d6ff;
@@ -74,11 +89,16 @@
     --border-color: #333;
 
     --card-bg: #1e1e1e;
-    --card-header-bg: #2c3e50; /* Use the nice blue for header to pop against black bg */
+    --card-header-bg: #2c3e50;
     --card-header-text: #ffffff;
     --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 
-    /* Code Highlighting Adjustments */
+    /* NEW: Tooltip Bg (Dark) - Slightly lighter dark grey (tinted blueish) */
+    --tooltip-bg: #252a33;
+
+    --pop-shadow: 0 5px 10px rgba(0, 0, 0, 0.7), 0 20px 50px rgba(0, 0, 0, 0.7);
+
+    /* Code Highlighting */
     --code-tag: #7ee787;
     --code-attr: #d2a8ff;
     --code-val: #a5d6ff;
@@ -599,30 +619,76 @@ blockquote::before {
     color: var(--accent-color);
 }
 
-/* The Tooltip Box */
 .citation-trigger::after {
-    content: attr(data-cite); /* Pulls text from HTML */
+    content: attr(data-cite);
     visibility: hidden;
-    width: 250px;
-    background-color: var(--card-bg);
+    width: 280px;
+
+    /* CHANGED: Use new distinct background variable */
+    background-color: var(--tooltip-bg);
     color: var(--text-color);
+
     text-align: left;
-    border-radius: 6px;
-    padding: 10px;
+    border-radius: 8px;
+    padding: 12px;
     position: absolute;
-    z-index: 1;
-    bottom: 125%; /* Position above */
+    z-index: 1000;
+    bottom: 140%;
     left: 50%;
-    margin-left: -125px;
-    box-shadow: var(--card-shadow);
-    border: 1px solid var(--border-color);
+    margin-left: -140px;
+
+    /* STEREOSCOPIC EFFECT */
+    box-shadow: var(--pop-shadow);
+    /* OPTIONAL: Use accent color for border to make it pop more */
+    border: 1px solid var(--accent-color);
+
     font-size: 0.85rem;
+    font-family: "Inter", sans-serif;
+    line-height: 1.5;
+
     opacity: 0;
-    transition: opacity 0.3s;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
     pointer-events: none;
+    transform: translateY(10px);
 }
 
+/* Add the hover animation */
 .citation-trigger:hover::after {
     visibility: visible;
     opacity: 1;
+    transform: translateY(0); /* Floats up into place */
+}
+
+#url-tooltip {
+    position: absolute;
+    z-index: 1000;
+
+    /* CHANGED: Use new distinct background variable */
+    background-color: var(--tooltip-bg);
+    color: var(--text-color);
+
+    /* STEREOSCOPIC EFFECT */
+    box-shadow: var(--pop-shadow);
+    /* OPTIONAL: Use accent color for border to make it pop more */
+    border: 1px solid var(--accent-color);
+
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-family: "Roboto Mono", monospace;
+    pointer-events: none;
+    white-space: nowrap;
+
+    opacity: 0;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+    transform: translateY(10px);
+}
+
+#url-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0); /* Floats up into place */
 }

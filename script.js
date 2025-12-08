@@ -15,19 +15,17 @@ window.onload = () => {
   const savedTheme = localStorage.getItem("theme") || "light";
   const savedFont = localStorage.getItem("font") || "'Merriweather', serif";
   const savedSize = parseInt(localStorage.getItem("size")) || 18;
-
-  // CHANGED: Default width logic to prefer 'wide' if not set
   const savedWidth = localStorage.getItem("width") || "wide";
-
   setTheme(savedTheme);
   setFont(savedFont);
   currentSize = savedSize;
   applyFontSize();
   setWidth(savedWidth);
   fontSelect.value = savedFont;
-
-  // 2. Initialize Chart (Guard clause included)
+  // 2. Initialize Chart
   initChart();
+  // 3. Initialize URL Tooltips (New function call)
+  initUrlTooltips();
 };
 
 // --- SETTINGS PANEL TOGGLE ---
@@ -156,5 +154,94 @@ function initChart() {
         },
       },
     },
+  });
+}
+// 3. URL Tooltip Logic (UPDATED)
+function initUrlTooltips() {
+  const tooltip = document.getElementById("url-tooltip");
+  const triggers = document.querySelectorAll(".url-tooltip-trigger");
+
+  if (!tooltip) return;
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("mouseenter", () => {
+      // 1. Set text
+      tooltip.textContent = trigger.href;
+
+      // 2. Make visible temporarily to calculate dimensions
+      tooltip.classList.remove("hidden"); // Ensure it's not display:none
+      tooltip.classList.add("visible"); // Trigger opacity fade-in
+
+      // 3. Calculate Position (Static, above the link)
+      const linkRect = trigger.getBoundingClientRect();
+      const tooltipRect = tooltip.getBoundingClientRect();
+
+      // Calculate center horizontal position
+      // (Link Left + Half Link Width) - (Half Tooltip Width)
+      const left =
+        linkRect.left +
+        window.scrollX +
+        linkRect.width / 2 -
+        tooltipRect.width / 2;
+
+      // Calculate top position (Above link)
+      // (Link Top - Tooltip Height - 10px Gap)
+      const top = linkRect.top + window.scrollY - tooltipRect.height - 10;
+
+      // 4. Apply coordinates
+      tooltip.style.left = `${left}px`;
+      tooltip.style.top = `${top}px`;
+    });
+
+    trigger.addEventListener("mouseleave", () => {
+      tooltip.classList.remove("visible");
+      // Optional: Add 'hidden' back after transition if needed,
+      // but opacity: 0 usually suffices for visual hiding.
+    });
+  });
+}
+
+// 3. URL Tooltip Logic (UPDATED)
+function initUrlTooltips() {
+  const tooltip = document.getElementById("url-tooltip");
+  const triggers = document.querySelectorAll(".url-tooltip-trigger");
+
+  if (!tooltip) return;
+
+  triggers.forEach((trigger) => {
+    trigger.addEventListener("mouseenter", () => {
+      // 1. Set text
+      tooltip.textContent = trigger.href;
+
+      // 2. Make visible temporarily to calculate dimensions
+      tooltip.classList.remove("hidden"); // Ensure it's not display:none
+      tooltip.classList.add("visible"); // Trigger opacity fade-in
+
+      // 3. Calculate Position (Static, above the link)
+      const linkRect = trigger.getBoundingClientRect();
+      const tooltipRect = tooltip.getBoundingClientRect();
+
+      // Calculate center horizontal position
+      // (Link Left + Half Link Width) - (Half Tooltip Width)
+      const left =
+        linkRect.left +
+        window.scrollX +
+        linkRect.width / 2 -
+        tooltipRect.width / 2;
+
+      // Calculate top position (Above link)
+      // (Link Top - Tooltip Height - 10px Gap)
+      const top = linkRect.top + window.scrollY - tooltipRect.height - 10;
+
+      // 4. Apply coordinates
+      tooltip.style.left = `${left}px`;
+      tooltip.style.top = `${top}px`;
+    });
+
+    trigger.addEventListener("mouseleave", () => {
+      tooltip.classList.remove("visible");
+      // Optional: Add 'hidden' back after transition if needed,
+      // but opacity: 0 usually suffices for visual hiding.
+    });
   });
 }
