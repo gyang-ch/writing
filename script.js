@@ -7,24 +7,27 @@ const progressBar = document.getElementById("progressBar");
 const fontSelect = document.getElementById("fontSelect");
 const sizeLabel = document.getElementById("currentSizeLabel");
 
-let currentSize = 18;
+let currentSize = 20;
 
 // --- INITIALIZATION ---
 window.onload = () => {
-  // 1. Load Saved Settings
   const savedTheme = localStorage.getItem("theme") || "light";
-  const savedFont = localStorage.getItem("font") || "'Merriweather', serif";
-  const savedSize = parseInt(localStorage.getItem("size")) || 18;
-  const savedWidth = localStorage.getItem("width") || "wide";
+
+  const savedFont =
+    localStorage.getItem("font") || "'Times New Roman', Times, serif";
+
+  const savedSize = parseInt(localStorage.getItem("size")) || 20;
+
+  const savedWidth = localStorage.getItem("width") || "normal";
+
   setTheme(savedTheme);
   setFont(savedFont);
   currentSize = savedSize;
   applyFontSize();
   setWidth(savedWidth);
   fontSelect.value = savedFont;
-  // 2. Initialize Chart
+
   initChart();
-  // 3. Initialize URL Tooltips (New function call)
   initUrlTooltips();
 };
 
