@@ -16,11 +16,8 @@
     --card-shadow:
         0 15px 35px rgba(0, 0, 0, 0.1), 0 5px 15px rgba(0, 0, 0, 0.05);
 
-    /* NEW: Tooltip Specific Variables (Light Mode) */
-    /* A very light blue-grey (tint of the accent #2c3e50) */
     --tooltip-bg: #f0f4f8;
 
-    /* Stronger "Pop" Shadow for 3D effect */
     --pop-shadow:
         0 4px 6px rgba(0, 0, 0, 0.15), 0 12px 24px rgba(0, 0, 0, 0.15);
 
@@ -43,7 +40,6 @@
     --card-header-text: #ffffff;
     --card-shadow: 0 15px 35px rgba(91, 70, 54, 0.15);
 
-    /* NEW: Tooltip Bg (Sepia) - A slightly darker/richer cream */
     --tooltip-bg: #eaddc5;
 
     --pop-shadow:
@@ -68,7 +64,6 @@
     --card-header-text: #ffffff;
     --card-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
 
-    /* NEW: Tooltip Bg (Grey) - Darker grey to stand out from background */
     --tooltip-bg: #2b2b2b;
 
     --pop-shadow: 0 5px 10px rgba(0, 0, 0, 0.5), 0 15px 35px rgba(0, 0, 0, 0.4);
@@ -93,7 +88,6 @@
     --card-header-text: #ffffff;
     --card-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
 
-    /* NEW: Tooltip Bg (Dark) - Slightly lighter dark grey (tinted blueish) */
     --tooltip-bg: #252a33;
 
     --pop-shadow: 0 5px 10px rgba(0, 0, 0, 0.7), 0 20px 50px rgba(0, 0, 0, 0.7);
@@ -193,7 +187,6 @@ blockquote {
     height: 60px;
     border-radius: 50%;
     cursor: pointer;
-    /* FIX 2a: Removed font-size 28px as we are using an image now */
     z-index: 200;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     transition:
@@ -202,7 +195,7 @@ blockquote {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0; /* Ensure no padding messes up image centering */
+    padding: 0;
     overflow: hidden;
 }
 .floating-btn:hover {
@@ -210,9 +203,8 @@ blockquote {
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
 }
 
-/* FIX 2b: Style the new image icon */
 .floating-btn img {
-    width: 32px; /* Adjust size to fit comfortably in the 60px button */
+    width: 32px;
     height: 32px;
     object-fit: contain;
     pointer-events: none; /* Prevents image from blocking clicks */
@@ -364,9 +356,9 @@ button {
 /* --- INTERACTIVE ARTEFACTS (Modified for Beauty) --- */
 .artefact-card {
     background-color: var(--card-bg);
-    border: none; /* Remove border, use shadow instead */
+    border: none;
     border-radius: 12px;
-    margin: 60px 0; /* More breathing room */
+    margin: 60px 0;
     overflow: hidden;
     box-shadow: var(--card-shadow);
     transition:
@@ -380,9 +372,7 @@ button {
 }
 
 .card-header {
-    background-color: var(
-        --card-header-bg
-    ); /* BEAUTIFICATION: Solid color header */
+    background-color: var(--card-header-bg);
     color: var(--card-header-text);
     padding: 14px 24px;
     display: flex;
@@ -463,7 +453,6 @@ button {
     font-family: "Roboto Mono", monospace;
     font-size: 0.9rem;
     line-height: 1.5;
-    /* No border radius needed at bottom as card handles it */
     text-align: left;
 }
 
@@ -588,7 +577,7 @@ tbody tr:hover {
 blockquote {
     position: relative;
     background: var(--card-bg); /* Use card background */
-    border-left: none; /* Remove old border */
+    border-left: none;
     border-radius: 0 12px 12px 0;
     padding: 30px 40px;
     margin: 40px 0;
@@ -615,7 +604,7 @@ blockquote::before {
 .citation-trigger {
     cursor: auto;
     border-bottom: none;
-    color: inherit; /* Or keep var(--accent-color) if you still want them colored */
+    color: inherit;
     position: static; /* Reset positioning */
 }
 
@@ -623,13 +612,11 @@ blockquote::before {
     position: absolute;
     z-index: 1000;
 
-    /* CHANGED: Use new distinct background variable */
     background-color: var(--tooltip-bg);
     color: var(--text-color);
 
     /* STEREOSCOPIC EFFECT */
     box-shadow: var(--pop-shadow);
-    /* OPTIONAL: Use accent color for border to make it pop more */
     border: 1px solid var(--accent-color);
 
     padding: 8px 12px;

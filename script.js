@@ -198,8 +198,6 @@ function initUrlTooltips() {
 
     trigger.addEventListener("mouseleave", () => {
       tooltip.classList.remove("visible");
-      // Optional: Add 'hidden' back after transition if needed,
-      // but opacity: 0 usually suffices for visual hiding.
     });
   });
 }
@@ -243,8 +241,6 @@ function initUrlTooltips() {
 
     trigger.addEventListener("mouseleave", () => {
       tooltip.classList.remove("visible");
-      // Optional: Add 'hidden' back after transition if needed,
-      // but opacity: 0 usually suffices for visual hiding.
     });
   });
 }
