@@ -1,5 +1,7 @@
 // --- DOM ELEMENTS ---
 const body = document.body;
+const contentContainer = document.getElementById("contentContainer");
+const articleText = document.getElementById("articleText");
 const settingsPanel = document.getElementById("settingsPanel");
 const settingsToggle = document.getElementById("settingsToggle");
 const closeSettings = document.getElementById("closeSettings");
@@ -7,82 +9,87 @@ const progressBar = document.getElementById("progressBar");
 const fontSelect = document.getElementById("fontSelect");
 const sizeLabel = document.getElementById("currentSizeLabel");
 
-let currentSize = 20;
+let currentSize = 18;
 
 // --- INITIALIZATION ---
 window.onload = () => {
   const savedTheme = localStorage.getItem("theme") || "light";
-
+  // Default font now matches the first option in your list
   const savedFont =
     localStorage.getItem("font") || "'Times New Roman', Times, serif";
-
-  const savedSize = parseInt(localStorage.getItem("size")) || 20;
-
-  const savedWidth = localStorage.getItem("width") || "normal";
+  const savedWidth = localStorage.getItem("width") || "max-w-4xl";
+  const savedSize = parseInt(localStorage.getItem("size")) || 18;
 
   setTheme(savedTheme);
   setFont(savedFont);
+  setWidth(savedWidth);
   currentSize = savedSize;
   applyFontSize();
-  setWidth(savedWidth);
-  fontSelect.value = savedFont;
 
-  initChart();
+  if (fontSelect) fontSelect.value = savedFont;
+
   initUrlTooltips();
 };
 
 // --- SETTINGS PANEL TOGGLE ---
 settingsToggle.addEventListener("click", () => {
-  settingsPanel.classList.toggle("hidden");
+  settingsPanel.classList.remove("translate-x-[120%]");
 });
 closeSettings.addEventListener("click", () => {
-  settingsPanel.classList.add("hidden");
+  settingsPanel.classList.add("translate-x-[120%]");
 });
 
-// Close panel when clicking outside
 document.addEventListener("click", (event) => {
-  // If the panel is open
-  if (!settingsPanel.classList.contains("hidden")) {
+  if (!settingsPanel.classList.contains("translate-x-[120%]")) {
     const isClickInsidePanel = settingsPanel.contains(event.target);
     const isClickOnToggle = settingsToggle.contains(event.target);
-
-    // If the click is NOT inside the panel AND NOT on the toggle button
     if (!isClickInsidePanel && !isClickOnToggle) {
-      settingsPanel.classList.add("hidden");
+      settingsPanel.classList.add("translate-x-[120%]");
     }
   }
 });
 
 // --- THEME FUNCTIONS ---
 function setTheme(themeName) {
+  if (themeName === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
   body.setAttribute("data-theme", themeName);
   localStorage.setItem("theme", themeName);
-  // Re-render chart if theme changes (optional, omitted for simplicity)
 }
 
-function setFont(fontName) {
-  document.documentElement.style.setProperty("--font-family", fontName);
-  localStorage.setItem("font", fontName);
+function setFont(fontValue) {
+  // Directly apply the raw font string to the article text
+  articleText.style.fontFamily = fontValue;
+  // Also apply to headings specifically if Tailwind prose overrides them
+  const headings = articleText.querySelectorAll("h1, h2, h3, h4");
+  headings.forEach((h) => (h.style.fontFamily = fontValue));
+
+  localStorage.setItem("font", fontValue);
+}
+
+function setWidth(maxWidthClass) {
+  contentContainer.classList.remove("max-w-2xl", "max-w-4xl", "max-w-6xl");
+  contentContainer.classList.add(maxWidthClass);
+  localStorage.setItem("width", maxWidthClass);
 }
 
 function adjustFontSize(delta) {
   currentSize += delta;
-  if (currentSize < 12) currentSize = 12;
-  if (currentSize > 32) currentSize = 32;
+  if (currentSize < 14) currentSize = 14;
+  if (currentSize > 24) currentSize = 24;
   applyFontSize();
 }
 
 function applyFontSize() {
-  document.documentElement.style.setProperty("--base-size", `${currentSize}px`);
+  articleText.style.fontSize = `${currentSize}px`;
   sizeLabel.textContent = `${currentSize}px`;
   localStorage.setItem("size", currentSize);
 }
 
-function setWidth(widthMode) {
-  body.setAttribute("data-width", widthMode);
-  localStorage.setItem("width", widthMode);
-}
-
+// --- PROGRESS BAR ---
 window.onscroll = function () {
   let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
   let height =
@@ -92,74 +99,34 @@ window.onscroll = function () {
   progressBar.style.width = scrolled + "%";
 };
 
-// --- INTERACTIVE ARTEFACTS FUNCTIONS ---
+// --- INTERACTIVE ARTEFACTS ---
 
-// 1. TEI Toggle Function
 function toggleTei(mode) {
   const renderView = document.getElementById("tei-render");
   const codeView = document.getElementById("tei-code");
   const btnRender = document.getElementById("btn-render");
   const btnCode = document.getElementById("btn-code");
 
+  const activeClass = "bg-white dark:bg-gray-700 shadow-sm text-primary";
+  const inactiveClass = "text-secondary hover:bg-black/5 dark:hover:bg-white/5";
+
   if (mode === "render") {
     renderView.classList.remove("hidden");
     codeView.classList.add("hidden");
-    btnRender.classList.add("active");
-    btnCode.classList.remove("active");
+
+    btnRender.className = `px-3 py-1.5 text-xs font-medium rounded-md transition-all ${activeClass}`;
+    btnCode.className = `px-3 py-1.5 text-xs font-medium rounded-md transition-all ${inactiveClass}`;
   } else {
     renderView.classList.add("hidden");
     codeView.classList.remove("hidden");
-    btnRender.classList.remove("active");
-    btnCode.classList.add("active");
+
+    btnRender.className = `px-3 py-1.5 text-xs font-medium rounded-md transition-all ${inactiveClass}`;
+    btnCode.className = `px-3 py-1.5 text-xs font-medium rounded-md transition-all ${activeClass}`;
   }
 }
 
-// 2. Chart Initialization
-function initChart() {
-  const ctx = document.getElementById("oaChart");
-  if (!ctx) return; // Guard clause: Exit if chart element doesn't exist
-
-  // Check if current theme is dark to adjust chart colors
-  const isDark =
-    body.getAttribute("data-theme") === "dark" ||
-    body.getAttribute("data-theme") === "grey";
-  const gridColor = isDark ? "rgba(255, 255, 255, 0.1)" : "rgba(0, 0, 0, 0.1)";
-  const textColor = isDark ? "#d1d1d1" : "#666";
-
-  new Chart(ctx, {
-    type: "line",
-    data: {
-      labels: ["2014", "2016", "2018", "2020", "2022", "2024"],
-      datasets: [
-        {
-          label: "Gold OA Articles (Millions)",
-          data: [1.2, 1.9, 2.6, 4.0, 5.5, 7.1],
-          borderColor: "#2c3e50",
-          backgroundColor: "rgba(44, 62, 80, 0.1)",
-          fill: true,
-          tension: 0.4,
-        },
-      ],
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: { display: false },
-      },
-      scales: {
-        y: {
-          grid: { color: gridColor },
-          ticks: { color: textColor },
-        },
-        x: {
-          grid: { display: false },
-          ticks: { color: textColor },
-        },
-      },
-    },
-  });
-}
-// 3. URL Tooltip Logic (UPDATED)
+// --- TOOLTIPS ---
+// Only for URLs, citations are now static colored text
 function initUrlTooltips() {
   const tooltip = document.getElementById("url-tooltip");
   const triggers = document.querySelectorAll(".url-tooltip-trigger");
@@ -168,79 +135,28 @@ function initUrlTooltips() {
 
   triggers.forEach((trigger) => {
     trigger.addEventListener("mouseenter", () => {
-      // 1. Set text
       tooltip.textContent = trigger.href;
+      tooltip.classList.remove("hidden");
 
-      // 2. Make visible temporarily to calculate dimensions
-      tooltip.classList.remove("hidden"); // Ensure it's not display:none
-      tooltip.classList.add("visible"); // Trigger opacity fade-in
+      requestAnimationFrame(() => {
+        tooltip.classList.remove("opacity-0");
+      });
 
-      // 3. Calculate Position (Static, above the link)
       const linkRect = trigger.getBoundingClientRect();
       const tooltipRect = tooltip.getBoundingClientRect();
 
-      // Calculate center horizontal position
-      // (Link Left + Half Link Width) - (Half Tooltip Width)
-      const left =
-        linkRect.left +
-        window.scrollX +
-        linkRect.width / 2 -
-        tooltipRect.width / 2;
+      const left = linkRect.left + linkRect.width / 2 - tooltipRect.width / 2;
+      const top = linkRect.top - tooltipRect.height - 8;
 
-      // Calculate top position (Above link)
-      // (Link Top - Tooltip Height - 10px Gap)
-      const top = linkRect.top + window.scrollY - tooltipRect.height - 10;
-
-      // 4. Apply coordinates
       tooltip.style.left = `${left}px`;
       tooltip.style.top = `${top}px`;
     });
 
     trigger.addEventListener("mouseleave", () => {
-      tooltip.classList.remove("visible");
-    });
-  });
-}
-
-// 3. URL Tooltip Logic (UPDATED)
-function initUrlTooltips() {
-  const tooltip = document.getElementById("url-tooltip");
-  const triggers = document.querySelectorAll(".url-tooltip-trigger");
-
-  if (!tooltip) return;
-
-  triggers.forEach((trigger) => {
-    trigger.addEventListener("mouseenter", () => {
-      // 1. Set text
-      tooltip.textContent = trigger.href;
-
-      // 2. Make visible temporarily to calculate dimensions
-      tooltip.classList.remove("hidden"); // Ensure it's not display:none
-      tooltip.classList.add("visible"); // Trigger opacity fade-in
-
-      // 3. Calculate Position (Static, above the link)
-      const linkRect = trigger.getBoundingClientRect();
-      const tooltipRect = tooltip.getBoundingClientRect();
-
-      // Calculate center horizontal position
-      // (Link Left + Half Link Width) - (Half Tooltip Width)
-      const left =
-        linkRect.left +
-        window.scrollX +
-        linkRect.width / 2 -
-        tooltipRect.width / 2;
-
-      // Calculate top position (Above link)
-      // (Link Top - Tooltip Height - 10px Gap)
-      const top = linkRect.top + window.scrollY - tooltipRect.height - 10;
-
-      // 4. Apply coordinates
-      tooltip.style.left = `${left}px`;
-      tooltip.style.top = `${top}px`;
-    });
-
-    trigger.addEventListener("mouseleave", () => {
-      tooltip.classList.remove("visible");
+      tooltip.classList.add("opacity-0");
+      setTimeout(() => {
+        tooltip.classList.add("hidden");
+      }, 200);
     });
   });
 }

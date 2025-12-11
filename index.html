@@ -1,132 +1,354 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth scroll-pt-24">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Reflections on Topics in the DH6033 Course</title>
 
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Merriweather:ital,wght@0,300;0,700;1,300&family=Lora:ital,wght@0,400;0,700;1,400&family=Roboto+Mono&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400&family=Roboto+Mono:wght@400;500&family=Lora:ital,wght@0,400;0,700;1,400&display=swap"
             rel="stylesheet"
         />
+
+        <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+
+        <script>
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            primary: "var(--color-primary)",
+                            secondary: "var(--color-secondary)",
+                            bg: "var(--color-bg)",
+                            surface: "var(--color-surface)",
+                            accent: "var(--color-accent)",
+                            "accent-hover": "var(--color-accent-hover)",
+                        },
+                        typography: (theme) => ({
+                            DEFAULT: {
+                                css: {
+                                    color: "var(--color-secondary)",
+                                    maxWidth: "none",
+                                    a: {
+                                        color: "var(--color-accent)",
+                                        textDecoration: "none",
+                                        borderBottom:
+                                            "1px solid var(--color-accent)",
+                                        transition: "color 0.2s",
+                                        "&:hover": {
+                                            color: "var(--color-accent-hover)",
+                                            borderBottomColor:
+                                                "var(--color-accent-hover)",
+                                        },
+                                    },
+                                    h1: {
+                                        color: "var(--color-primary)",
+                                        fontFamily: "Inter, sans-serif",
+                                    },
+                                    h2: {
+                                        color: "var(--color-primary)",
+                                        fontFamily: "Inter, sans-serif",
+                                        marginTop: "2em",
+                                    },
+                                    h3: {
+                                        color: "var(--color-primary)",
+                                        fontFamily: "Inter, sans-serif",
+                                    },
+                                    strong: { color: "var(--color-primary)" },
+                                    blockquote: {
+                                        borderLeftColor: "var(--color-accent)",
+                                        color: "var(--color-primary)",
+                                        fontStyle: "italic",
+                                        backgroundColor: "var(--color-surface)",
+                                        padding: "1.5rem",
+                                        borderRadius: "0 0.5rem 0.5rem 0",
+                                        boxShadow:
+                                            "0 4px 6px -1px rgba(0, 0, 0, 0.05)",
+                                    },
+                                    code: {
+                                        color: "var(--color-accent)",
+                                        backgroundColor: "var(--color-bg)",
+                                        padding: "0.2em 0.4em",
+                                        borderRadius: "0.25rem",
+                                        fontWeight: "500",
+                                    },
+                                    "code::before": { content: '""' },
+                                    "code::after": { content: '""' },
+                                },
+                            },
+                        }),
+                    },
+                },
+            };
+        </script>
 
         <link rel="stylesheet" href="style.css" />
     </head>
 
-    <body data-theme="light" data-width="normal">
-        <div class="progress-container">
-            <div class="progress-bar" id="progressBar"></div>
+    <body
+        class="bg-bg text-secondary transition-colors duration-500 min-h-screen relative overflow-x-hidden antialiased selection:bg-accent selection:text-white"
+    >
+        <div class="fixed top-0 left-0 w-full h-1 z-[60]">
+            <div
+                id="progressBar"
+                class="h-full bg-gradient-to-r from-accent to-accent-hover w-0 transition-all duration-150 ease-out shadow-[0_0_15px_var(--color-accent)]"
+            ></div>
         </div>
 
-        <button
-            id="settingsToggle"
-            class="floating-btn"
-            aria-label="Open Settings"
+        <div
+            class="fixed inset-0 -z-10 pointer-events-none overflow-hidden transition-opacity duration-700"
         >
-            <img src="a2.png" alt="Settings" />
-        </button>
+            <div
+                class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-gradient-to-tr from-accent/5 to-primary/5 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen transition-colors duration-700"
+            ></div>
+            <div
+                class="absolute bottom-0 right-0 w-[800px] h-[600px] bg-gradient-to-tl from-accent/10 to-secondary/10 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen transition-colors duration-700"
+            ></div>
+        </div>
 
-        <aside id="settingsPanel" class="settings-panel hidden">
-            <div class="panel-header">
-                <h3>Reader View</h3>
-                <button id="closeSettings" class="close-btn">×</button>
+        <nav
+            class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-bg/80 border-b border-primary/5 transition-all duration-300"
+        >
+            <div
+                class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between"
+            >
+                <div class="flex items-center gap-3 group cursor-default">
+                    <div
+                        class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent font-bold font-serif group-hover:bg-accent group-hover:text-white transition-all duration-300"
+                    >
+                        DH
+                    </div>
+                    <span
+                        class="font-semibold text-primary tracking-tight hidden sm:block"
+                        >DH6033 Reflections</span
+                    >
+                </div>
+
+                <button
+                    id="settingsToggle"
+                    class="group flex items-center gap-2 px-4 py-2 rounded-full bg-surface border border-primary/10 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-bg"
+                >
+                    <span
+                        class="text-xs font-medium uppercase tracking-wider text-secondary group-hover:text-primary"
+                        >Reader View</span
+                    >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-4 w-4 text-accent group-hover:rotate-90 transition-transform duration-500"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                        />
+                        <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                        />
+                    </svg>
+                </button>
+            </div>
+        </nav>
+
+        <aside
+            id="settingsPanel"
+            class="fixed top-20 right-4 w-80 bg-surface/95 backdrop-blur-xl border border-primary/10 shadow-2xl rounded-2xl p-6 z-40 transform translate-x-[120%] transition-transform duration-300 ease-in-out ring-1 ring-black/5"
+        >
+            <div
+                class="flex justify-between items-center mb-6 border-b border-primary/10 pb-4"
+            >
+                <h3 class="font-sans font-semibold text-primary">
+                    Display Preferences
+                </h3>
+                <button
+                    id="closeSettings"
+                    class="text-secondary hover:text-accent transition-colors text-2xl leading-none"
+                >
+                    &times;
+                </button>
             </div>
 
-            <div class="setting-group">
-                <label>Theme</label>
-                <div class="theme-buttons">
-                    <button
-                        class="theme-btn light"
-                        onclick="setTheme('light')"
-                        title="Light"
+            <div class="space-y-6">
+                <div>
+                    <label
+                        class="text-xs font-bold uppercase tracking-wider text-secondary mb-3 block"
+                        >Theme</label
                     >
-                        Aa
-                    </button>
-                    <button
-                        class="theme-btn sepia"
-                        onclick="setTheme('sepia')"
-                        title="Paper"
+                    <div class="grid grid-cols-4 gap-2">
+                        <button
+                            onclick="setTheme('light')"
+                            class="h-10 rounded-lg bg-white border border-gray-200 text-gray-800 hover:ring-2 hover:ring-blue-500 transition-all shadow-sm"
+                            title="Light"
+                        >
+                            Aa
+                        </button>
+                        <button
+                            onclick="setTheme('sepia')"
+                            class="h-10 rounded-lg bg-[#f9f5eb] border border-[#e6dcc6] text-[#5f4b32] hover:ring-2 hover:ring-orange-700 transition-all shadow-sm"
+                            title="Sepia"
+                        >
+                            Aa
+                        </button>
+                        <button
+                            onclick="setTheme('grey')"
+                            class="h-10 rounded-lg bg-[#262626] border border-[#404040] text-[#a3a3a3] hover:ring-2 hover:ring-gray-400 transition-all shadow-sm"
+                            title="Grey"
+                        >
+                            Aa
+                        </button>
+                        <button
+                            onclick="setTheme('dark')"
+                            class="h-10 rounded-lg bg-[#0f172a] border border-[#1e293b] text-white hover:ring-2 hover:ring-teal-400 transition-all shadow-sm"
+                            title="Dark"
+                        >
+                            Aa
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label
+                        class="text-xs font-bold uppercase tracking-wider text-secondary mb-3 block"
+                        >Typeface</label
                     >
-                        Aa
-                    </button>
-                    <button
-                        class="theme-btn grey"
-                        onclick="setTheme('grey')"
-                        title="Low Contrast"
+                    <div class="relative">
+                        <select
+                            id="fontSelect"
+                            onchange="setFont(this.value)"
+                            class="w-full bg-bg border border-primary/20 text-primary rounded-lg p-2.5 text-sm appearance-none focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-shadow"
+                        >
+                            <option value="'Times New Roman', Times, serif">
+                                Times New Roman
+                            </option>
+                            <option value="'Merriweather', serif">
+                                Merriweather
+                            </option>
+                            <option value="'Inter', sans-serif">Inter</option>
+                            <option value="Arial, Helvetica, sans-serif">
+                                Arial
+                            </option>
+                            <option value="'Aptos', sans-serif">Aptos</option>
+                            <option value="'Lora', serif">Lora</option>
+                            <option value="Georgia, serif">Georgia</option>
+                            <option value="Verdana, sans-serif">Verdana</option>
+                            <option value="Tahoma, sans-serif">Tahoma</option>
+                            <option value="Calibri, sans-serif">Calibri</option>
+                        </select>
+                        <div
+                            class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
+                        >
+                            <svg
+                                class="w-4 h-4 text-secondary"
+                                fill="none"
+                                stroke="currentColor"
+                                viewBox="0 0 24 24"
+                            >
+                                <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    stroke-width="2"
+                                    d="M19 9l-7 7-7-7"
+                                ></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <label
+                        class="text-xs font-bold uppercase tracking-wider text-secondary mb-3 block"
+                        >Size</label
                     >
-                        Aa
-                    </button>
-                    <button
-                        class="theme-btn dark"
-                        onclick="setTheme('dark')"
-                        title="Dark"
+                    <div
+                        class="flex items-center gap-3 bg-bg rounded-lg p-1 border border-primary/10"
                     >
-                        Aa
-                    </button>
+                        <button
+                            onclick="adjustFontSize(-2)"
+                            class="p-2 hover:text-accent transition-colors w-10 text-center text-secondary rounded"
+                        >
+                            A-
+                        </button>
+                        <span
+                            id="currentSizeLabel"
+                            class="flex-1 text-center font-mono text-sm text-primary"
+                            >18px</span
+                        >
+                        <button
+                            onclick="adjustFontSize(2)"
+                            class="p-2 hover:text-accent transition-colors w-10 text-center text-secondary rounded"
+                        >
+                            A+
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label
+                        class="text-xs font-bold uppercase tracking-wider text-secondary mb-3 block"
+                        >Page Width</label
+                    >
+                    <div class="flex gap-2">
+                        <button
+                            onclick="setWidth('max-w-2xl')"
+                            class="flex-1 py-2 text-xs border border-primary/20 rounded-lg text-secondary hover:bg-accent/10 hover:border-accent hover:text-accent transition-all"
+                        >
+                            Narrow
+                        </button>
+                        <button
+                            onclick="setWidth('max-w-4xl')"
+                            class="flex-1 py-2 text-xs border border-primary/20 rounded-lg text-secondary hover:bg-accent/10 hover:border-accent hover:text-accent transition-all"
+                        >
+                            Normal
+                        </button>
+                        <button
+                            onclick="setWidth('max-w-6xl')"
+                            class="flex-1 py-2 text-xs border border-primary/20 rounded-lg text-secondary hover:bg-accent/10 hover:border-accent hover:text-accent transition-all"
+                        >
+                            Wide
+                        </button>
+                    </div>
                 </div>
             </div>
-
-            <div class="setting-group">
-                <label for="fontSelect">Typeface</label>
-                <select id="fontSelect" onchange="setFont(this.value)">
-                    <option value="'Times New Roman', Times, serif">
-                        Times New Roman
-                    </option>
-                    <option value="'Merriweather', serif">Merriweather</option>
-                    <option value="'Inter', sans-serif">Inter</option>
-                    <option value="Arial, Helvetica, sans-serif">Arial</option>
-                    <option value="'Aptos', sans-serif">Aptos</option>
-                    <option value="'Lora', serif">Lora</option>
-                    <option value="Georgia, serif">Georgia</option>
-                    <option value="Verdana, sans-serif">Verdana</option>
-                    <option value="Tahoma, sans-serif">Tahoma</option>
-                    <option value="Calibri, sans-serif">Calibri</option>
-                </select>
-            </div>
-
-            <div class="setting-group">
-                <label>Size & Spacing</label>
-                <div class="size-controls">
-                    <button onclick="adjustFontSize(-2)">A-</button>
-                    <span id="currentSizeLabel">18px</span>
-                    <button onclick="adjustFontSize(2)">A+</button>
-                </div>
-            </div>
-
-            <div class="setting-group">
-                <label>Page Width</label>
-                <div class="width-buttons">
-                    <button onclick="setWidth('narrow')" title="Narrow">
-                        Narrow
-                    </button>
-                    <button onclick="setWidth('normal')" title="Normal">
-                        Normal
-                    </button>
-                    <button onclick="setWidth('wide')" title="Wide">
-                        Wide
-                    </button>
-                </div>
-            </div>
-
-            <hr />
         </aside>
 
-        <main class="content-wrapper" id="contentArea">
-            <header>
-                <h1>Reflections on Topics in the DH6033 Course</h1>
-                <p class="author">
-                    Guang Yang
+        <main
+            id="contentContainer"
+            class="max-w-4xl mx-auto px-6 pt-32 pb-24 transition-all duration-300"
+        >
+            <header class="mb-16 text-center">
+                <h1
+                    class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-2 leading-tight tracking-tight"
+                >
+                    Reflections on Topics in the
+                    <span class="text-primary">DH6033 Course</span>
+                </h1>
+                <p class="text-xl text-accent font-serif mb-6 opacity-90">
+                    My Name
                 </p>
-                <p class="subtitle">
+                <p
+                    class="text-lg md:text-xl text-secondary font-light italic max-w-2xl mx-auto"
+                >
                     An essay on TEI, Open Access, and GLAM Digitisation
                 </p>
-                <hr />
+                <div
+                    class="h-1 w-24 bg-gradient-to-r from-accent to-accent-hover mx-auto mt-8 rounded-full opacity-80"
+                ></div>
             </header>
 
-            <article>
-                <p class="intro">
+            <article
+                id="articleText"
+                class="prose prose-lg max-w-none prose-headings:scroll-mt-24"
+            >
+                <p class="lead text-xl text-primary/80 font-serif">
                     This essay reflects on key topics covered in the course
                     DH6033. While the course covered a broad range of concepts,
                     this discussion will focus on three specific areas: TEI-XML
@@ -190,7 +412,7 @@
                             >: Lightweight, machine-friendly formats
                             increasingly used in digital asset management.
                             <span
-                                class="citation-trigger"
+                                class="text-accent font-medium hover:text-accent-hover transition-colors"
                                 data-cite="Reimann, S., Rodenhausen, L., Elwert, F. and Scheffler, T. (2024) ‘By a Thread: Encoding Online Forum Data in TEI’, Journal of the Text Encoding Initiative, 17."
                                 >Reimann et al. (2024)</span
                             >
@@ -221,7 +443,7 @@
                         Furthermore, TEI is not a static standard; it evolves to
                         meet both technical and social challenges.
                         <span
-                            class="citation-trigger"
+                            class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Bauman, S., Holmes, M., Bermúdez Sabel, H. and Maus, D. (2024) ‘ATOP: Another TEI ODD Processor’, Journal of the Text Encoding Initiative, 17."
                             >Bauman et al. (2024)</span
                         >
@@ -232,7 +454,7 @@
                         processing tools from scratch. Simultaneously, the
                         guidelines evolve to reflect changing cultural values.
                         <span
-                            class="citation-trigger"
+                            class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Beshero-Bondar, E.E., Viglianti, R., Bermúdez-Sabel, H. and Jenstad, J. (2024) ‘Revising sex and gender in the TEI Guidelines’, Journal of the Text Encoding Initiative, 17."
                             >Beshero-Bondar et al. (2024)</span
                         >
@@ -259,110 +481,99 @@
                         for a rich reconstruction of the language used by
                         Chinese immigrants in early Manila
                         <span
-                            class="citation-trigger"
+                            class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Scholger, M., Steiner, E., Strutz, S. and Frauendorfer, M. (2025) 'Early Manila Hokkien: digitizing and analyzing a 17th-century Chinese-Spanish dictionary', DH 2025, Lisbon."
                             >(Scholger et al., 2025)</span
                         >. Below is an example of the TEI-XML encoding used in
                         their research.
                     </p>
 
-                    <div class="artefact-card">
-                        <div class="card-header">
-                            <span class="card-label"
+                    <div
+                        class="not-prose my-12 bg-surface rounded-2xl shadow-lg ring-1 ring-black/5 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group"
+                    >
+                        <div
+                            class="bg-primary/5 p-4 flex justify-between items-center border-b border-primary/5"
+                        >
+                            <span
+                                class="text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary transition-colors"
                                 >Interactive Figure 1: Early Manila Hokkien
                                 TEI</span
                             >
-                            <div class="toggle-group">
+                            <div
+                                class="flex gap-1 bg-bg/50 p-1 rounded-lg backdrop-blur-sm"
+                            >
                                 <button
                                     onclick="toggleTei('code')"
                                     id="btn-code"
-                                    class="active"
+                                    class="px-3 py-1.5 text-xs font-medium rounded-md bg-white dark:bg-gray-700 shadow-sm text-primary transition-all"
                                 >
                                     XML Code
                                 </button>
                                 <button
                                     onclick="toggleTei('render')"
                                     id="btn-render"
+                                    class="px-3 py-1.5 text-xs font-medium rounded-md text-secondary hover:bg-black/5 dark:hover:bg-white/5 transition-all"
                                 >
-                                    Reader
+                                    Reader View
                                 </button>
                             </div>
                         </div>
 
-                        <div id="tei-code" class="card-content code-content">
-                            <pre>
-<span class="tag">&lt;entry</span> <span class="attr">type</span>=<span class="val">"translation"</span> <span class="attr">corresp</span>=<span class="val">"#entry.0738"</span><span class="tag">&gt;</span>
-    <span class="tag">&lt;form</span> <span class="attr">type</span>=<span class="val">"lemma"</span><span class="tag">&gt;</span>
-        <span class="tag">&lt;orth</span> <span class="attr">xml:lang</span>=<span class="val">"nan-Latn-tailo"</span><span class="tag">&gt;</span><span class="txt">Ké</span><span class="tag">&lt;/orth&gt;</span>
-        <span class="tag">&lt;orth</span> <span class="attr">xml:lang</span>=<span class="val">"nan-Hani-PH"</span><span class="tag">&gt;</span><span class="txt">觧</span><span class="tag">&lt;note</span> <span class="attr">n</span>=<span class="val">"1"</span><span class="tag">&gt;&lt;p&gt;</span><span class="txt">[...]</span><span class="tag">&lt;/p&gt;&lt;/note&gt;</span><span class="tag">&lt;/orth&gt;</span>
-    <span class="tag">&lt;/form&gt;</span>
-    <span class="tag">&lt;sense</span> <span class="attr">xml:lang</span>=<span class="val">"en-Latn"</span><span class="tag">&gt;</span>
-        <span class="txt">means </span><span class="tag">&lt;def&gt;</span><span class="txt">to confess</span><span class="tag">&lt;/def&gt;</span><span class="txt">; e.g.</span>
-        <span class="tag">&lt;cit</span> <span class="attr">type</span>=<span class="val">"example"</span> <span class="attr">xml:lang</span>=<span class="val">"nan-Latn-tailo"</span> <span class="attr">corresp</span>=<span class="val">"#entry.0738.ex.1"</span><span class="tag">&gt;</span>
-            <span class="tag">&lt;quote&gt;</span><span class="txt">lú ài ké tsuē</span><span class="tag">&lt;/quote&gt;</span>
-            <span class="tag">&lt;cit</span> <span class="attr">type</span>=<span class="val">"translation"</span> <span class="attr">xml:lang</span>=<span class="val">"nan-Hani-PH"</span><span class="tag">&gt;</span>
-                <span class="tag">&lt;quote&gt;</span><span class="txt">你愛觧罪</span><span class="tag">&lt;/quote&gt;</span>
-            <span class="tag">&lt;/cit&gt;</span>
-            <span class="tag">&lt;cit</span> <span class="attr">type</span>=<span class="val">"translation"</span> <span class="attr">xml:lang</span>=<span class="val">"en-Latn"</span><span class="tag">&gt;</span>
-                <span class="tag">&lt;quote&gt;</span><span class="txt">you want to confess yourself</span><span class="tag">&lt;note</span> <span class="attr">n</span>=<span class="val">"2"</span><span class="tag">&gt;&lt;p&gt;</span><span class="txt">[...]</span><span class="tag">&lt;/p&gt;&lt;/note&gt;</span>
-                <span class="tag">&lt;/quote&gt;</span>
-            <span class="tag">&lt;/cit&gt;</span>
-        <span class="tag">&lt;/cit&gt;</span>
-    <span class="tag">&lt;/sense&gt;</span>
-<span class="tag">&lt;/entry&gt;</span>
+                        <div
+                            id="tei-code"
+                            class="p-6 bg-[#1e1e1e] text-gray-300 font-mono text-sm overflow-x-auto"
+                        >
+                            <pre class="!bg-transparent !m-0 !p-0">
+<span class="text-green-400">&lt;entry</span> <span class="text-purple-400">type</span>=<span class="text-blue-300">"translation"</span> <span class="text-purple-400">corresp</span>=<span class="text-blue-300">"#entry.0738"</span><span class="text-green-400">&gt;</span>
+    <span class="text-green-400">&lt;form</span> <span class="text-purple-400">type</span>=<span class="text-blue-300">"lemma"</span><span class="text-green-400">&gt;</span>
+        <span class="text-green-400">&lt;orth</span> <span class="text-purple-400">xml:lang</span>=<span class="text-blue-300">"nan-Latn-tailo"</span><span class="text-green-400">&gt;</span>Ké<span class="text-green-400">&lt;/orth&gt;</span>
+        <span class="text-green-400">&lt;orth</span> <span class="text-purple-400">xml:lang</span>=<span class="text-blue-300">"nan-Hani-PH"</span><span class="text-green-400">&gt;</span>觧<span class="text-green-400">&lt;note</span> <span class="text-purple-400">n</span>=<span class="text-blue-300">"1"</span><span class="text-green-400">&gt;</span>...<span class="text-green-400">&lt;/note&gt;&lt;/orth&gt;</span>
+    <span class="text-green-400">&lt;/form&gt;</span>
+    <span class="text-green-400">&lt;sense</span> <span class="text-purple-400">xml:lang</span>=<span class="text-blue-300">"en-Latn"</span><span class="text-green-400">&gt;</span>
+        means <span class="text-green-400">&lt;def&gt;</span>to confess<span class="text-green-400">&lt;/def&gt;</span>; e.g.
+        <span class="text-green-400">&lt;cit</span> <span class="text-purple-400">type</span>=<span class="text-blue-300">"example"</span> <span class="text-purple-400">xml:lang</span>=<span class="text-blue-300">"nan-Latn-tailo"</span><span class="text-green-400">&gt;</span>
+            <span class="text-green-400">&lt;quote&gt;</span>lú ài ké tsuē<span class="text-green-400">&lt;/quote&gt;</span>
+            <span class="text-green-400">&lt;cit</span> <span class="text-purple-400">type</span>=<span class="text-blue-300">"translation"</span> <span class="text-purple-400">xml:lang</span>=<span class="text-blue-300">"nan-Hani-PH"</span><span class="text-green-400">&gt;</span>
+                <span class="text-green-400">&lt;quote&gt;</span>你愛觧罪<span class="text-green-400">&lt;/quote&gt;</span>
+            <span class="text-green-400">&lt;/cit&gt;</span>
+        <span class="text-green-400">&lt;/cit&gt;</span>
+    <span class="text-green-400">&lt;/sense&gt;</span>
+<span class="text-green-400">&lt;/entry&gt;</span>
 </pre>
                         </div>
 
                         <div
                             id="tei-render"
-                            class="card-content center-content hidden"
+                            class="hidden p-8 bg-surface text-center flex flex-col items-center justify-center min-h-[250px]"
                         >
+                            <h3 class="font-serif text-4xl mb-2 text-primary">
+                                Ké <span class="font-light opacity-70">觧</span>
+                            </h3>
+                            <p class="text-lg text-secondary">
+                                means
+                                <strong
+                                    class="text-accent font-bold bg-accent/10 px-2 py-0.5 rounded"
+                                    >to confess</strong
+                                >; e.g.
+                            </p>
                             <div
-                                style="
-                                    text-align: left;
-                                    padding: 1rem;
-                                    width: 100%;
-                                "
+                                class="mt-6 pl-4 border-l-4 border-accent/30 text-left bg-bg/50 p-4 rounded-r-lg w-full max-w-md"
                             >
-                                <h3
-                                    class="entry-title"
-                                    style="
-                                        font-family: serif;
-                                        margin-bottom: 0.5rem;
-                                    "
+                                <p
+                                    class="font-serif italic text-lg text-primary"
                                 >
-                                    Ké
-                                    <span style="font-weight: normal">觧</span>
-                                </h3>
-                                <p style="line-height: 1.6">
-                                    means <strong>to confess</strong>; e.g.
+                                    lú ài ké tsuē
                                 </p>
-                                <div
-                                    class="example-block"
-                                    style="
-                                        margin-left: 1.5rem;
-                                        margin-top: 0.8rem;
-                                        padding-left: 1rem;
-                                        border-left: 3px solid #ddd;
-                                    "
+                                <p
+                                    class="text-2xl my-1 font-serif text-primary"
                                 >
-                                    <p
-                                        style="
-                                            font-style: italic;
-                                            font-family:
-                                                &quot;Times New Roman&quot;,
-                                                serif;
-                                        "
-                                    >
-                                        lú ài ké tsuē
-                                    </p>
-                                    <p style="font-family: serif; color: #444">
-                                        你愛觧罪
-                                    </p>
-                                    <p style="color: #666; font-size: 0.95em">
-                                        "you want to confess yourself"
-                                    </p>
-                                </div>
+                                    你愛觧罪
+                                </p>
+                                <p
+                                    class="text-sm uppercase tracking-wide text-secondary/70"
+                                >
+                                    "you want to confess yourself"
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -397,7 +608,7 @@
                         relies on Article Processing Charges (APCs), risks
                         introducing new forms of inequity.
                         <span
-                            class="citation-trigger"
+                            class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Papillon, M., O’Neill, B., Bourque, M., Marland, A. and White, G. (2019) ‘Open Access and Academic Journals in Canada: A Political Science Perspective’, Canadian Journal of Political Science, 52(4), pp. 903–922."
                             >Papillon et al. (2019)</span
                         >
@@ -433,7 +644,7 @@
                         further complicates the application of Open Access
                         principles, particularly within the GLAM sector.
                         <span
-                            class="citation-trigger"
+                            class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Rees Koerner, E. and Ackrell, L. (2025) ‘Making museum research more visible: Open Access in the GLAM sector’, Science Museum Group Journal."
                             >Rees Koerner and Ackrell (2025)</span
                         >
@@ -447,133 +658,174 @@
                         academic counterpart.
                     </p>
 
-                    <div class="artefact-card">
-                        <div class="card-header">
-                            <span class="card-label"
+                    <div
+                        class="not-prose my-12 bg-surface rounded-2xl shadow-lg ring-1 ring-black/5 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group"
+                    >
+                        <div class="bg-primary/5 p-4 border-b border-primary/5">
+                            <span
+                                class="text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary transition-colors"
                                 >Table: Book vs Journal Publishing</span
                             >
                         </div>
-                        <div class="card-content no-padding">
-                            <table id="pubComparison">
-                                <thead>
+                        <div class="overflow-x-auto">
+                            <table
+                                class="w-full text-left text-sm text-secondary"
+                            >
+                                <thead
+                                    class="bg-primary/5 text-primary uppercase text-xs tracking-wider font-bold"
+                                >
                                     <tr>
-                                        <th>Aspect</th>
-                                        <th>Books (Monographs)</th>
-                                        <th>Journal Articles</th>
+                                        <th class="px-6 py-4">Aspect</th>
+                                        <th class="px-6 py-4">
+                                            Books (Monographs)
+                                        </th>
+                                        <th class="px-6 py-4">
+                                            Journal Articles
+                                        </th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <strong
-                                                >Typical economic model</strong
-                                            >
+                                <tbody class="divide-y divide-primary/10">
+                                    <tr
+                                        class="hover:bg-primary/5 transition-colors"
+                                    >
+                                        <td
+                                            class="px-6 py-4 font-medium text-primary"
+                                        >
+                                            Typical economic model
                                         </td>
-                                        <td>
+                                        <td class="px-6 py-4">
                                             Sales and royalties; university
                                             press subsidies; occasional funder
                                             support for OA monographs
                                         </td>
-                                        <td>
+                                        <td class="px-6 py-4">
                                             Subscription revenue for publishers,
                                             or Article Processing Charges-funded
                                             open access
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td><strong>Author income</strong></td>
-                                        <td>
+                                    <tr
+                                        class="hover:bg-primary/5 transition-colors"
+                                    >
+                                        <td
+                                            class="px-6 py-4 font-medium text-primary"
+                                        >
+                                            Author income
+                                        </td>
+                                        <td class="px-6 py-4">
                                             May receive royalties (small to
                                             moderate); often important to some
                                             authors
                                         </td>
-                                        <td>
+                                        <td class="px-6 py-4">
                                             Authors typically receive no
                                             royalties
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Typical funding</strong>
+                                    <tr
+                                        class="hover:bg-primary/5 transition-colors"
+                                    >
+                                        <td
+                                            class="px-6 py-4 font-medium text-primary"
+                                        >
+                                            Typical funding
                                         </td>
-                                        <td>
+                                        <td class="px-6 py-4">
                                             Often unfunded; long-term research
                                             may need grants for travel/archives
                                         </td>
-                                        <td>
+                                        <td class="px-6 py-4">
                                             Often produced as part of funded
                                             projects or salaried roles
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <strong
-                                                >Article Processing Charges / OA
-                                                costs</strong
-                                            >
+                                    <tr
+                                        class="hover:bg-primary/5 transition-colors"
+                                    >
+                                        <td
+                                            class="px-6 py-4 font-medium text-primary"
+                                        >
+                                            Article Processing Charges / OA
+                                            costs
                                         </td>
-                                        <td>
+                                        <td class="px-6 py-4">
                                             OA monograph fees can be very high
                                             (£5k–£12k+); models are less
                                             standardised
                                         </td>
-                                        <td>
+                                        <td class="px-6 py-4">
                                             Article Processing Charges common
                                             for Gold OA (variable; often lower
                                             than OA monographs)
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <strong
-                                                >Production timescale</strong
-                                            >
+                                    <tr
+                                        class="hover:bg-primary/5 transition-colors"
+                                    >
+                                        <td
+                                            class="px-6 py-4 font-medium text-primary"
+                                        >
+                                            Production timescale
                                         </td>
-                                        <td>
+                                        <td class="px-6 py-4">
                                             Years of work, long editorial
                                             process
                                         </td>
-                                        <td>
+                                        <td class="px-6 py-4">
                                             Months to 1–2 years; faster
                                             turnaround
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Rights & licensing</strong>
+                                    <tr
+                                        class="hover:bg-primary/5 transition-colors"
+                                    >
+                                        <td
+                                            class="px-6 py-4 font-medium text-primary"
+                                        >
+                                            Rights & licensing
                                         </td>
-                                        <td>
+                                        <td class="px-6 py-4">
                                             Royalties and subsidiary rights
                                             matter; contracts more complex
                                         </td>
-                                        <td>
+                                        <td class="px-6 py-4">
                                             Authors typically transfer some or
                                             all rights; licensing often simpler
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Equity implications</strong>
+                                    <tr
+                                        class="hover:bg-primary/5 transition-colors"
+                                    >
+                                        <td
+                                            class="px-6 py-4 font-medium text-primary"
+                                        >
+                                            Equity implications
                                         </td>
-                                        <td>
+                                        <td class="px-6 py-4">
                                             High OA costs risk excluding
                                             unfunded scholars; sales-based
                                             models also make access unequal
                                         </td>
-                                        <td>
+                                        <td class="px-6 py-4">
                                             Article Processing Charges can
                                             exclude unfunded researchers; Green
                                             OA helps but is uneven
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td><strong>Piracy impact</strong></td>
-                                        <td>
+                                    <tr
+                                        class="hover:bg-primary/5 transition-colors"
+                                    >
+                                        <td
+                                            class="px-6 py-4 font-medium text-primary"
+                                        >
+                                            Piracy impact
+                                        </td>
+                                        <td class="px-6 py-4">
                                             Directly reduces sales/royalties;
                                             can harm authors on whom royalties
                                             matter
                                         </td>
-                                        <td>
+                                        <td class="px-6 py-4">
                                             Sci-Hub-style access undermines
                                             paywalls but doesn't provide a
                                             sustainable publishing model
@@ -630,7 +882,7 @@
 
                     <p>
                         <span
-                            class="citation-trigger"
+                            class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Zhang, Y., Jiang, R., Xie, L., Zhao, Y., Liu, C., Ding, T., Chen, S. and Yuan, X. (2023) ‘OldVisOnline: Curating a dataset of historical visualizations’, IEEE Transactions on Visualization and Computer Graphics, 30(1), pp. 551-561."
                             >Zhang et al. (2023)</span
                         >
@@ -641,7 +893,7 @@
                         metadata, making a unified dataset crucial for studying
                         the visual history of science. Furthermore,
                         <span
-                            class="citation-trigger"
+                            class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Mei, X., Zhang, Y., Yang, C., Shi, R. and Yuan, X. (2025) ‘ZuantuSet: A Collection of Historical Chinese Visualizations and Illustrations’, in Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems, pp. 1-15."
                             >Mei et al. (2025)</span
                         >
@@ -658,14 +910,14 @@
                         However, despite thirty years of investment, only about
                         22% of heritage collections in Europe are digitized
                         <span
-                            class="citation-trigger"
+                            class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Terras, M. (2022) ‘Digital humanities and digitised cultural heritage’, in O'Sullivan, J. (ed.) The Bloomsbury Handbook to the Digital Humanities. London: Bloomsbury, pp. 255–266."
                             >(Terras, 2022)</span
                         >. Crucially, even when objects are digitized, they are
                         often difficult to find or use due to poor metadata
                         practices.
                         <span
-                            class="citation-trigger"
+                            class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Lim, S. and Liew, C.L. (2011) ‘Metadata quality and interoperability of GLAM digital images’, Aslib Proceedings, 63(5), pp. 484–498."
                             >Lim and Liew (2011)</span
                         >
@@ -697,7 +949,7 @@
                         While these technologies are impressive, they are not
                         without limitations.
                         <span
-                            class="citation-trigger"
+                            class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Tausch, R., Domajnko, M., Ritz, M., Knuth, M., Santos, P. and Fellner, D.W. (2019) ‘Towards 3D Digitization in the GLAM Sector – Lessons Learned and Future Outlook’, Fraunhofer Institute for Computer Graphics Research."
                             >Tausch et al. (2019)</span
                         >
@@ -708,7 +960,7 @@
                         Furthermore, the accessibility of the resulting images
                         is often overstated.
                         <span
-                            class="citation-trigger"
+                            class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Valeonti, F., Terras, M. and Hudson-Smith, A. (2019) ‘How open is OpenGLAM? Identifying barriers to commercial and non-commercial reuse of digitised art images’, Journal of Documentation, 76(1)."
                             >Valeonti et al. (2019)</span
                         >
@@ -728,7 +980,7 @@
                         on the ease of rights clearance rather than cultural
                         significance.
                         <span
-                            class="citation-trigger"
+                            class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Coad, S. (2019) ‘Digitisation, Copyright and the GLAM Sector: Constructing a Fit-for-Purpose Safe Harbour Regime’, Victoria University of Wellington Law Review, 50, pp. 1–32."
                             >Coad (2019)</span
                         >
@@ -747,7 +999,7 @@
                         </strong>
                         In their quantitative analysis of Google Arts & Culture,
                         <span
-                            class="citation-trigger"
+                            class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Kizhner, I., Terras, M., Rumyantsev, M., Khokhlova, V., Demeshkova, E., Rudov, I. and Afanasieva, J. (2021) “Digital cultural colonialism: measuring bias in aggregated digitized content held in Google Arts and Culture”, Digital Scholarship in the Humanities, 36(3), pp. 607–640."
                         >
                             Kizhner et al. (2021)
@@ -775,7 +1027,7 @@
                         collection of early Qing dynasty plant paintings held at
                         the British Library. Recently analysed by
                         <span
-                            class="citation-trigger"
+                            class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Coulton, R. (2025) ‘Picturing the flora of China’, Journal of the History of Collections, 37(1), pp. 135-155."
                             >Coulton (2025)</span
                         >, these images were acquired in Xiamen (historically
@@ -794,38 +1046,38 @@
                         previously difficult to access.
                     </p>
 
-                    <div class="artefact-card">
-                        <div class="card-header">
-                            <span class="card-label"
+                    <div
+                        class="not-prose my-12 bg-surface rounded-2xl shadow-lg ring-1 ring-black/5 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group"
+                    >
+                        <div class="bg-primary/5 p-4 border-b border-primary/5">
+                            <span
+                                class="text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary transition-colors"
                                 >Interactive Figure 2: British Library IIIF
                                 Viewer</span
                             >
                         </div>
-
-                        <div class="card-content no-padding">
+                        <div
+                            class="aspect-video w-full bg-gray-100 dark:bg-gray-800 relative"
+                        >
                             <iframe
                                 src="https://uv-v4.netlify.app/uv.html#?manifest=https%3A%2F%2Fbl.digirati.io%2Fiiif%2Fark%3A%2F81055%2Fvdc_100101225110.0x000001&c=0&m=0&cv=33&config=&locales=en-GB%3AEnglish+%28GB%29%2Ccy-GB%3ACymraeg%2Cfr-FR%3AFran%C3%A7ais+%28FR%29%2Cpl-PL%3APolski%2Csv-SE%3ASvenska&xywh=-3226%2C0%2C13112%2C9976&r=0"
-                                width="100%"
-                                height="480"
-                                allowfullscreen
-                                frameborder="0"
+                                class="absolute inset-0 w-full h-full border-0"
                                 title="British Library IIIF Item"
+                                allowfullscreen
                             ></iframe>
                         </div>
-
-                        <div class="card-footer">
-                            <p class="caption">
-                                This digital volume (part of Sir Hans Sloane's
-                                collection) contains early Qing dynasty Chinese
-                                plant paintings. The illustrations use the
-                                'boneless' (<em>mogu</em>) style, defined by
-                                color rather than ink outlines, and are believed
-                                to be the work of artists, including 'Dr
-                                Bun-ko', acquired in Xiamen (Amoy). The images
-                                were cut from original large sheets and mounted
-                                in London.
+                        <div
+                            class="p-4 bg-surface border-t border-primary/5 text-sm text-secondary"
+                        >
+                            <p class="mb-2">
+                                A digital volume comprising early Qing dynasty
+                                plant paintings acquired in Xiamen by James
+                                Cuninghame (c. 1698–99), representing a
+                                synthesis of Chinese <em>bencao</em> and
+                                <em>huaniaohua</em> traditions long predating
+                                the formalized export art trade.
                             </p>
-                            <p>
+                            <p class="text-xs opacity-75">
                                 | British Library, Add. MS 5292–5294 (Sloane
                                 Collection)
                             </p>
@@ -849,19 +1101,22 @@
                         database, with the support and cooperation of those
                         museums.
                     </p>
-                    <figure style="text-align: center; margin: 1em 0">
+
+                    <figure
+                        class="my-10 text-center not-prose transition-all duration-300 hover:-translate-y-1 hover:scale-[1.01]"
+                    >
                         <img
                             src="a1.jpg"
                             alt="Researchers capturing oracle bone images"
-                            style="max-width: 70%; height: auto"
+                            class="mx-auto rounded-xl shadow-lg max-w-[80%] h-auto ring-1 ring-black/5"
                         />
-                        <figcaption style="font-size: 0.8em; margin-top: 0.5em">
+                        <figcaption class="mt-3 text-sm text-secondary italic">
                             Researchers from the Oracle Bones Lab at Anyang
                             Normal University capturing oracle bone pictures in
-                            South Korea.<br />
-                            Source:
+                            South Korea. Source:
                             <a
                                 href="https://www.tkww.hk/a/202408/19/AP66c30f56e4b05198069be166.html"
+                                class="text-accent hover:underline"
                                 >www.tkww.hk</a
                             >
                         </figcaption>
@@ -881,73 +1136,43 @@
                         in 1606 by Willem Janszoon Blaeu (1571–1638).
                     </p>
 
-                    <div class="artefact-card">
-                        <div class="card-header">
-                            <span class="card-label"
+                    <div
+                        class="not-prose my-12 bg-surface rounded-2xl shadow-lg ring-1 ring-black/5 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group"
+                    >
+                        <div class="bg-primary/5 p-4 border-b border-primary/5">
+                            <span
+                                class="text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary transition-colors"
                                 >Interactive Figure 3: 1606 Terrestrial
                                 Globe</span
                             >
                         </div>
-
-                        <div class="card-content no-padding">
-                            <div class="sketchfab-embed-wrapper">
-                                <iframe
-                                    title="Willem Janszoon Blaeu, Terrestrial Globe, 1606"
-                                    frameborder="0"
-                                    allowfullscreen
-                                    mozallowfullscreen="true"
-                                    webkitallowfullscreen="true"
-                                    allow="
-                                        autoplay;
-                                        fullscreen;
-                                        xr-spatial-tracking;
-                                    "
-                                    xr-spatial-tracking
-                                    execution-while-out-of-viewport
-                                    execution-while-not-rendered
-                                    web-share
-                                    src="https://sketchfab.com/models/c22ff82e3530492f91d66fcd0c24d568/embed"
-                                >
-                                </iframe>
-                            </div>
+                        <div class="aspect-[4/3] w-full relative bg-black">
+                            <iframe
+                                title="Willem Janszoon Blaeu, Terrestrial Globe, 1606"
+                                class="absolute inset-0 w-full h-full"
+                                src="https://sketchfab.com/models/c22ff82e3530492f91d66fcd0c24d568/embed"
+                                frameborder="0"
+                                allow="
+                                    autoplay;
+                                    fullscreen;
+                                    xr-spatial-tracking;
+                                "
+                                xr-spatial-tracking
+                                execution-while-out-of-viewport
+                                execution-while-not-rendered
+                                web-share
+                            ></iframe>
                         </div>
-
-                        <div class="card-footer">
-                            <p>
+                        <div
+                            class="p-4 bg-surface border-t border-primary/5 text-sm text-secondary"
+                        >
+                            <p class="mb-2">
                                 Willem Janszoon Blaeu, Terrestrial Globe (1606).
                                 Use mouse or touch to rotate.
                             </p>
-
-                            <p class="caption">
-                                Source Data: Nova et accurata Terrae Marisq.
-                                Sphaera, denuo recognita et correcta à Gulielmo
-                                Blaeu. Amsterdam: Willem Janszoon Blaeu, 1606
-                                (1621). British Library, Maps G.6.a. Created in
-                                partnership with Cyreal for a 2020 digitization
-                                project.
-                            </p>
-
-                            <p class="caption">
-                                Model:
-
-                                <a
-                                    href="https://sketchfab.com/3d-models/willem-janszoon-blaeu-terrestrial-globe-1606-c22ff82e3530492f91d66fcd0c24d568"
-                                    target="_blank"
-                                    >Willem Janszoon Blaeu, Terrestrial Globe,
-                                    1606</a
-                                >
-                                by
-
-                                <a
-                                    href="https://sketchfab.com/britishlibrary"
-                                    target="_blank"
-                                    >British Library</a
-                                >
-                                on
-
-                                <a href="https://sketchfab.com" target="_blank"
-                                    >Sketchfab</a
-                                >.
+                            <p class="text-xs opacity-75">
+                                British Library, Maps G.6.a. Developed by the
+                                British Library on Sketchfab.
                             </p>
                         </div>
                     </div>
@@ -963,17 +1188,17 @@
                     </p>
                 </section>
 
-                <section>
+                <section class="mt-20 pt-10 border-t border-primary/10">
                     <h2>Bibliography</h2>
-                    <ul class="bibliography-list">
-                        <li>
+                    <ul class="list-none pl-0 space-y-4 text-sm text-secondary">
+                        <li class="pl-8 -indent-8">
                             Bauman, S., Holmes, M., Bermúdez Sabel, H. and Maus,
                             D. (2024) ‘ATOP: Another TEI ODD Processor’,
                             <em>Journal of the Text Encoding Initiative</em>,
                             17.
                         </li>
 
-                        <li>
+                        <li class="pl-8 -indent-8">
                             Beshero-Bondar, E.E., Viglianti, R., Bermúdez-Sabel,
                             H. and Jenstad, J. (2024) ‘Revising sex and gender
                             in the TEI Guidelines’,
@@ -981,14 +1206,14 @@
                             17.
                         </li>
 
-                        <li>
+                        <li class="pl-8 -indent-8">
                             Clark, A. and Connell, S. (2024) ‘Texts All the Way
                             Down: The Intertextual Networks Project’,
                             <em>Journal of the Text Encoding Initiative</em>,
                             17.
                         </li>
 
-                        <li>
+                        <li class="pl-8 -indent-8">
                             Coad, S. (2019) ‘Digitisation, Copyright and the
                             GLAM Sector: Constructing a Fit-for-Purpose Safe
                             Harbour Regime’,
@@ -996,13 +1221,13 @@
                             >, 50, pp. 1–32.
                         </li>
 
-                        <li>
+                        <li class="pl-8 -indent-8">
                             Coulton, R. (2025) ‘Picturing the flora of China’,
                             <em>Journal of the History of Collections</em>,
                             37(1), pp. 135-155.
                         </li>
 
-                        <li>
+                        <li class="pl-8 -indent-8">
                             Kizhner, I., Terras, M., Rumyantsev, M., Khokhlova,
                             V., Demeshkova, E., Rudov, I. and Afanasieva, J.
                             (2021) ‘Digital cultural colonialism: measuring bias
@@ -1012,13 +1237,13 @@
                             36(3), pp. 607–640.
                         </li>
 
-                        <li>
+                        <li class="pl-8 -indent-8">
                             Lim, S. and Liew, C.L. (2011) ‘Metadata quality and
                             interoperability of GLAM digital images’,
                             <em>Aslib Proceedings</em>, 63(5), pp. 484–498.
                         </li>
 
-                        <li>
+                        <li class="pl-8 -indent-8">
                             Mei, X., Zhang, Y., Yang, C., Shi, R. and Yuan, X.
                             (2025) ‘ZuantuSet: A Collection of Historical
                             Chinese Visualizations and Illustrations’, in
@@ -1028,7 +1253,7 @@
                             >, pp. 1-15.
                         </li>
 
-                        <li>
+                        <li class="pl-8 -indent-8">
                             Papillon, M., O’Neill, B., Bourque, M., Marland, A.
                             and White, G. (2019) ‘Open Access and Academic
                             Journals in Canada: A Political Science
@@ -1037,13 +1262,13 @@
                             52(4), pp. 903–922.
                         </li>
 
-                        <li>
+                        <li class="pl-8 -indent-8">
                             Rees Koerner, E. and Ackrell, L. (2025) ‘Making
                             museum research more visible: Open Access in the
                             GLAM sector’, <em>Science Museum Group Journal</em>.
                         </li>
 
-                        <li>
+                        <li class="pl-8 -indent-8">
                             Reimann, S., Rodenhausen, L., Elwert, F. and
                             Scheffler, T. (2024) ‘By a Thread: Encoding Online
                             Forum Data in TEI’,
@@ -1051,7 +1276,7 @@
                             17.
                         </li>
 
-                        <li>
+                        <li class="pl-8 -indent-8">
                             Scholger, M., Steiner, E., Strutz, S. and
                             Frauendorfer, M. (2025) ‘Early Manila Hokkien:
                             digitizing and analyzing a 17th-century
@@ -1060,7 +1285,7 @@
                             Digital Humanities Conference, Lisbon).
                         </li>
 
-                        <li>
+                        <li class="pl-8 -indent-8">
                             Tausch, R., Domajnko, M., Ritz, M., Knuth, M.,
                             Santos, P. and Fellner, D.W. (2019) ‘Towards 3D
                             Digitization in the GLAM Sector – Lessons Learned
@@ -1071,7 +1296,7 @@
                             >.
                         </li>
 
-                        <li>
+                        <li class="pl-8 -indent-8">
                             Terras, M. (2022) ‘Digital humanities and digitised
                             cultural heritage’, in O'Sullivan, J. (ed.)
                             <em
@@ -1080,14 +1305,14 @@
                             >. London: Bloomsbury, pp. 255–266.
                         </li>
 
-                        <li>
+                        <li class="pl-8 -indent-8">
                             Valeonti, F., Terras, M. and Hudson-Smith, A. (2019)
                             ‘How open is OpenGLAM? Identifying barriers to
                             commercial and non-commercial reuse of digitised art
                             images’, <em>Journal of Documentation</em>, 76(1).
                         </li>
 
-                        <li>
+                        <li class="pl-8 -indent-8">
                             Zhang, Y., Jiang, R., Xie, L., Zhao, Y., Liu, C.,
                             Ding, T., Chen, S. and Yuan, X. (2023)
                             ‘OldVisOnline: Curating a dataset of historical
@@ -1102,7 +1327,10 @@
             </article>
         </main>
 
-        <div id="url-tooltip" class="hidden"></div>
+        <div
+            id="url-tooltip"
+            class="fixed hidden opacity-0 z-[100] px-3 py-1.5 bg-gray-900 text-white text-xs rounded shadow-lg pointer-events-none transition-opacity duration-200 font-mono border border-gray-700"
+        ></div>
 
         <script src="script.js"></script>
     </body>
