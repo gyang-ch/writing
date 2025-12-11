@@ -85,7 +85,13 @@
             };
         </script>
 
-        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="styles.css" />
+        <style>
+            /* Custom utility for text balance until Tailwind 3.4 is fully standard in CDN */
+            .text-balance {
+                text-wrap: balance;
+            }
+        </style>
     </head>
 
     <body
@@ -99,37 +105,200 @@
         </div>
 
         <div
-            class="fixed inset-0 -z-10 pointer-events-none overflow-hidden transition-opacity duration-700"
+            class="fixed inset-0 -z-10 isolate overflow-hidden pointer-events-none"
         >
             <div
-                class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-gradient-to-tr from-accent/5 to-primary/5 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen transition-colors duration-700"
-            ></div>
+                aria-hidden="true"
+                class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80"
+            >
+                <div
+                    style="
+                        clip-path: polygon(
+                            74.1% 44.1%,
+                            100% 61.6%,
+                            97.5% 26.9%,
+                            85.5% 0.1%,
+                            80.7% 2%,
+                            72.5% 32.5%,
+                            60.2% 62.4%,
+                            52.4% 68.1%,
+                            47.5% 58.3%,
+                            45.2% 34.5%,
+                            27.5% 76.7%,
+                            0.1% 64.9%,
+                            17.9% 100%,
+                            27.6% 76.8%,
+                            76.1% 97.7%,
+                            74.1% 44.1%
+                        );
+                    "
+                    class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-30 bg-gradient-to-tr from-accent/40 to-primary/30 opacity-60 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem] transition-colors duration-700"
+                ></div>
+            </div>
+
             <div
-                class="absolute bottom-0 right-0 w-[800px] h-[600px] bg-gradient-to-tl from-accent/10 to-secondary/10 rounded-full blur-[100px] mix-blend-multiply dark:mix-blend-screen transition-colors duration-700"
-            ></div>
+                aria-hidden="true"
+                class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
+            >
+                <div
+                    style="
+                        clip-path: polygon(
+                            74.1% 44.1%,
+                            100% 61.6%,
+                            97.5% 26.9%,
+                            85.5% 0.1%,
+                            80.7% 2%,
+                            72.5% 32.5%,
+                            60.2% 62.4%,
+                            52.4% 68.1%,
+                            47.5% 58.3%,
+                            45.2% 34.5%,
+                            27.5% 76.7%,
+                            0.1% 64.9%,
+                            17.9% 100%,
+                            27.6% 76.8%,
+                            76.1% 97.7%,
+                            74.1% 44.1%
+                        );
+                    "
+                    class="relative left-[calc(50%+3rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 bg-gradient-to-tr from-accent/40 to-secondary/30 opacity-60 sm:left-[calc(50%+36rem)] sm:w-[72.1875rem] transition-colors duration-700"
+                ></div>
+            </div>
         </div>
 
         <nav
-            class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-bg/80 border-b border-primary/5 transition-all duration-300"
+            class="fixed top-0 inset-x-0 z-50 backdrop-blur-md bg-bg/70 border-b border-primary/5 transition-all duration-300 supports-[backdrop-filter]:bg-bg/60"
         >
             <div
                 class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between"
             >
-                <div class="flex items-center gap-3 group cursor-default">
-                    <div
-                        class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent font-bold font-serif group-hover:bg-accent group-hover:text-white transition-all duration-300"
-                    >
-                        DH
+                <div class="flex items-center gap-6">
+                    <div class="flex items-center gap-3 group cursor-default">
+                        <div
+                            class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent font-bold font-serif group-hover:bg-accent group-hover:text-white transition-all duration-300"
+                        >
+                            DH
+                        </div>
+                        <span
+                            class="font-semibold text-primary tracking-tight hidden sm:block"
+                            >DH6033 Reflections</span
+                        >
                     </div>
-                    <span
-                        class="font-semibold text-primary tracking-tight hidden sm:block"
-                        >DH6033 Reflections</span
-                    >
+
+                    <div class="relative group">
+                        <button
+                            id="tocToggle"
+                            class="inline-flex items-center gap-x-1 text-sm font-semibold text-secondary hover:text-primary transition-colors focus:outline-none"
+                        >
+                            <span>Contents</span>
+                            <svg
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                class="w-5 h-5 text-gray-400 group-hover:text-accent transition-colors"
+                            >
+                                <path
+                                    d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
+                                    clip-rule="evenodd"
+                                    fill-rule="evenodd"
+                                />
+                            </svg>
+                        </button>
+
+                        <div
+                            id="tocPanel"
+                            class="absolute left-0 -ml-4 top-full z-10 mt-3 w-screen max-w-sm overflow-hidden rounded-3xl bg-surface shadow-xl ring-1 ring-primary/10 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 opacity-0 invisible translate-y-1 duration-200 ease-out"
+                        >
+                            <div class="p-4">
+                                <div
+                                    class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-primary/5 transition-colors cursor-pointer"
+                                    onclick="scrollToSection('section-tei')"
+                                >
+                                    <div
+                                        class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-bg group-hover:bg-white"
+                                    >
+                                        <span
+                                            class="text-accent font-mono font-bold"
+                                            >&lt;/&gt;</span
+                                        >
+                                    </div>
+                                    <div>
+                                        <a
+                                            href="#section-tei"
+                                            class="font-semibold text-primary block"
+                                        >
+                                            TEI and XML
+                                            <span
+                                                class="absolute inset-0"
+                                            ></span>
+                                        </a>
+                                        <p class="mt-1 text-secondary text-sm">
+                                            Encoding frameworks & structures
+                                        </p>
+                                    </div>
+                                </div>
+                                <div
+                                    class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-primary/5 transition-colors cursor-pointer"
+                                    onclick="scrollToSection('section-oa')"
+                                >
+                                    <div
+                                        class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-bg group-hover:bg-white"
+                                    >
+                                        <span
+                                            class="text-accent font-serif font-bold"
+                                            >OA</span
+                                        >
+                                    </div>
+                                    <div>
+                                        <a
+                                            href="#section-oa"
+                                            class="font-semibold text-primary block"
+                                        >
+                                            Open Access
+                                            <span
+                                                class="absolute inset-0"
+                                            ></span>
+                                        </a>
+                                        <p class="mt-1 text-secondary text-sm">
+                                            Ethics of knowledge production
+                                        </p>
+                                    </div>
+                                </div>
+                                <div
+                                    class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-primary/5 transition-colors cursor-pointer"
+                                    onclick="scrollToSection('section-glam')"
+                                >
+                                    <div
+                                        class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-bg group-hover:bg-white"
+                                    >
+                                        <span
+                                            class="text-accent font-serif font-bold"
+                                            >3D</span
+                                        >
+                                    </div>
+                                    <div>
+                                        <a
+                                            href="#section-glam"
+                                            class="font-semibold text-primary block"
+                                        >
+                                            GLAM Digitisation
+                                            <span
+                                                class="absolute inset-0"
+                                            ></span>
+                                        </a>
+                                        <p class="mt-1 text-secondary text-sm">
+                                            Digital repatriation & bias
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <button
                     id="settingsToggle"
-                    class="group flex items-center gap-2 px-4 py-2 rounded-full bg-surface border border-primary/10 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/10 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-bg"
+                    class="group flex items-center gap-2 px-4 py-2 rounded-full bg-surface border border-primary/10 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/10 transition-all duration-300 focus:outline-none"
                 >
                     <span
                         class="text-xs font-medium uppercase tracking-wider text-secondary group-hover:text-primary"
@@ -324,24 +493,39 @@
             id="contentContainer"
             class="max-w-4xl mx-auto px-6 pt-32 pb-24 transition-all duration-300"
         >
-            <header class="mb-16 text-center">
+            <header class="mb-24 text-center">
+                <div class="hidden sm:mb-8 sm:flex sm:justify-center">
+                    <div
+                        class="relative rounded-full px-3 py-1 text-sm/6 text-secondary/80 ring-1 ring-primary/10 hover:ring-accent/50 transition-all bg-bg/50 backdrop-blur-sm"
+                    >
+                        Coursework Submission for
+                        <a href="#" class="font-semibold text-accent"
+                            ><span
+                                class="absolute inset-0"
+                                aria-hidden="true"
+                            ></span
+                            >DH6033</a
+                        >
+                    </div>
+                </div>
+
                 <h1
-                    class="text-4xl md:text-5xl lg:text-6xl font-bold text-primary mb-2 leading-tight tracking-tight"
+                    class="text-4xl md:text-5xl lg:text-7xl font-bold text-primary mb-6 leading-tight tracking-tight text-balance"
                 >
-                    Reflections on Topics in the
-                    <span class="text-primary">DH6033 Course</span>
+                    Reflections on Topics in the DH6033 Course
                 </h1>
-                <p class="text-xl text-accent font-serif mb-6 opacity-90">
-                    Guang Yang
-                </p>
+
                 <p
-                    class="text-lg md:text-xl text-secondary font-light italic max-w-2xl mx-auto"
+                    class="mt-6 text-lg md:text-xl text-secondary font-light max-w-2xl mx-auto text-pretty"
                 >
                     An essay on TEI, Open Access, and GLAM Digitisation
                 </p>
-                <div
-                    class="h-1 w-24 bg-gradient-to-r from-accent to-accent-hover mx-auto mt-8 rounded-full opacity-80"
-                ></div>
+
+                <div class="mt-8 flex items-center justify-center gap-x-6">
+                    <p class="text-accent font-serif opacity-90 italic">
+                        Guang Yang
+                    </p>
+                </div>
             </header>
 
             <article
@@ -361,7 +545,7 @@
                     field.
                 </p>
 
-                <section>
+                <section id="section-tei">
                     <h2>1. TEI and XML</h2>
                     <p>
                         Markup languages form the backbone of digital text
@@ -579,7 +763,7 @@
                     </div>
                 </section>
 
-                <section>
+                <section id="section-oa">
                     <h2>2. Open Access</h2>
                     <p>
                         The documentary <em>The Internet’s Own Boy</em> serves
@@ -850,7 +1034,7 @@
                     </p>
                 </section>
 
-                <section>
+                <section id="section-glam">
                     <h2>3. Digitisation in the GLAM sector</h2>
                     <p>
                         The digitisation in GLAMs provides many benefits. For

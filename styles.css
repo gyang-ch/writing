@@ -1,0 +1,45 @@
+/* CSS Variables linked to Tailwind Config */
+
+/* 1. DEFAULT (LIGHT) - Standard Slate */
+:root {
+    --color-bg: #f8fafc; /* slate-50 */
+    --color-surface: #ffffff; /* white */
+    --color-text: #334155; /* slate-700 */
+    --color-primary: #0f172a; /* slate-900 */
+    --color-secondary: #475569; /* slate-600 */
+    --color-accent: #2563eb; /* blue-600 */
+    --color-accent-hover: #1d4ed8; /* blue-700 */
+}
+
+/* 2. SEPIA THEME - Warm Paper & Coffee */
+[data-theme="sepia"] {
+    --color-bg: #f9f5eb; /* warm cream */
+    --color-surface: #fffef9; /* lighter cream */
+    --color-text: #5f4b32; /* deep coffee */
+    --color-primary: #433422; /* dark espresso */
+    --color-secondary: #8c7355; /* light brown */
+    --color-accent: #c05621; /* burnt orange */
+    --color-accent-hover: #9c4221; /* darker orange */
+}
+
+/* 3. GREY THEME - Solarized Low Contrast */
+[data-theme="grey"] {
+    --color-bg: #262626; /* neutral-800 */
+    --color-surface: #333333; /* neutral-750 */
+    --color-text: #a3a3a3; /* neutral-400 */
+    --color-primary: #d4d4d4; /* neutral-300 */
+    --color-secondary: #737373; /* neutral-500 */
+    --color-accent: #9ca3af; /* neutral-400 (soft highlight) */
+    --color-accent-hover: #d1d5db; /* neutral-300 */
+}
+
+/* 4. DARK THEME - Deep Space */
+[data-theme="dark"] {
+    --color-bg: #0f172a; /* slate-900 */
+    --color-surface: #1e293b; /* slate-800 */
+    --color-text: #cbd5e1; /* slate-300 */
+    --color-primary: #f1f5f9; /* slate-100 */
+    --color-secondary: #94a3b8; /* slate-400 */
+    --color-accent: #2dd4bf; /* teal-400 */
+    --color-accent-hover: #14b8a6; /* teal-500 */
+}

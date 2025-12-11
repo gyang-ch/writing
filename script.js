@@ -9,6 +9,10 @@ const progressBar = document.getElementById("progressBar");
 const fontSelect = document.getElementById("fontSelect");
 const sizeLabel = document.getElementById("currentSizeLabel");
 
+// Table of Contents Elements
+const tocToggle = document.getElementById("tocToggle");
+const tocPanel = document.getElementById("tocPanel");
+
 let currentSize = 18;
 
 // --- INITIALIZATION ---
@@ -34,17 +38,66 @@ window.onload = () => {
 // --- SETTINGS PANEL TOGGLE ---
 settingsToggle.addEventListener("click", () => {
   settingsPanel.classList.remove("translate-x-[120%]");
+  // Close TOC if open
+  closeToc();
 });
 closeSettings.addEventListener("click", () => {
   settingsPanel.classList.add("translate-x-[120%]");
 });
 
+// --- TABLE OF CONTENTS TOGGLE ---
+if (tocToggle && tocPanel) {
+  tocToggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isClosed = tocPanel.classList.contains("invisible");
+
+    if (isClosed) {
+      openToc();
+    } else {
+      closeToc();
+    }
+  });
+}
+
+function openToc() {
+  if (!tocPanel) return;
+  tocPanel.classList.remove("invisible", "opacity-0", "translate-y-1");
+  // Close settings if open
+  settingsPanel.classList.add("translate-x-[120%]");
+}
+
+function closeToc() {
+  if (!tocPanel) return;
+  tocPanel.classList.add("invisible", "opacity-0", "translate-y-1");
+}
+
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) {
+    // Offset for fixed header
+    const y = el.getBoundingClientRect().top + window.pageYOffset - 100;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }
+  closeToc();
+}
+
+// --- GLOBAL CLICK LISTENER (CLOSE PANELS) ---
 document.addEventListener("click", (event) => {
+  // Close Settings Panel logic
   if (!settingsPanel.classList.contains("translate-x-[120%]")) {
     const isClickInsidePanel = settingsPanel.contains(event.target);
     const isClickOnToggle = settingsToggle.contains(event.target);
     if (!isClickInsidePanel && !isClickOnToggle) {
       settingsPanel.classList.add("translate-x-[120%]");
+    }
+  }
+
+  // Close TOC logic
+  if (tocPanel && !tocPanel.classList.contains("invisible")) {
+    const isClickInsideToc = tocPanel.contains(event.target);
+    const isClickOnTocToggle = tocToggle.contains(event.target);
+    if (!isClickInsideToc && !isClickOnTocToggle) {
+      closeToc();
     }
   }
 });
@@ -96,7 +149,7 @@ window.onscroll = function () {
     document.documentElement.scrollHeight -
     document.documentElement.clientHeight;
   let scrolled = (winScroll / height) * 100;
-  progressBar.style.width = scrolled + "%";
+  if (progressBar) progressBar.style.width = scrolled + "%";
 };
 
 // --- INTERACTIVE ARTEFACTS ---
