@@ -75,8 +75,6 @@
                                         borderRadius: "0.25rem",
                                         fontWeight: "500",
                                     },
-                                    "code::before": { content: '""' },
-                                    "code::after": { content: '""' },
                                 },
                             },
                         }),
@@ -85,13 +83,7 @@
             };
         </script>
 
-        <link rel="stylesheet" href="styles.css" />
-        <style>
-            /* Custom utility for text balance until Tailwind 3.4 is fully standard in CDN */
-            .text-balance {
-                text-wrap: balance;
-            }
-        </style>
+        <link rel="stylesheet" href="style.css" />
     </head>
 
     <body
@@ -135,7 +127,6 @@
                     class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-30 bg-gradient-to-tr from-accent/40 to-primary/30 opacity-60 sm:left-[calc(50%-30rem)] sm:w-[72.1875rem] transition-colors duration-700"
                 ></div>
             </div>
-
             <div
                 aria-hidden="true"
                 class="absolute inset-x-0 top-[calc(100%-13rem)] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[calc(100%-30rem)]"
@@ -172,25 +163,24 @@
             <div
                 class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between"
             >
-                <div class="flex items-center gap-6">
-                    <div class="flex items-center gap-3 group cursor-default">
-                        <div
-                            class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent font-bold font-serif group-hover:bg-accent group-hover:text-white transition-all duration-300"
-                        >
-                            DH
-                        </div>
-                        <span
-                            class="font-semibold text-primary tracking-tight hidden sm:block"
-                            >DH6033 Reflections</span
-                        >
+                <div class="flex items-center gap-3 group cursor-default">
+                    <div
+                        class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent font-bold font-serif group-hover:bg-accent group-hover:text-white transition-all duration-300"
+                    >
+                        DH
                     </div>
+                    <span class="font-semibold text-primary tracking-tight"
+                        >DH6033 – Guang Yang</span
+                    >
+                </div>
 
+                <div class="flex items-center gap-4">
                     <div class="relative group">
                         <button
-                            id="tocToggle"
+                            id="assignmentsToggle"
                             class="inline-flex items-center gap-x-1 text-sm font-semibold text-secondary hover:text-primary transition-colors focus:outline-none"
                         >
-                            <span>Contents</span>
+                            <span>Assignments</span>
                             <svg
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
@@ -206,125 +196,62 @@
                         </button>
 
                         <div
-                            id="tocPanel"
-                            class="absolute left-0 -ml-4 top-full z-10 mt-3 w-screen max-w-sm overflow-hidden rounded-3xl bg-surface shadow-xl ring-1 ring-primary/10 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 opacity-0 invisible translate-y-1 duration-200 ease-out"
+                            id="assignmentsPanel"
+                            class="absolute right-0 top-full z-10 mt-3 w-72 overflow-hidden rounded-xl bg-surface shadow-xl ring-1 ring-primary/10 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 opacity-0 invisible translate-y-1 duration-200 ease-out"
                         >
-                            <div class="p-4">
-                                <div
-                                    class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-primary/5 transition-colors cursor-pointer"
-                                    onclick="scrollToSection('section-tei')"
+                            <div class="p-2">
+                                <a
+                                    href="https://gyang-ch.github.io/presentation/"
+                                    class="block rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-primary/5 transition-colors"
                                 >
-                                    <div
-                                        class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-bg group-hover:bg-white"
-                                    >
-                                        <span
-                                            class="text-accent font-mono font-bold"
-                                            >&lt;/&gt;</span
-                                        >
-                                    </div>
-                                    <div>
-                                        <a
-                                            href="#section-tei"
-                                            class="font-semibold text-primary block"
-                                        >
-                                            TEI and XML
-                                            <span
-                                                class="absolute inset-0"
-                                            ></span>
-                                        </a>
-                                        <p class="mt-1 text-secondary text-sm">
-                                            Encoding frameworks & structures
-                                        </p>
-                                    </div>
-                                </div>
-                                <div
-                                    class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-primary/5 transition-colors cursor-pointer"
-                                    onclick="scrollToSection('section-oa')"
+                                    Presentation
+                                </a>
+                                <a
+                                    href="https://gyang-ch.github.io/writing/"
+                                    class="block rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-primary/5 transition-colors"
                                 >
-                                    <div
-                                        class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-bg group-hover:bg-white"
-                                    >
-                                        <span
-                                            class="text-accent font-serif font-bold"
-                                            >OA</span
-                                        >
-                                    </div>
-                                    <div>
-                                        <a
-                                            href="#section-oa"
-                                            class="font-semibold text-primary block"
-                                        >
-                                            Open Access
-                                            <span
-                                                class="absolute inset-0"
-                                            ></span>
-                                        </a>
-                                        <p class="mt-1 text-secondary text-sm">
-                                            Ethics of knowledge production
-                                        </p>
-                                    </div>
-                                </div>
-                                <div
-                                    class="group relative flex gap-x-6 rounded-lg p-4 hover:bg-primary/5 transition-colors cursor-pointer"
-                                    onclick="scrollToSection('section-glam')"
+                                    Reflections on Course Topics
+                                </a>
+                                <a
+                                    href="https://gyang-ch.github.io/artefact/"
+                                    class="block rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-primary/5 transition-colors"
                                 >
-                                    <div
-                                        class="mt-1 flex h-11 w-11 flex-none items-center justify-center rounded-lg bg-bg group-hover:bg-white"
-                                    >
-                                        <span
-                                            class="text-accent font-serif font-bold"
-                                            >3D</span
-                                        >
-                                    </div>
-                                    <div>
-                                        <a
-                                            href="#section-glam"
-                                            class="font-semibold text-primary block"
-                                        >
-                                            GLAM Digitisation
-                                            <span
-                                                class="absolute inset-0"
-                                            ></span>
-                                        </a>
-                                        <p class="mt-1 text-secondary text-sm">
-                                            Digital repatriation & bias
-                                        </p>
-                                    </div>
-                                </div>
+                                    Reflection on the Group Work Artefact
+                                </a>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <button
-                    id="settingsToggle"
-                    class="group flex items-center gap-2 px-4 py-2 rounded-full bg-surface border border-primary/10 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/10 transition-all duration-300 focus:outline-none"
-                >
-                    <span
-                        class="text-xs font-medium uppercase tracking-wider text-secondary group-hover:text-primary"
-                        >Reader View</span
+                    <button
+                        id="settingsToggle"
+                        class="group flex items-center gap-2 px-4 py-2 rounded-full bg-surface border border-accent hover:bg-accent hover:text-white hover:shadow-lg transition-all duration-300 focus:outline-none"
                     >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-4 w-4 text-accent group-hover:rotate-90 transition-transform duration-500"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                    >
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                        />
-                        <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                    </svg>
-                </button>
+                        <span
+                            class="text-xs font-medium uppercase tracking-wider text-secondary group-hover:text-white"
+                            >Reader View</span
+                        >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            class="h-4 w-4 text-accent group-hover:text-white group-hover:rotate-90 transition-transform duration-500"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                        >
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                            />
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                            />
+                        </svg>
+                    </button>
+                </div>
             </div>
         </nav>
 
@@ -345,7 +272,6 @@
                     &times;
                 </button>
             </div>
-
             <div class="space-y-6">
                 <div>
                     <label
@@ -355,83 +281,34 @@
                     <div class="grid grid-cols-4 gap-2">
                         <button
                             onclick="setTheme('light')"
-                            class="h-10 rounded-lg bg-white border border-gray-200 text-gray-800 hover:ring-2 hover:ring-blue-500 transition-all shadow-sm"
+                            class="h-10 rounded-lg bg-white border border-accent text-gray-800 hover:ring-2 hover:ring-blue-500 transition-all shadow-sm"
                             title="Light"
                         >
                             Aa
                         </button>
                         <button
                             onclick="setTheme('sepia')"
-                            class="h-10 rounded-lg bg-[#f9f5eb] border border-[#e6dcc6] text-[#5f4b32] hover:ring-2 hover:ring-orange-700 transition-all shadow-sm"
+                            class="h-10 rounded-lg bg-[#f9f5eb] border border-accent text-[#5f4b32] hover:ring-2 hover:ring-orange-700 transition-all shadow-sm"
                             title="Sepia"
                         >
                             Aa
                         </button>
                         <button
                             onclick="setTheme('grey')"
-                            class="h-10 rounded-lg bg-[#262626] border border-[#404040] text-[#a3a3a3] hover:ring-2 hover:ring-gray-400 transition-all shadow-sm"
+                            class="h-10 rounded-lg bg-[#262626] border border-accent text-[#a3a3a3] hover:ring-2 hover:ring-gray-400 transition-all shadow-sm"
                             title="Grey"
                         >
                             Aa
                         </button>
                         <button
                             onclick="setTheme('dark')"
-                            class="h-10 rounded-lg bg-[#0f172a] border border-[#1e293b] text-white hover:ring-2 hover:ring-teal-400 transition-all shadow-sm"
+                            class="h-10 rounded-lg bg-[#0f172a] border border-accent text-white hover:ring-2 hover:ring-teal-400 transition-all shadow-sm"
                             title="Dark"
                         >
                             Aa
                         </button>
                     </div>
                 </div>
-
-                <div>
-                    <label
-                        class="text-xs font-bold uppercase tracking-wider text-secondary mb-3 block"
-                        >Typeface</label
-                    >
-                    <div class="relative">
-                        <select
-                            id="fontSelect"
-                            onchange="setFont(this.value)"
-                            class="w-full bg-bg border border-primary/20 text-primary rounded-lg p-2.5 text-sm appearance-none focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-shadow"
-                        >
-                            <option value="'Times New Roman', Times, serif">
-                                Times New Roman
-                            </option>
-                            <option value="'Merriweather', serif">
-                                Merriweather
-                            </option>
-                            <option value="'Inter', sans-serif">Inter</option>
-                            <option value="Arial, Helvetica, sans-serif">
-                                Arial
-                            </option>
-                            <option value="'Aptos', sans-serif">Aptos</option>
-                            <option value="'Lora', serif">Lora</option>
-                            <option value="Georgia, serif">Georgia</option>
-                            <option value="Verdana, sans-serif">Verdana</option>
-                            <option value="Tahoma, sans-serif">Tahoma</option>
-                            <option value="Calibri, sans-serif">Calibri</option>
-                        </select>
-                        <div
-                            class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none"
-                        >
-                            <svg
-                                class="w-4 h-4 text-secondary"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    stroke-width="2"
-                                    d="M19 9l-7 7-7-7"
-                                ></path>
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-
                 <div>
                     <label
                         class="text-xs font-bold uppercase tracking-wider text-secondary mb-3 block"
@@ -442,7 +319,7 @@
                     >
                         <button
                             onclick="adjustFontSize(-2)"
-                            class="p-2 hover:text-accent transition-colors w-10 text-center text-secondary rounded"
+                            class="p-2 border border-accent rounded hover:bg-accent hover:text-white transition-colors w-10 text-center text-secondary"
                         >
                             A-
                         </button>
@@ -453,13 +330,12 @@
                         >
                         <button
                             onclick="adjustFontSize(2)"
-                            class="p-2 hover:text-accent transition-colors w-10 text-center text-secondary rounded"
+                            class="p-2 border border-accent rounded hover:bg-accent hover:text-white transition-colors w-10 text-center text-secondary"
                         >
                             A+
                         </button>
                     </div>
                 </div>
-
                 <div>
                     <label
                         class="text-xs font-bold uppercase tracking-wider text-secondary mb-3 block"
@@ -468,19 +344,19 @@
                     <div class="flex gap-2">
                         <button
                             onclick="setWidth('max-w-2xl')"
-                            class="flex-1 py-2 text-xs border border-primary/20 rounded-lg text-secondary hover:bg-accent/10 hover:border-accent hover:text-accent transition-all"
+                            class="flex-1 py-2 text-xs border border-accent rounded-lg text-secondary hover:bg-accent hover:text-white transition-all"
                         >
                             Narrow
                         </button>
                         <button
                             onclick="setWidth('max-w-4xl')"
-                            class="flex-1 py-2 text-xs border border-primary/20 rounded-lg text-secondary hover:bg-accent/10 hover:border-accent hover:text-accent transition-all"
+                            class="flex-1 py-2 text-xs border border-accent rounded-lg text-secondary hover:bg-accent hover:text-white transition-all"
                         >
                             Normal
                         </button>
                         <button
                             onclick="setWidth('max-w-6xl')"
-                            class="flex-1 py-2 text-xs border border-primary/20 rounded-lg text-secondary hover:bg-accent/10 hover:border-accent hover:text-accent transition-all"
+                            class="flex-1 py-2 text-xs border border-accent rounded-lg text-secondary hover:bg-accent hover:text-white transition-all"
                         >
                             Wide
                         </button>
@@ -508,19 +384,16 @@
                         >
                     </div>
                 </div>
-
                 <h1
                     class="text-4xl md:text-5xl lg:text-7xl font-bold text-primary mb-6 leading-tight tracking-tight text-balance"
                 >
                     Reflections on Topics in the DH6033 Course
                 </h1>
-
                 <p
                     class="mt-6 text-lg md:text-xl text-secondary font-light max-w-2xl mx-auto text-pretty"
                 >
                     An essay on TEI, Open Access, and GLAM Digitisation
                 </p>
-
                 <div class="mt-8 flex items-center justify-center gap-x-6">
                     <p class="text-accent font-serif opacity-90 italic">
                         Guang Yang
@@ -567,7 +440,6 @@
                         <code>.zip</code> and extracting it, one can view the
                         underlying XML architecture.
                     </p>
-
                     <p>
                         In the Digital Humanities, the Text Encoding Initiative
                         (TEI) is the de facto standard for XML implementation.
@@ -615,14 +487,12 @@
                             breaking the XML hierarchy.
                         </li>
                     </ul>
-
                     <blockquote>
                         TEI preserves scholarly nuance, but it is
                         labour-intensive, which means large-scale TEI projects
                         are more likely to be accomplished by well-resourced
                         institutions.
                     </blockquote>
-
                     <p>
                         Furthermore, TEI is not a static standard; it evolves to
                         meet both technical and social challenges.
@@ -647,7 +517,6 @@
                         empowering encoders to use more culturally accurate and
                         inclusive personography in digital editions.
                     </p>
-
                     <p>
                         A compelling application of these standards is the
                         <a
@@ -689,20 +558,19 @@
                                 <button
                                     onclick="toggleTei('code')"
                                     id="btn-code"
-                                    class="px-3 py-1.5 text-xs font-medium rounded-md bg-white dark:bg-gray-700 shadow-sm text-primary transition-all"
+                                    class="px-3 py-1.5 text-xs font-medium rounded-md border border-accent transition-all bg-accent text-white"
                                 >
                                     XML Code
                                 </button>
                                 <button
                                     onclick="toggleTei('render')"
                                     id="btn-render"
-                                    class="px-3 py-1.5 text-xs font-medium rounded-md text-secondary hover:bg-black/5 dark:hover:bg-white/5 transition-all"
+                                    class="px-3 py-1.5 text-xs font-medium rounded-md border border-accent/30 hover:border-accent text-secondary hover:text-primary transition-all"
                                 >
                                     Reader View
                                 </button>
                             </div>
                         </div>
-
                         <div
                             id="tei-code"
                             class="p-6 bg-[#1e1e1e] text-gray-300 font-mono text-sm overflow-x-auto"
@@ -725,7 +593,6 @@
 <span class="text-green-400">&lt;/entry&gt;</span>
 </pre>
                         </div>
-
                         <div
                             id="tei-render"
                             class="hidden p-8 bg-surface text-center flex flex-col items-center justify-center min-h-[250px]"
@@ -806,7 +673,6 @@
                         system where only well-funded voices can afford to be
                         open.
                     </p>
-
                     <p>
                         Furthermore, the debate requires nuance when
                         distinguishing between different formats of scholarship.
@@ -822,7 +688,6 @@
                         libraries" like Z-Library, despite the legal and ethical
                         grey areas they occupy.
                     </p>
-
                     <p>
                         The definition of what constitutes a "research output"
                         further complicates the application of Open Access
@@ -1019,7 +884,6 @@
                             </table>
                         </div>
                     </div>
-
                     <p>
                         This distinction creates a personal tension: as a
                         consumer of intellectual resources, I appreciate the
@@ -1063,19 +927,18 @@
                         major digital collections around the world and build
                         them as a database.
                     </p>
-
                     <p>
                         <span
                             class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Zhang, Y., Jiang, R., Xie, L., Zhao, Y., Liu, C., Ding, T., Chen, S. and Yuan, X. (2023) ‘OldVisOnline: Curating a dataset of historical visualizations’, IEEE Transactions on Visualization and Computer Graphics, 30(1), pp. 551-561."
                             >Zhang et al. (2023)</span
                         >
-                        note in their creation of
-                        <em>OldVisOnline</em> that historical visualizations are
-                        often scattered across disparate institutions
-                        (libraries, museums, archives) with inconsistent
-                        metadata, making a unified dataset crucial for studying
-                        the visual history of science. Furthermore,
+                        note in their creation of <em>OldVisOnline</em> that
+                        historical visualizations are often scattered across
+                        disparate institutions (libraries, museums, archives)
+                        with inconsistent metadata, making a unified dataset
+                        crucial for studying the visual history of science.
+                        Furthermore,
                         <span
                             class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Mei, X., Zhang, Y., Yang, C., Shi, R. and Yuan, X. (2025) ‘ZuantuSet: A Collection of Historical Chinese Visualizations and Illustrations’, in Proceedings of the 2025 CHI Conference on Human Factors in Computing Systems, pp. 1-15."
@@ -1089,7 +952,6 @@
                         specific taxonomy adjustments to capture unique artistic
                         styles.
                     </p>
-
                     <p>
                         However, despite thirty years of investment, only about
                         22% of heritage collections in Europe are digitized
@@ -1111,16 +973,15 @@
                         easily shared or harvested. Without interoperable
                         metadata, digitized items effectively remain invisible.
                     </p>
-
                     <p>
                         Digitisation itself encompasses a wide range of
                         technical methods. Traditional techniques include
                         <strong>2D scanning</strong> of flat objects
                         (manuscripts, prints),
                         <strong>high‑resolution photography</strong> for
-                        artworks, and <strong>multispectral imaging</strong>
-                        used to reveal erased or faded text. More advanced
-                        projects use
+                        artworks, and
+                        <strong>multispectral imaging</strong> used to reveal
+                        erased or faded text. More advanced projects use
                         <strong>photogrammetry</strong>, which reconstructs 3D
                         geometry from many photographs, and
                         <strong>structured‑light</strong> or
@@ -1128,7 +989,6 @@
                         accurate 3D meshes of objects such as sculptures,
                         scientific instruments, or archaeological artefacts.
                     </p>
-
                     <p>
                         While these technologies are impressive, they are not
                         without limitations.
@@ -1153,7 +1013,6 @@
                         cumbersome download forms to track usage, creating
                         friction that discourages reuse.
                     </p>
-
                     <p>
                         Digitisation is often legally blocked because scanning
                         or copying an artwork, book, or photograph constitutes
@@ -1175,19 +1034,17 @@
                         history where the "digital public domain" does not
                         accurately reflect our recent past.
                     </p>
-
                     <p>
-                        <strong>
-                            This distortion is not solely legal; it is also
-                            structural.
-                        </strong>
+                        <strong
+                            >This distortion is not solely legal; it is also
+                            structural.</strong
+                        >
                         In their quantitative analysis of Google Arts & Culture,
                         <span
                             class="text-accent font-medium hover:text-accent-hover transition-colors"
                             data-cite="Kizhner, I., Terras, M., Rumyantsev, M., Khokhlova, V., Demeshkova, E., Rudov, I. and Afanasieva, J. (2021) “Digital cultural colonialism: measuring bias in aggregated digitized content held in Google Arts and Culture”, Digital Scholarship in the Humanities, 36(3), pp. 607–640."
+                            >Kizhner et al. (2021)</span
                         >
-                            Kizhner et al. (2021)
-                        </span>
                         introduce the concept of “digital cultural colonialism”.
                         They demonstrate that despite the platform’s global
                         reach, more than 90% of the its content originates from
@@ -1383,7 +1240,6 @@
                             <em>Journal of the Text Encoding Initiative</em>,
                             17.
                         </li>
-
                         <li class="pl-8 -indent-8">
                             Beshero-Bondar, E.E., Viglianti, R., Bermúdez-Sabel,
                             H. and Jenstad, J. (2024) ‘Revising sex and gender
@@ -1391,14 +1247,12 @@
                             <em>Journal of the Text Encoding Initiative</em>,
                             17.
                         </li>
-
                         <li class="pl-8 -indent-8">
                             Clark, A. and Connell, S. (2024) ‘Texts All the Way
                             Down: The Intertextual Networks Project’,
                             <em>Journal of the Text Encoding Initiative</em>,
                             17.
                         </li>
-
                         <li class="pl-8 -indent-8">
                             Coad, S. (2019) ‘Digitisation, Copyright and the
                             GLAM Sector: Constructing a Fit-for-Purpose Safe
@@ -1406,13 +1260,11 @@
                             <em>Victoria University of Wellington Law Review</em
                             >, 50, pp. 1–32.
                         </li>
-
                         <li class="pl-8 -indent-8">
                             Coulton, R. (2025) ‘Picturing the flora of China’,
                             <em>Journal of the History of Collections</em>,
                             37(1), pp. 135-155.
                         </li>
-
                         <li class="pl-8 -indent-8">
                             Kizhner, I., Terras, M., Rumyantsev, M., Khokhlova,
                             V., Demeshkova, E., Rudov, I. and Afanasieva, J.
@@ -1422,13 +1274,11 @@
                             <em>Digital Scholarship in the Humanities</em>,
                             36(3), pp. 607–640.
                         </li>
-
                         <li class="pl-8 -indent-8">
                             Lim, S. and Liew, C.L. (2011) ‘Metadata quality and
                             interoperability of GLAM digital images’,
                             <em>Aslib Proceedings</em>, 63(5), pp. 484–498.
                         </li>
-
                         <li class="pl-8 -indent-8">
                             Mei, X., Zhang, Y., Yang, C., Shi, R. and Yuan, X.
                             (2025) ‘ZuantuSet: A Collection of Historical
@@ -1438,7 +1288,6 @@
                                 Factors in Computing Systems</em
                             >, pp. 1-15.
                         </li>
-
                         <li class="pl-8 -indent-8">
                             Papillon, M., O’Neill, B., Bourque, M., Marland, A.
                             and White, G. (2019) ‘Open Access and Academic
@@ -1447,13 +1296,11 @@
                             <em>Canadian Journal of Political Science</em>,
                             52(4), pp. 903–922.
                         </li>
-
                         <li class="pl-8 -indent-8">
                             Rees Koerner, E. and Ackrell, L. (2025) ‘Making
                             museum research more visible: Open Access in the
                             GLAM sector’, <em>Science Museum Group Journal</em>.
                         </li>
-
                         <li class="pl-8 -indent-8">
                             Reimann, S., Rodenhausen, L., Elwert, F. and
                             Scheffler, T. (2024) ‘By a Thread: Encoding Online
@@ -1461,7 +1308,6 @@
                             <em>Journal of the Text Encoding Initiative</em>,
                             17.
                         </li>
-
                         <li class="pl-8 -indent-8">
                             Scholger, M., Steiner, E., Strutz, S. and
                             Frauendorfer, M. (2025) ‘Early Manila Hokkien:
@@ -1470,7 +1316,6 @@
                             <em>DH 2025: Conference Abstracts</em> (The 2025
                             Digital Humanities Conference, Lisbon).
                         </li>
-
                         <li class="pl-8 -indent-8">
                             Tausch, R., Domajnko, M., Ritz, M., Knuth, M.,
                             Santos, P. and Fellner, D.W. (2019) ‘Towards 3D
@@ -1481,7 +1326,6 @@
                                 Research</em
                             >.
                         </li>
-
                         <li class="pl-8 -indent-8">
                             Terras, M. (2022) ‘Digital humanities and digitised
                             cultural heritage’, in O'Sullivan, J. (ed.)
@@ -1490,14 +1334,12 @@
                                 Humanities</em
                             >. London: Bloomsbury, pp. 255–266.
                         </li>
-
                         <li class="pl-8 -indent-8">
                             Valeonti, F., Terras, M. and Hudson-Smith, A. (2019)
                             ‘How open is OpenGLAM? Identifying barriers to
                             commercial and non-commercial reuse of digitised art
                             images’, <em>Journal of Documentation</em>, 76(1).
                         </li>
-
                         <li class="pl-8 -indent-8">
                             Zhang, Y., Jiang, R., Xie, L., Zhao, Y., Liu, C.,
                             Ding, T., Chen, S. and Yuan, X. (2023)
@@ -1523,7 +1365,7 @@
                             <div
                                 class="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center text-accent font-bold font-serif"
                             >
-                                GY
+                                DH
                             </div>
                             <span
                                 class="self-center text-2xl font-semibold whitespace-nowrap text-primary"
@@ -1550,13 +1392,11 @@
                                     <a
                                         href="https://gyang-ch.github.io/artefact/"
                                         class="hover:underline text-accent"
-                                        >Reflection on The Group Work
-                                        Artefact</a
+                                        >Reflection on Group Work</a
                                     >
                                 </li>
                             </ul>
                         </div>
-
                         <div>
                             <h2
                                 class="mb-6 text-sm font-semibold text-primary uppercase"
@@ -1609,8 +1449,8 @@
                     <span class="text-sm text-secondary sm:text-center"
                         >© 2025
                         <a href="#" class="hover:underline">Guang Yang</a>. All
-                        Rights Reserved.
-                    </span>
+                        Rights Reserved.</span
+                    >
                 </div>
             </div>
         </footer>

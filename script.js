@@ -9,16 +9,15 @@ const progressBar = document.getElementById("progressBar");
 const fontSelect = document.getElementById("fontSelect");
 const sizeLabel = document.getElementById("currentSizeLabel");
 
-// Table of Contents Elements
-const tocToggle = document.getElementById("tocToggle");
-const tocPanel = document.getElementById("tocPanel");
+// Assignments Menu Elements
+const assignmentsToggle = document.getElementById("assignmentsToggle");
+const assignmentsPanel = document.getElementById("assignmentsPanel");
 
 let currentSize = 18;
 
 // --- INITIALIZATION ---
 window.onload = () => {
   const savedTheme = localStorage.getItem("theme") || "light";
-  // Default font now matches the first option in your list
   const savedFont =
     localStorage.getItem("font") || "'Times New Roman', Times, serif";
   const savedWidth = localStorage.getItem("width") || "max-w-4xl";
@@ -36,55 +35,52 @@ window.onload = () => {
 };
 
 // --- SETTINGS PANEL TOGGLE ---
-settingsToggle.addEventListener("click", () => {
-  settingsPanel.classList.remove("translate-x-[120%]");
-  // Close TOC if open
-  closeToc();
-});
-closeSettings.addEventListener("click", () => {
-  settingsPanel.classList.add("translate-x-[120%]");
-});
+if (settingsToggle) {
+  settingsToggle.addEventListener("click", () => {
+    settingsPanel.classList.remove("translate-x-[120%]");
+    closeAssignmentsMenu();
+  });
+}
 
-// --- TABLE OF CONTENTS TOGGLE ---
-if (tocToggle && tocPanel) {
-  tocToggle.addEventListener("click", (e) => {
+if (closeSettings) {
+  closeSettings.addEventListener("click", () => {
+    settingsPanel.classList.add("translate-x-[120%]");
+  });
+}
+
+// --- ASSIGNMENTS MENU TOGGLE ---
+if (assignmentsToggle && assignmentsPanel) {
+  assignmentsToggle.addEventListener("click", (e) => {
     e.stopPropagation();
-    const isClosed = tocPanel.classList.contains("invisible");
+    const isClosed = assignmentsPanel.classList.contains("invisible");
 
     if (isClosed) {
-      openToc();
+      openAssignmentsMenu();
     } else {
-      closeToc();
+      closeAssignmentsMenu();
     }
   });
 }
 
-function openToc() {
-  if (!tocPanel) return;
-  tocPanel.classList.remove("invisible", "opacity-0", "translate-y-1");
+function openAssignmentsMenu() {
+  if (!assignmentsPanel) return;
+  assignmentsPanel.classList.remove("invisible", "opacity-0", "translate-y-1");
   // Close settings if open
-  settingsPanel.classList.add("translate-x-[120%]");
+  if (settingsPanel) settingsPanel.classList.add("translate-x-[120%]");
 }
 
-function closeToc() {
-  if (!tocPanel) return;
-  tocPanel.classList.add("invisible", "opacity-0", "translate-y-1");
-}
-
-function scrollToSection(id) {
-  const el = document.getElementById(id);
-  if (el) {
-    // Offset for fixed header
-    const y = el.getBoundingClientRect().top + window.pageYOffset - 100;
-    window.scrollTo({ top: y, behavior: "smooth" });
-  }
-  closeToc();
+function closeAssignmentsMenu() {
+  if (!assignmentsPanel) return;
+  assignmentsPanel.classList.add("invisible", "opacity-0", "translate-y-1");
 }
 
 // --- GLOBAL CLICK LISTENER (CLOSE PANELS) ---
 document.addEventListener("click", (event) => {
   // Close Settings Panel logic
-  if (!settingsPanel.classList.contains("translate-x-[120%]")) {
+  if (
+    settingsPanel &&
+    !settingsPanel.classList.contains("translate-x-[120%]")
+  ) {
     const isClickInsidePanel = settingsPanel.contains(event.target);
     const isClickOnToggle = settingsToggle.contains(event.target);
     if (!isClickInsidePanel && !isClickOnToggle) {
@@ -92,12 +88,12 @@ document.addEventListener("click", (event) => {
     }
   }
 
-  // Close TOC logic
-  if (tocPanel && !tocPanel.classList.contains("invisible")) {
-    const isClickInsideToc = tocPanel.contains(event.target);
-    const isClickOnTocToggle = tocToggle.contains(event.target);
-    if (!isClickInsideToc && !isClickOnTocToggle) {
-      closeToc();
+  // Close Assignments Menu logic
+  if (assignmentsPanel && !assignmentsPanel.classList.contains("invisible")) {
+    const isClickInsideMenu = assignmentsPanel.contains(event.target);
+    const isClickOnToggle = assignmentsToggle.contains(event.target);
+    if (!isClickInsideMenu && !isClickOnToggle) {
+      closeAssignmentsMenu();
     }
   }
 });
@@ -114,16 +110,15 @@ function setTheme(themeName) {
 }
 
 function setFont(fontValue) {
-  // Directly apply the raw font string to the article text
+  if (!articleText) return;
   articleText.style.fontFamily = fontValue;
-  // Also apply to headings specifically if Tailwind prose overrides them
   const headings = articleText.querySelectorAll("h1, h2, h3, h4");
   headings.forEach((h) => (h.style.fontFamily = fontValue));
-
   localStorage.setItem("font", fontValue);
 }
 
 function setWidth(maxWidthClass) {
+  if (!contentContainer) return;
   contentContainer.classList.remove("max-w-2xl", "max-w-4xl", "max-w-6xl");
   contentContainer.classList.add(maxWidthClass);
   localStorage.setItem("width", maxWidthClass);
@@ -137,8 +132,9 @@ function adjustFontSize(delta) {
 }
 
 function applyFontSize() {
+  if (!articleText) return;
   articleText.style.fontSize = `${currentSize}px`;
-  sizeLabel.textContent = `${currentSize}px`;
+  if (sizeLabel) sizeLabel.textContent = `${currentSize}px`;
   localStorage.setItem("size", currentSize);
 }
 
@@ -153,38 +149,41 @@ window.onscroll = function () {
 };
 
 // --- INTERACTIVE ARTEFACTS ---
-
 function toggleTei(mode) {
   const renderView = document.getElementById("tei-render");
   const codeView = document.getElementById("tei-code");
   const btnRender = document.getElementById("btn-render");
   const btnCode = document.getElementById("btn-code");
 
-  const activeClass = "bg-white dark:bg-gray-700 shadow-sm text-primary";
-  const inactiveClass = "text-secondary hover:bg-black/5 dark:hover:bg-white/5";
+  if (!renderView || !codeView) return;
+
+  // Updated styles with Accent Border
+  const activeClass =
+    "px-3 py-1.5 text-xs font-medium rounded-md transition-all bg-accent text-white border border-accent";
+  const inactiveClass =
+    "px-3 py-1.5 text-xs font-medium rounded-md transition-all text-secondary hover:text-primary border border-accent/30 hover:border-accent";
 
   if (mode === "render") {
     renderView.classList.remove("hidden");
     codeView.classList.add("hidden");
 
-    btnRender.className = `px-3 py-1.5 text-xs font-medium rounded-md transition-all ${activeClass}`;
-    btnCode.className = `px-3 py-1.5 text-xs font-medium rounded-md transition-all ${inactiveClass}`;
+    btnRender.className = activeClass;
+    btnCode.className = inactiveClass;
   } else {
     renderView.classList.add("hidden");
     codeView.classList.remove("hidden");
 
-    btnRender.className = `px-3 py-1.5 text-xs font-medium rounded-md transition-all ${inactiveClass}`;
-    btnCode.className = `px-3 py-1.5 text-xs font-medium rounded-md transition-all ${activeClass}`;
+    btnRender.className = inactiveClass;
+    btnCode.className = activeClass;
   }
 }
 
 // --- TOOLTIPS ---
-// Only for URLs, citations are now static colored text
 function initUrlTooltips() {
   const tooltip = document.getElementById("url-tooltip");
   const triggers = document.querySelectorAll(".url-tooltip-trigger");
 
-  if (!tooltip) return;
+  if (!tooltip || triggers.length === 0) return;
 
   triggers.forEach((trigger) => {
     trigger.addEventListener("mouseenter", () => {
