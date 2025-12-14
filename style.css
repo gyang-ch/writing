@@ -11,26 +11,26 @@
     --color-accent-hover: #1d4ed8; /* blue-700 */
 }
 
-/* 2. SEPIA THEME - Warm Paper & Coffee */
+/* 2. SEPIA THEME - Parchment & Ink (Improved) */
 [data-theme="sepia"] {
-    --color-bg: #f9f5eb; /* warm cream */
-    --color-surface: #fffef9; /* lighter cream */
-    --color-text: #5f4b32; /* deep coffee */
-    --color-primary: #433422; /* dark espresso */
-    --color-secondary: #8c7355; /* light brown */
-    --color-accent: #c05621; /* burnt orange */
-    --color-accent-hover: #9c4221; /* darker orange */
+    --color-bg: #f4ecd8; /* Warm parchment */
+    --color-surface: #fdf6e3; /* Lighter cream for panels */
+    --color-text: #5c4b37; /* Coffee brown */
+    --color-primary: #35291e; /* Deep espresso */
+    --color-secondary: #857056; /* Muted earth tone */
+    --color-accent: #ca8a04; /* Yellow-600 (Gold) */
+    --color-accent-hover: #a16207; /* Yellow-700 */
 }
 
-/* 3. GREY THEME - Solarized Low Contrast */
+/* 3. GREY THEME - Carbon & Concrete (Modern Neutral Dark) */
 [data-theme="grey"] {
-    --color-bg: #262626; /* neutral-800 */
-    --color-surface: #333333; /* neutral-750 */
-    --color-text: #a3a3a3; /* neutral-400 */
-    --color-primary: #d4d4d4; /* neutral-300 */
-    --color-secondary: #737373; /* neutral-500 */
-    --color-accent: #9ca3af; /* neutral-400 (soft highlight) */
-    --color-accent-hover: #d1d5db; /* neutral-300 */
+    --color-bg: #171717; /* Neutral-900 (True neutral dark) */
+    --color-surface: #262626; /* Neutral-800 */
+    --color-text: #d4d4d4; /* Neutral-300 */
+    --color-primary: #ffffff; /* White */
+    --color-secondary: #a3a3a3; /* Neutral-400 */
+    --color-accent: #60a5fa; /* Blue-400 (Soft modern blue) */
+    --color-accent-hover: #3b82f6; /* Blue-500 */
 }
 
 /* 4. DARK THEME - Deep Space */
