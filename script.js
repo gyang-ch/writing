@@ -164,11 +164,12 @@ function toggleTei(mode) {
 
   if (!renderView || !codeView) return;
 
-  // Updated styles with Accent Border
+  // Gradient Capsule Styles
   const activeClass =
-    "px-3 py-1.5 text-xs font-medium rounded-md transition-all bg-accent text-white border border-accent";
+    "px-5 py-2 text-xs font-bold rounded-full transition-all duration-300 bg-gradient-to-r from-accent to-accent-hover text-white shadow-lg shadow-accent/30 scale-105";
+
   const inactiveClass =
-    "px-3 py-1.5 text-xs font-medium rounded-md transition-all text-secondary hover:text-primary border border-accent/30 hover:border-accent";
+    "px-5 py-2 text-xs font-medium rounded-full transition-all duration-300 text-secondary hover:text-primary hover:bg-primary/5";
 
   if (mode === "render") {
     renderView.classList.remove("hidden");
