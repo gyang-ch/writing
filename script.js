@@ -164,12 +164,11 @@ function toggleTei(mode) {
 
   if (!renderView || !codeView) return;
 
-  // Gradient Capsule Styles
   const activeClass =
-    "px-5 py-2 text-xs font-bold rounded-full transition-all duration-300 bg-gradient-to-r from-accent to-accent-hover text-white shadow-lg shadow-accent/30 scale-105";
+    "px-3 py-1 text-xs font-semibold rounded-full transition-all duration-300 bg-gradient-to-r from-accent to-accent-hover text-white shadow-md shadow-accent/20";
 
   const inactiveClass =
-    "px-5 py-2 text-xs font-medium rounded-full transition-all duration-300 text-secondary hover:text-primary hover:bg-primary/5";
+    "px-3 py-1 text-xs font-medium rounded-full transition-all duration-300 text-secondary hover:text-primary hover:bg-primary/5";
 
   if (mode === "render") {
     renderView.classList.remove("hidden");
