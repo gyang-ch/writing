@@ -32,6 +32,7 @@ window.onload = () => {
   if (fontSelect) fontSelect.value = savedFont;
 
   initUrlTooltips();
+  initScrollAnimations();
 };
 
 // --- SETTINGS PANEL TOGGLE ---
@@ -217,5 +218,53 @@ function initUrlTooltips() {
         tooltip.classList.add("hidden");
       }, 200);
     });
+  });
+}
+
+function initScrollAnimations() {
+  // 1. Setup Bibliography Staggering
+  // Find the bibliography list (assuming it's the <ul> inside the section with "Bibliography" heading)
+  const bibliographySection = document.querySelector(
+    "#section-bibliography ul, section:last-of-type ul",
+  );
+
+  if (bibliographySection) {
+    const items = bibliographySection.querySelectorAll("li");
+    items.forEach((item, index) => {
+      // Add the reveal class
+      item.classList.add("reveal-on-scroll");
+      // Add a staggered delay (modulus 3 keeps delays short and snappy)
+      // This makes item 1 wait 0ms, item 2 wait 100ms, item 3 wait 200ms, etc.
+      const delay = (index % 3) * 100;
+      item.style.transitionDelay = `${delay}ms`;
+    });
+  }
+
+  // 2. Setup Interactive Figures (Optional but recommended)
+  // Finds your interactive cards and adds the reveal effect
+  const interactiveCards = document.querySelectorAll(".not-prose");
+  interactiveCards.forEach((card) => {
+    card.classList.add("reveal-on-scroll");
+  });
+
+  // 3. The Intersection Observer (The Engine)
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0.1, // Trigger when 10% of the item is visible
+  };
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target); // Run animation only once
+      }
+    });
+  }, observerOptions);
+
+  // Start watching all elements with the class
+  document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
+    observer.observe(el);
   });
 }

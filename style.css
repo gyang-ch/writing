@@ -57,3 +57,33 @@
     background-color: var(--color-accent);
     color: #ffffff;
 }
+
+/* --- SCROLL REVEAL ANIMATIONS --- */
+
+/* 1. The Base State (Hidden) */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(30px); /* Slided down slightly */
+    filter: blur(5px); /* Subtle blur for depth */
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1); /* "Luxury" easing curve */
+    will-change: opacity, transform, filter;
+}
+
+/* 2. The Active State (Visible) */
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+}
+
+/* 3. Staggered Delays (for lists like Bibliography) */
+/* This allows items to cascade in one after another */
+.delay-100 {
+    transition-delay: 100ms;
+}
+.delay-200 {
+    transition-delay: 200ms;
+}
+.delay-300 {
+    transition-delay: 300ms;
+}

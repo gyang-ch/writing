@@ -542,89 +542,103 @@
                     </p>
 
                     <div
-                        class="not-prose my-12 bg-surface rounded-2xl shadow-lg ring-1 ring-black/5 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group"
+                        class="not-prose my-12 relative overflow-hidden rounded-2xl bg-surface shadow-lg ring-1 ring-black/5 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group"
                     >
                         <div
-                            class="bg-primary/5 p-4 flex justify-between items-center border-b border-primary/5"
-                        >
-                            <span
-                                class="text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary transition-colors"
-                                >Interactive Figure 1: Early Manila Hokkien
-                                TEI</span
-                            >
+                            class="pointer-events-none absolute -top-24 -right-24 h-64 w-64 rounded-full bg-accent/20 blur-3xl transition-all duration-500 group-hover:bg-accent/30"
+                        ></div>
+
+                        <div class="relative z-10">
                             <div
-                                class="flex p-1 gap-1 bg-primary/5 rounded-full border border-primary/5 shadow-inner"
+                                class="bg-primary/5 p-4 flex justify-between items-center border-b border-primary/5"
                             >
-                                <button
-                                    onclick="toggleTei('code')"
-                                    id="btn-code"
-                                    class="px-3 py-1 text-xs font-semibold rounded-full transition-all duration-300 bg-gradient-to-r from-accent to-accent-hover text-white shadow-md shadow-accent/20"
+                                <span
+                                    class="text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary transition-colors"
                                 >
-                                    XML Code
-                                </button>
-                                <button
-                                    onclick="toggleTei('render')"
-                                    id="btn-render"
-                                    class="px-3 py-1 text-xs font-medium rounded-full transition-all duration-300 text-secondary hover:text-primary hover:bg-primary/5"
+                                    Interactive Figure 1: Early Manila Hokkien
+                                    TEI
+                                </span>
+                                <div
+                                    class="flex p-1 gap-1 bg-primary/5 rounded-full border border-primary/5 shadow-inner"
                                 >
-                                    Reader View
-                                </button>
+                                    <button
+                                        onclick="toggleTei('code')"
+                                        id="btn-code"
+                                        class="px-3 py-1 text-xs font-semibold rounded-full transition-all duration-300 bg-gradient-to-r from-accent to-accent-hover text-white shadow-md shadow-accent/20"
+                                    >
+                                        XML Code
+                                    </button>
+                                    <button
+                                        onclick="toggleTei('render')"
+                                        id="btn-render"
+                                        class="px-3 py-1 text-xs font-medium rounded-full transition-all duration-300 text-secondary hover:text-primary hover:bg-primary/5"
+                                    >
+                                        Reader View
+                                    </button>
+                                </div>
                             </div>
-                        </div>
-                        <div
-                            id="tei-code"
-                            class="p-6 bg-[#1e1e1e] text-gray-300 font-mono text-sm overflow-x-auto"
-                        >
-                            <pre class="!bg-transparent !m-0 !p-0">
-<span class="text-green-400">&lt;entry</span> <span class="text-purple-400">type</span>=<span class="text-blue-300">"translation"</span> <span class="text-purple-400">corresp</span>=<span class="text-blue-300">"#entry.0738"</span><span class="text-green-400">&gt;</span>
-    <span class="text-green-400">&lt;form</span> <span class="text-purple-400">type</span>=<span class="text-blue-300">"lemma"</span><span class="text-green-400">&gt;</span>
-        <span class="text-green-400">&lt;orth</span> <span class="text-purple-400">xml:lang</span>=<span class="text-blue-300">"nan-Latn-tailo"</span><span class="text-green-400">&gt;</span>Ké<span class="text-green-400">&lt;/orth&gt;</span>
-        <span class="text-green-400">&lt;orth</span> <span class="text-purple-400">xml:lang</span>=<span class="text-blue-300">"nan-Hani-PH"</span><span class="text-green-400">&gt;</span>觧<span class="text-green-400">&lt;note</span> <span class="text-purple-400">n</span>=<span class="text-blue-300">"1"</span><span class="text-green-400">&gt;</span>...<span class="text-green-400">&lt;/note&gt;&lt;/orth&gt;</span>
-    <span class="text-green-400">&lt;/form&gt;</span>
-    <span class="text-green-400">&lt;sense</span> <span class="text-purple-400">xml:lang</span>=<span class="text-blue-300">"en-Latn"</span><span class="text-green-400">&gt;</span>
-        means <span class="text-green-400">&lt;def&gt;</span>to confess<span class="text-green-400">&lt;/def&gt;</span>; e.g.
-        <span class="text-green-400">&lt;cit</span> <span class="text-purple-400">type</span>=<span class="text-blue-300">"example"</span> <span class="text-purple-400">xml:lang</span>=<span class="text-blue-300">"nan-Latn-tailo"</span><span class="text-green-400">&gt;</span>
-            <span class="text-green-400">&lt;quote&gt;</span>lú ài ké tsuē<span class="text-green-400">&lt;/quote&gt;</span>
-            <span class="text-green-400">&lt;cit</span> <span class="text-purple-400">type</span>=<span class="text-blue-300">"translation"</span> <span class="text-purple-400">xml:lang</span>=<span class="text-blue-300">"nan-Hani-PH"</span><span class="text-green-400">&gt;</span>
-                <span class="text-green-400">&lt;quote&gt;</span>你愛觧罪<span class="text-green-400">&lt;/quote&gt;</span>
-            <span class="text-green-400">&lt;/cit&gt;</span>
-        <span class="text-green-400">&lt;/cit&gt;</span>
-    <span class="text-green-400">&lt;/sense&gt;</span>
-<span class="text-green-400">&lt;/entry&gt;</span>
-</pre>
-                        </div>
-                        <div
-                            id="tei-render"
-                            class="hidden p-8 bg-surface text-center flex flex-col items-center justify-center min-h-[250px]"
-                        >
-                            <h3 class="font-serif text-4xl mb-2 text-primary">
-                                Ké <span class="font-light opacity-70">觧</span>
-                            </h3>
-                            <p class="text-lg text-secondary">
-                                means
-                                <strong
-                                    class="text-accent font-bold bg-accent/10 px-2 py-0.5 rounded"
-                                    >to confess</strong
-                                >; e.g.
-                            </p>
+
                             <div
-                                class="mt-6 pl-4 border-l-4 border-accent/30 text-left bg-bg/50 p-4 rounded-r-lg w-full max-w-md"
+                                id="tei-code"
+                                class="p-6 bg-[#1e1e1e] text-gray-300 font-mono text-sm overflow-x-auto"
                             >
-                                <p
-                                    class="font-serif italic text-lg text-primary"
+                                <pre class="!bg-transparent !m-0 !p-0">
+                    <span class="text-green-400">&lt;entry</span> <span class="text-purple-400">type</span>=<span class="text-blue-300">"translation"</span> <span class="text-purple-400">corresp</span>=<span class="text-blue-300">"#entry.0738"</span><span class="text-green-400">&gt;</span>
+                        <span class="text-green-400">&lt;form</span> <span class="text-purple-400">type</span>=<span class="text-blue-300">"lemma"</span><span class="text-green-400">&gt;</span>
+                            <span class="text-green-400">&lt;orth</span> <span class="text-purple-400">xml:lang</span>=<span class="text-blue-300">"nan-Latn-tailo"</span><span class="text-green-400">&gt;</span>Ké<span class="text-green-400">&lt;/orth&gt;</span>
+                            <span class="text-green-400">&lt;orth</span> <span class="text-purple-400">xml:lang</span>=<span class="text-blue-300">"nan-Hani-PH"</span><span class="text-green-400">&gt;</span>觧<span class="text-green-400">&lt;note</span> <span class="text-purple-400">n</span>=<span class="text-blue-300">"1"</span><span class="text-green-400">&gt;</span>...<span class="text-green-400">&lt;/note&gt;&lt;/orth&gt;</span>
+                        <span class="text-green-400">&lt;/form&gt;</span>
+                        <span class="text-green-400">&lt;sense</span> <span class="text-purple-400">xml:lang</span>=<span class="text-blue-300">"en-Latn"</span><span class="text-green-400">&gt;</span>
+                            means <span class="text-green-400">&lt;def&gt;</span>to confess<span class="text-green-400">&lt;/def&gt;</span>; e.g.
+                            <span class="text-green-400">&lt;cit</span> <span class="text-purple-400">type</span>=<span class="text-blue-300">"example"</span> <span class="text-purple-400">xml:lang</span>=<span class="text-blue-300">"nan-Latn-tailo"</span><span class="text-green-400">&gt;</span>
+                                <span class="text-green-400">&lt;quote&gt;</span>lú ài ké tsuē<span class="text-green-400">&lt;/quote&gt;</span>
+                                <span class="text-green-400">&lt;cit</span> <span class="text-purple-400">type</span>=<span class="text-blue-300">"translation"</span> <span class="text-purple-400">xml:lang</span>=<span class="text-blue-300">"nan-Hani-PH"</span><span class="text-green-400">&gt;</span>
+                                    <span class="text-green-400">&lt;quote&gt;</span>你愛觧罪<span class="text-green-400">&lt;/quote&gt;</span>
+                                <span class="text-green-400">&lt;/cit&gt;</span>
+                            <span class="text-green-400">&lt;/cit&gt;</span>
+                        <span class="text-green-400">&lt;/sense&gt;</span>
+                    <span class="text-green-400">&lt;/entry&gt;</span>
+                                </pre>
+                            </div>
+
+                            <div
+                                id="tei-render"
+                                class="hidden p-8 bg-surface text-center flex flex-col items-center justify-center min-h-[250px]"
+                            >
+                                <h3
+                                    class="font-serif text-4xl mb-2 text-primary"
                                 >
-                                    lú ài ké tsuē
+                                    Ké
+                                    <span class="font-light opacity-70"
+                                        >觧</span
+                                    >
+                                </h3>
+                                <p class="text-lg text-secondary">
+                                    means
+                                    <strong
+                                        class="text-accent font-bold bg-accent/10 px-2 py-0.5 rounded"
+                                        >to confess</strong
+                                    >; e.g.
                                 </p>
-                                <p
-                                    class="text-2xl my-1 font-serif text-primary"
+                                <div
+                                    class="mt-6 pl-4 border-l-4 border-accent/30 text-left bg-bg/50 p-4 rounded-r-lg w-full max-w-md"
                                 >
-                                    你愛觧罪
-                                </p>
-                                <p
-                                    class="text-sm uppercase tracking-wide text-secondary/70"
-                                >
-                                    "you want to confess yourself"
-                                </p>
+                                    <p
+                                        class="font-serif italic text-lg text-primary"
+                                    >
+                                        lú ài ké tsuē
+                                    </p>
+                                    <p
+                                        class="text-2xl my-1 font-serif text-primary"
+                                    >
+                                        你愛觧罪
+                                    </p>
+                                    <p
+                                        class="text-sm uppercase tracking-wide text-secondary/70"
+                                    >
+                                        "you want to confess yourself"
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -708,180 +722,191 @@
                     </p>
 
                     <div
-                        class="not-prose my-12 bg-surface rounded-2xl shadow-lg ring-1 ring-black/5 overflow-hidden transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group"
+                        class="not-prose my-12 relative overflow-hidden rounded-2xl bg-surface shadow-lg ring-1 ring-black/5 transition-all duration-300 hover:shadow-2xl hover:-translate-y-1 group"
                     >
-                        <div class="bg-primary/5 p-4 border-b border-primary/5">
-                            <span
-                                class="text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary transition-colors"
-                                >Table: Book vs Journal Publishing</span
+                        <div
+                            class="pointer-events-none absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-accent/20 blur-3xl transition-all duration-500 group-hover:bg-accent/30"
+                        ></div>
+
+                        <div class="relative z-10">
+                            <div
+                                class="bg-primary/5 p-4 border-b border-primary/5"
                             >
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table
-                                class="w-full text-left text-sm text-secondary"
-                            >
-                                <thead
-                                    class="bg-primary/5 text-primary uppercase text-xs tracking-wider font-bold"
+                                <span
+                                    class="text-xs font-bold uppercase tracking-widest text-secondary group-hover:text-primary transition-colors"
+                                    >Table: Book vs Journal Publishing</span
                                 >
-                                    <tr>
-                                        <th class="px-6 py-4">Aspect</th>
-                                        <th class="px-6 py-4">
-                                            Books (Monographs)
-                                        </th>
-                                        <th class="px-6 py-4">
-                                            Journal Articles
-                                        </th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-primary/10">
-                                    <tr
-                                        class="hover:bg-primary/5 transition-colors"
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table
+                                    class="w-full text-left text-sm text-secondary"
+                                >
+                                    <thead
+                                        class="bg-primary/5 text-primary uppercase text-xs tracking-wider font-bold"
                                     >
-                                        <td
-                                            class="px-6 py-4 font-medium text-primary"
+                                        <tr>
+                                            <th class="px-6 py-4">Aspect</th>
+                                            <th class="px-6 py-4">
+                                                Books (Monographs)
+                                            </th>
+                                            <th class="px-6 py-4">
+                                                Journal Articles
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-primary/10">
+                                        <tr
+                                            class="hover:bg-primary/5 transition-colors"
                                         >
-                                            Typical economic model
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            Sales and royalties; university
-                                            press subsidies; occasional funder
-                                            support for OA monographs
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            Subscription revenue for publishers,
-                                            or Article Processing Charges-funded
-                                            open access
-                                        </td>
-                                    </tr>
-                                    <tr
-                                        class="hover:bg-primary/5 transition-colors"
-                                    >
-                                        <td
-                                            class="px-6 py-4 font-medium text-primary"
+                                            <td
+                                                class="px-6 py-4 font-medium text-primary"
+                                            >
+                                                Typical economic model
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                Sales and royalties; university
+                                                press subsidies; occasional
+                                                funder support for OA monographs
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                Subscription revenue for
+                                                publishers, or Article
+                                                Processing Charges-funded open
+                                                access
+                                            </td>
+                                        </tr>
+                                        <tr
+                                            class="hover:bg-primary/5 transition-colors"
                                         >
-                                            Author income
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            May receive royalties (small to
-                                            moderate); often important to some
-                                            authors
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            Authors typically receive no
-                                            royalties
-                                        </td>
-                                    </tr>
-                                    <tr
-                                        class="hover:bg-primary/5 transition-colors"
-                                    >
-                                        <td
-                                            class="px-6 py-4 font-medium text-primary"
+                                            <td
+                                                class="px-6 py-4 font-medium text-primary"
+                                            >
+                                                Author income
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                May receive royalties (small to
+                                                moderate); often important to
+                                                some authors
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                Authors typically receive no
+                                                royalties
+                                            </td>
+                                        </tr>
+                                        <tr
+                                            class="hover:bg-primary/5 transition-colors"
                                         >
-                                            Typical funding
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            Often unfunded; long-term research
-                                            may need grants for travel/archives
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            Often produced as part of funded
-                                            projects or salaried roles
-                                        </td>
-                                    </tr>
-                                    <tr
-                                        class="hover:bg-primary/5 transition-colors"
-                                    >
-                                        <td
-                                            class="px-6 py-4 font-medium text-primary"
+                                            <td
+                                                class="px-6 py-4 font-medium text-primary"
+                                            >
+                                                Typical funding
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                Often unfunded; long-term
+                                                research may need grants for
+                                                travel/archives
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                Often produced as part of funded
+                                                projects or salaried roles
+                                            </td>
+                                        </tr>
+                                        <tr
+                                            class="hover:bg-primary/5 transition-colors"
                                         >
-                                            Article Processing Charges / OA
-                                            costs
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            OA monograph fees can be very high
-                                            (£5k–£12k+); models are less
-                                            standardised
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            Article Processing Charges common
-                                            for Gold OA (variable; often lower
-                                            than OA monographs)
-                                        </td>
-                                    </tr>
-                                    <tr
-                                        class="hover:bg-primary/5 transition-colors"
-                                    >
-                                        <td
-                                            class="px-6 py-4 font-medium text-primary"
+                                            <td
+                                                class="px-6 py-4 font-medium text-primary"
+                                            >
+                                                Article Processing Charges / OA
+                                                costs
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                OA monograph fees can be very
+                                                high (£5k–£12k+); models are
+                                                less standardised
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                Article Processing Charges
+                                                common for Gold OA (variable;
+                                                often lower than OA monographs)
+                                            </td>
+                                        </tr>
+                                        <tr
+                                            class="hover:bg-primary/5 transition-colors"
                                         >
-                                            Production timescale
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            Years of work, long editorial
-                                            process
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            Months to 1–2 years; faster
-                                            turnaround
-                                        </td>
-                                    </tr>
-                                    <tr
-                                        class="hover:bg-primary/5 transition-colors"
-                                    >
-                                        <td
-                                            class="px-6 py-4 font-medium text-primary"
+                                            <td
+                                                class="px-6 py-4 font-medium text-primary"
+                                            >
+                                                Production timescale
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                Years of work, long editorial
+                                                process
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                Months to 1–2 years; faster
+                                                turnaround
+                                            </td>
+                                        </tr>
+                                        <tr
+                                            class="hover:bg-primary/5 transition-colors"
                                         >
-                                            Rights & licensing
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            Royalties and subsidiary rights
-                                            matter; contracts more complex
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            Authors typically transfer some or
-                                            all rights; licensing often simpler
-                                        </td>
-                                    </tr>
-                                    <tr
-                                        class="hover:bg-primary/5 transition-colors"
-                                    >
-                                        <td
-                                            class="px-6 py-4 font-medium text-primary"
+                                            <td
+                                                class="px-6 py-4 font-medium text-primary"
+                                            >
+                                                Rights & licensing
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                Royalties and subsidiary rights
+                                                matter; contracts more complex
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                Authors typically transfer some
+                                                or all rights; licensing often
+                                                simpler
+                                            </td>
+                                        </tr>
+                                        <tr
+                                            class="hover:bg-primary/5 transition-colors"
                                         >
-                                            Equity implications
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            High OA costs risk excluding
-                                            unfunded scholars; sales-based
-                                            models also make access unequal
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            Article Processing Charges can
-                                            exclude unfunded researchers; Green
-                                            OA helps but is uneven
-                                        </td>
-                                    </tr>
-                                    <tr
-                                        class="hover:bg-primary/5 transition-colors"
-                                    >
-                                        <td
-                                            class="px-6 py-4 font-medium text-primary"
+                                            <td
+                                                class="px-6 py-4 font-medium text-primary"
+                                            >
+                                                Equity implications
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                High OA costs risk excluding
+                                                unfunded scholars; sales-based
+                                                models also make access unequal
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                Article Processing Charges can
+                                                exclude unfunded researchers;
+                                                Green OA helps but is uneven
+                                            </td>
+                                        </tr>
+                                        <tr
+                                            class="hover:bg-primary/5 transition-colors"
                                         >
-                                            Piracy impact
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            Directly reduces sales/royalties;
-                                            can harm authors on whom royalties
-                                            matter
-                                        </td>
-                                        <td class="px-6 py-4">
-                                            Sci-Hub-style access undermines
-                                            paywalls but doesn't provide a
-                                            sustainable publishing model
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            <td
+                                                class="px-6 py-4 font-medium text-primary"
+                                            >
+                                                Piracy impact
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                Directly reduces
+                                                sales/royalties; can harm
+                                                authors on whom royalties matter
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                Sci-Hub-style access undermines
+                                                paywalls but doesn't provide a
+                                                sustainable publishing model
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                     <p>
@@ -1229,7 +1254,10 @@
                     </p>
                 </section>
 
-                <section class="mt-20 pt-10 border-t border-primary/10">
+                <section
+                    id="section-bibliography"
+                    class="mt-20 pt-10 border-t border-primary/10"
+                >
                     <h2>Bibliography</h2>
                     <ul
                         class="list-none pl-0 space-y-4 text-base text-secondary"
