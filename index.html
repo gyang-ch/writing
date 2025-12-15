@@ -175,49 +175,57 @@
                 </div>
 
                 <div class="flex items-center gap-4">
-                    <div class="relative group">
+                    <div class="relative group h-full flex items-center">
                         <button
                             id="assignmentsToggle"
-                            class="inline-flex items-center gap-x-1 text-sm font-semibold text-secondary hover:text-primary transition-colors focus:outline-none"
+                            class="flex items-center gap-2 px-4 py-2 rounded-full border border-primary/10 bg-surface/50 hover:bg-surface hover:border-accent/50 hover:shadow-md transition-all duration-300 focus:outline-none"
                         >
-                            <span>Assignments</span>
+                            <span
+                                class="text-sm font-medium text-secondary group-hover:text-primary transition-colors"
+                                >Assignments</span
+                            >
+
                             <svg
+                                xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
-                                aria-hidden="true"
-                                class="w-5 h-5 text-gray-400 group-hover:text-accent transition-colors"
+                                class="w-4 h-4 text-secondary/70 transition-transform duration-300 group-hover:rotate-180 group-hover:text-accent"
                             >
                                 <path
+                                    fill-rule="evenodd"
                                     d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
                                     clip-rule="evenodd"
-                                    fill-rule="evenodd"
                                 />
                             </svg>
                         </button>
 
                         <div
                             id="assignmentsPanel"
-                            class="bg-noise absolute right-0 top-full z-10 mt-3 w-72 overflow-hidden rounded-xl bg-[color-mix(in_srgb,var(--color-surface)_85%,transparent)] backdrop-blur-xl shadow-xl ring-1 ring-primary/10 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 opacity-0 invisible translate-y-1 duration-200 ease-out"
+                            class="absolute right-0 top-full pt-4 w-72 invisible opacity-0 translate-y-2 group-hover:visible group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] z-50"
                         >
-                            <div class="p-2">
-                                <a
-                                    href="https://gyang-ch.github.io/presentation/"
-                                    class="block rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-primary/5 transition-colors"
-                                >
-                                    Presentation
-                                </a>
-                                <a
-                                    href="https://gyang-ch.github.io/writing/"
-                                    class="block rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-primary/5 transition-colors"
-                                >
-                                    Reflections on Course Topics
-                                </a>
-                                <a
-                                    href="https://gyang-ch.github.io/artefact/"
-                                    class="block rounded-lg px-4 py-3 text-sm font-semibold text-primary hover:bg-primary/5 transition-colors"
-                                >
-                                    Reflection on the Group Work Artefact
-                                </a>
+                            <div
+                                class="bg-noise overflow-hidden rounded-2xl bg-[color-mix(in_srgb,var(--color-surface)_90%,transparent)] backdrop-blur-xl border border-primary/20 shadow-2xl ring-1 ring-black/5"
+                            >
+                                <div class="p-2 space-y-1">
+                                    <a
+                                        href="https://gyang-ch.github.io/presentation/"
+                                        class="block rounded-xl px-4 py-3 text-sm font-semibold text-secondary hover:text-primary hover:bg-primary/5 hover:pl-6 transition-all duration-200"
+                                    >
+                                        Presentation
+                                    </a>
+                                    <a
+                                        href="https://gyang-ch.github.io/writing/"
+                                        class="block rounded-xl px-4 py-3 text-sm font-semibold text-secondary hover:text-primary hover:bg-primary/5 hover:pl-6 transition-all duration-200"
+                                    >
+                                        Reflections on Course Topics
+                                    </a>
+                                    <a
+                                        href="https://gyang-ch.github.io/artefact/"
+                                        class="block rounded-xl px-4 py-3 text-sm font-semibold text-secondary hover:text-primary hover:bg-primary/5 hover:pl-6 transition-all duration-200"
+                                    >
+                                        Reflection on Group Work
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
