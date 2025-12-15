@@ -197,7 +197,7 @@
 
                         <div
                             id="assignmentsPanel"
-                            class="absolute right-0 top-full z-10 mt-3 w-72 overflow-hidden rounded-xl bg-[color-mix(in_srgb,var(--color-surface)_85%,transparent)] backdrop-blur-xl shadow-xl ring-1 ring-primary/10 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 opacity-0 invisible translate-y-1 duration-200 ease-out"
+                            class="bg-noise absolute right-0 top-full z-10 mt-3 w-72 overflow-hidden rounded-xl bg-[color-mix(in_srgb,var(--color-surface)_85%,transparent)] backdrop-blur-xl shadow-xl ring-1 ring-primary/10 transition data-[closed]:translate-y-1 data-[closed]:opacity-0 opacity-0 invisible translate-y-1 duration-200 ease-out"
                         >
                             <div class="p-2">
                                 <a
@@ -257,12 +257,12 @@
 
         <aside
             id="settingsPanel"
-            class="fixed top-20 right-4 w-80 bg-[color-mix(in_srgb,var(--color-surface)_80%,transparent)] backdrop-blur-xl border border-primary/10 shadow-2xl rounded-2xl p-6 z-40 transform translate-x-[120%] transition-transform duration-300 ease-in-out ring-1 ring-black/5"
+            class="bg-noise fixed top-20 right-4 w-80 bg-[color-mix(in_srgb,var(--color-surface)_90%,transparent)] backdrop-blur-xl border border-primary/20 shadow-2xl rounded-2xl p-6 z-40 transform translate-x-[120%] transition-transform duration-300 ease-in-out ring-1 ring-black/5"
         >
             <div
                 class="flex justify-between items-center mb-6 border-b border-primary/10 pb-4"
             >
-                <h3 class="font-sans font-semibold text-primary">
+                <h3 class="font-sans font-semibold text-primary tracking-tight">
                     Display Preferences
                 </h3>
                 <button
@@ -272,93 +272,239 @@
                     &times;
                 </button>
             </div>
-            <div class="space-y-6">
+
+            <div class="space-y-8">
                 <div>
                     <label
                         class="text-xs font-bold uppercase tracking-wider text-secondary mb-3 block"
-                        >Theme</label
                     >
-                    <div class="grid grid-cols-4 gap-2">
+                        Theme
+                    </label>
+                    <div class="grid grid-cols-4 gap-3">
                         <button
                             onclick="setTheme('light')"
-                            class="h-10 rounded-lg bg-white border border-accent text-gray-800 hover:ring-2 hover:ring-blue-500 transition-all shadow-sm"
+                            class="group relative h-10 w-full transition-all duration-200 hover:scale-105 active:scale-95"
                             title="Light"
                         >
-                            Aa
+                            <div
+                                class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-400 to-purple-400 opacity-25 blur transition duration-200 group-hover:opacity-100"
+                            ></div>
+                            <div
+                                class="relative flex h-full w-full items-center justify-center rounded-lg border border-slate-300 bg-white shadow-sm"
+                            >
+                                <span
+                                    class="font-serif font-bold text-slate-800"
+                                    >Aa</span
+                                >
+                            </div>
                         </button>
                         <button
                             onclick="setTheme('sepia')"
-                            class="h-10 rounded-lg bg-[#f9f5eb] border border-accent text-[#5f4b32] hover:ring-2 hover:ring-orange-700 transition-all shadow-sm"
+                            class="group relative h-10 w-full transition-all duration-200 hover:scale-105 active:scale-95"
                             title="Sepia"
                         >
-                            Aa
+                            <div
+                                class="absolute -inset-1 rounded-lg bg-gradient-to-r from-amber-400 to-orange-500 opacity-25 blur transition duration-200 group-hover:opacity-100"
+                            ></div>
+                            <div
+                                class="relative flex h-full w-full items-center justify-center rounded-lg border border-amber-300 bg-[#f9f5eb] shadow-sm"
+                            >
+                                <span
+                                    class="font-serif font-bold text-[#5f4b32]"
+                                    >Aa</span
+                                >
+                            </div>
                         </button>
                         <button
                             onclick="setTheme('grey')"
-                            class="h-10 rounded-lg bg-[#262626] border border-accent text-[#a3a3a3] hover:ring-2 hover:ring-gray-400 transition-all shadow-sm"
+                            class="group relative h-10 w-full transition-all duration-200 hover:scale-105 active:scale-95"
                             title="Grey"
                         >
-                            Aa
+                            <div
+                                class="absolute -inset-1 rounded-lg bg-gradient-to-r from-gray-400 to-gray-100 opacity-25 blur transition duration-200 group-hover:opacity-100"
+                            ></div>
+                            <div
+                                class="relative flex h-full w-full items-center justify-center rounded-lg border border-neutral-600 bg-[#262626] shadow-sm"
+                            >
+                                <span
+                                    class="font-serif font-bold text-[#a3a3a3]"
+                                    >Aa</span
+                                >
+                            </div>
                         </button>
                         <button
                             onclick="setTheme('dark')"
-                            class="h-10 rounded-lg bg-[#0f172a] border border-accent text-white hover:ring-2 hover:ring-teal-400 transition-all shadow-sm"
+                            class="group relative h-10 w-full transition-all duration-200 hover:scale-105 active:scale-95"
                             title="Dark"
                         >
-                            Aa
+                            <div
+                                class="absolute -inset-1 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-500 opacity-25 blur transition duration-200 group-hover:opacity-100"
+                            ></div>
+                            <div
+                                class="relative flex h-full w-full items-center justify-center rounded-lg border border-slate-600 bg-[#0f172a] shadow-sm"
+                            >
+                                <span class="font-serif font-bold text-white"
+                                    >Aa</span
+                                >
+                            </div>
                         </button>
                     </div>
                 </div>
+
                 <div>
                     <label
                         class="text-xs font-bold uppercase tracking-wider text-secondary mb-3 block"
-                        >Size</label
+                        >Typeface</label
                     >
                     <div
-                        class="flex items-center gap-3 bg-bg rounded-lg p-1 border border-primary/10"
+                        class="group relative w-full transition-all duration-200 hover:scale-[1.02]"
                     >
-                        <button
-                            onclick="adjustFontSize(-2)"
-                            class="p-2 border border-accent rounded hover:bg-accent hover:text-white transition-colors w-10 text-center text-secondary"
-                        >
-                            A-
-                        </button>
-                        <span
-                            id="currentSizeLabel"
-                            class="flex-1 text-center font-mono text-sm text-primary"
-                            >18px</span
-                        >
-                        <button
-                            onclick="adjustFontSize(2)"
-                            class="p-2 border border-accent rounded hover:bg-accent hover:text-white transition-colors w-10 text-center text-secondary"
-                        >
-                            A+
-                        </button>
+                        <div
+                            class="absolute -inset-1 rounded-lg bg-gradient-to-r from-indigo-500 to-purple-500 opacity-0 blur transition duration-200 group-hover:opacity-50"
+                        ></div>
+
+                        <div class="relative">
+                            <select
+                                id="fontSelect"
+                                onchange="setFont(this.value)"
+                                class="w-full bg-surface border border-primary/25 text-primary rounded-lg p-2.5 text-sm appearance-none focus:ring-2 focus:ring-accent focus:border-accent outline-none transition-all shadow-sm cursor-pointer relative z-10"
+                            >
+                                <option value="'Times New Roman', Times, serif">
+                                    Times New Roman
+                                </option>
+                                <option value="'Merriweather', serif">
+                                    Merriweather
+                                </option>
+                                <option value="'Inter', sans-serif">
+                                    Inter
+                                </option>
+                                <option value="Arial, Helvetica, sans-serif">
+                                    Arial
+                                </option>
+                                <option value="'Aptos', sans-serif">
+                                    Aptos
+                                </option>
+                                <option value="'Lora', serif">Lora</option>
+                                <option value="Georgia, serif">Georgia</option>
+                            </select>
+                            <div
+                                class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-secondary z-20"
+                            >
+                                <svg
+                                    class="fill-current h-4 w-4"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                >
+                                    <path
+                                        d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                                    />
+                                </svg>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
                 <div>
                     <label
                         class="text-xs font-bold uppercase tracking-wider text-secondary mb-3 block"
-                        >Page Width</label
                     >
-                    <div class="flex gap-2">
+                        Size
+                    </label>
+                    <div class="flex items-center gap-3">
+                        <button
+                            onclick="adjustFontSize(-2)"
+                            class="group relative h-10 w-12 transition-all duration-200 hover:scale-105 active:scale-95"
+                        >
+                            <div
+                                class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 blur transition duration-200 group-hover:opacity-75"
+                            ></div>
+                            <div
+                                class="relative flex h-full w-full items-center justify-center rounded-lg border border-primary/25 bg-surface shadow-sm text-secondary group-hover:text-primary transition-colors"
+                            >
+                                <span class="font-medium text-lg">A-</span>
+                            </div>
+                        </button>
+
+                        <div
+                            class="flex-1 h-10 relative rounded-lg bg-primary/5 border border-primary/10 flex items-center justify-center shadow-inner"
+                        >
+                            <span
+                                id="currentSizeLabel"
+                                class="font-mono text-sm font-bold text-primary tracking-widest"
+                                >18px</span
+                            >
+                        </div>
+
+                        <button
+                            onclick="adjustFontSize(2)"
+                            class="group relative h-10 w-12 transition-all duration-200 hover:scale-105 active:scale-95"
+                        >
+                            <div
+                                class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 blur transition duration-200 group-hover:opacity-75"
+                            ></div>
+                            <div
+                                class="relative flex h-full w-full items-center justify-center rounded-lg border border-primary/25 bg-surface shadow-sm text-secondary group-hover:text-primary transition-colors"
+                            >
+                                <span class="font-medium text-lg">A+</span>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <label
+                        class="text-xs font-bold uppercase tracking-wider text-secondary mb-3 block"
+                    >
+                        Page Width
+                    </label>
+                    <div class="grid grid-cols-3 gap-3">
                         <button
                             onclick="setWidth('max-w-2xl')"
-                            class="flex-1 py-2 text-xs border border-accent rounded-lg text-secondary hover:bg-accent hover:text-white transition-all"
+                            class="group relative h-10 w-full transition-all duration-200 hover:scale-105 active:scale-95"
                         >
-                            Narrow
+                            <div
+                                class="absolute -inset-1 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 opacity-0 blur transition duration-200 group-hover:opacity-75"
+                            ></div>
+                            <div
+                                class="relative flex h-full w-full items-center justify-center rounded-lg border border-primary/25 bg-surface shadow-sm"
+                            >
+                                <span
+                                    class="text-xs font-semibold text-secondary group-hover:text-primary"
+                                    >Narrow</span
+                                >
+                            </div>
                         </button>
                         <button
                             onclick="setWidth('max-w-4xl')"
-                            class="flex-1 py-2 text-xs border border-accent rounded-lg text-secondary hover:bg-accent hover:text-white transition-all"
+                            class="group relative h-10 w-full transition-all duration-200 hover:scale-105 active:scale-95"
                         >
-                            Normal
+                            <div
+                                class="absolute -inset-1 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 opacity-0 blur transition duration-200 group-hover:opacity-75"
+                            ></div>
+                            <div
+                                class="relative flex h-full w-full items-center justify-center rounded-lg border border-primary/25 bg-surface shadow-sm"
+                            >
+                                <span
+                                    class="text-xs font-semibold text-secondary group-hover:text-primary"
+                                    >Normal</span
+                                >
+                            </div>
                         </button>
                         <button
                             onclick="setWidth('max-w-6xl')"
-                            class="flex-1 py-2 text-xs border border-accent rounded-lg text-secondary hover:bg-accent hover:text-white transition-all"
+                            class="group relative h-10 w-full transition-all duration-200 hover:scale-105 active:scale-95"
                         >
-                            Wide
+                            <div
+                                class="absolute -inset-1 rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 opacity-0 blur transition duration-200 group-hover:opacity-75"
+                            ></div>
+                            <div
+                                class="relative flex h-full w-full items-center justify-center rounded-lg border border-primary/25 bg-surface shadow-sm"
+                            >
+                                <span
+                                    class="text-xs font-semibold text-secondary group-hover:text-primary"
+                                    >Wide</span
+                                >
+                            </div>
                         </button>
                     </div>
                 </div>
