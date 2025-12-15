@@ -37,9 +37,23 @@ window.onload = () => {
 
 // --- SETTINGS PANEL TOGGLE ---
 if (settingsToggle) {
-  settingsToggle.addEventListener("click", () => {
-    settingsPanel.classList.remove("translate-x-[120%]");
-    closeAssignmentsMenu();
+  settingsToggle.addEventListener("click", (e) => {
+    // Stop the click from bubbling up to the document (prevents immediate re-closing)
+    e.stopPropagation();
+
+    // Check if the panel is currently closed
+    // (If it has the "translate-x-[120%]" class, it is closed/off-screen)
+    const isClosed = settingsPanel.classList.contains("translate-x-[120%]");
+
+    if (isClosed) {
+      // If closed, OPEN it:
+      settingsPanel.classList.remove("translate-x-[120%]");
+      // And make sure the assignments menu is closed so they don't overlap
+      closeAssignmentsMenu();
+    } else {
+      // If open, CLOSE it:
+      settingsPanel.classList.add("translate-x-[120%]");
+    }
   });
 }
 
