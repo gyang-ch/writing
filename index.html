@@ -174,10 +174,10 @@
                     >
                 </div>
 
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-1 sm:gap-2">
                     <a
                         href="#"
-                        class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full border border-primary/10 bg-surface/50 hover:bg-surface hover:border-accent/50 hover:shadow-md transition-all duration-300 text-sm font-medium text-primary"
+                        class="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold text-secondary hover:text-primary hover:bg-primary/5 transition-all duration-200"
                     >
                         Home
                     </a>
@@ -185,23 +185,19 @@
                     <div class="relative group h-full flex items-center">
                         <button
                             id="assignmentsToggle"
-                            class="flex items-center gap-2 px-4 py-2 rounded-full border border-primary/10 bg-surface/50 hover:bg-surface hover:border-accent/50 hover:shadow-md transition-all duration-300 focus:outline-none"
+                            class="flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-semibold text-secondary hover:text-primary hover:bg-primary/5 transition-all duration-200 focus:outline-none"
                         >
-                            <span
-                                class="text-sm font-medium text-secondary group-hover:text-primary transition-colors"
-                                >Assignments</span
-                            >
+                            <span>Assignments</span>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 viewBox="0 0 20 20"
                                 fill="currentColor"
-                                class="w-4 h-4 text-secondary/70 transition-transform duration-300 group-hover:rotate-180 group-hover:text-accent"
+                                class="w-4 h-4 text-secondary/50 transition-transform duration-300 group-hover:rotate-180 group-hover:text-accent"
                             >
                                 <path
                                     fill-rule="evenodd"
                                     d="M5.22 8.22a.75.75 0 0 1 1.06 0L10 11.94l3.72-3.72a.75.75 0 1 1 1.06 1.06l-4.25 4.25a.75.75 0 0 1-1.06 0L5.22 9.28a.75.75 0 0 1 0-1.06Z"
                                     clip-rule="evenodd"
-                                    fill-rule="evenodd"
                                 />
                             </svg>
                         </button>
@@ -215,39 +211,44 @@
                             >
                                 <div class="p-2 space-y-1">
                                     <a
-                                        href="https://gyang-ch.github.io/presentation/"
+                                        href="presentation.html"
                                         class="block rounded-xl px-4 py-3 text-sm font-semibold text-secondary hover:text-primary hover:bg-primary/5 hover:pl-6 transition-all duration-200"
                                     >
                                         Presentation
                                     </a>
                                     <a
-                                        href="https://gyang-ch.github.io/writing/"
+                                        href="writing.html"
                                         class="block rounded-xl px-4 py-3 text-sm font-semibold text-secondary hover:text-primary hover:bg-primary/5 hover:pl-6 transition-all duration-200"
                                     >
                                         Reflections on Course Topics
                                     </a>
                                     <a
-                                        href="https://gyang-ch.github.io/artefact/"
+                                        href="reflection.html"
                                         class="block rounded-xl px-4 py-3 text-sm font-semibold text-secondary hover:text-primary hover:bg-primary/5 hover:pl-6 transition-all duration-200"
                                     >
-                                        Reflection on the Group Work Artefact
+                                        Reflection on Group Work
                                     </a>
                                 </div>
                             </div>
                         </div>
                     </div>
 
+                    <div
+                        class="h-6 w-px bg-primary/10 mx-2 hidden sm:block"
+                    ></div>
+
                     <button
                         id="settingsToggle"
-                        class="group flex items-center gap-2 px-4 py-2 rounded-full border border-primary/10 bg-surface/50 hover:bg-surface hover:border-accent/50 hover:shadow-md transition-all duration-300 focus:outline-none"
+                        class="group flex items-center gap-2 px-3 py-2 rounded-full text-secondary hover:text-primary hover:bg-primary/5 transition-all duration-200 focus:outline-none"
+                        aria-label="Display Settings"
                     >
                         <span
-                            class="text-xs font-medium uppercase tracking-wider text-secondary group-hover:text-primary transition-colors"
+                            class="text-xs font-bold uppercase tracking-wider hidden sm:block"
                             >Reader View</span
                         >
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
-                            class="h-4 w-4 text-secondary/70 group-hover:text-accent group-hover:rotate-90 transition-all duration-500"
+                            class="h-5 w-5 text-secondary/70 group-hover:text-accent group-hover:rotate-90 transition-all duration-500"
                             fill="none"
                             viewBox="0 0 24 24"
                             stroke="currentColor"
