@@ -49,15 +49,6 @@
     text-wrap: balance;
 }
 
-/* Stronger button borders */
-.btn-accent-border {
-    border: 1px solid var(--color-accent);
-}
-.btn-accent-border:hover {
-    background-color: var(--color-accent);
-    color: #ffffff;
-}
-
 /* --- SCROLL REVEAL ANIMATIONS --- */
 
 /* 1. The Base State (Hidden) */
@@ -76,30 +67,6 @@
     filter: blur(0);
 }
 
-/* 3. Staggered Delays (for lists like Bibliography) */
-/* This allows items to cascade in one after another */
-.delay-100 {
-    transition-delay: 100ms;
-}
-.delay-200 {
-    transition-delay: 200ms;
-}
-.delay-300 {
-    transition-delay: 300ms;
-}
-
-@keyframes spin-slow {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-}
-.animate-spin-slow {
-    animation: spin-slow 3s linear infinite;
-}
-
 /* Noise Utility Class */
 .bg-noise {
     position: relative;
@@ -113,4 +80,26 @@
     opacity: 0.05; /* Adjust for subtlety */
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
     pointer-events: none;
+}
+
+/* Shared clip-path for background blobs (moved from inline styles) */
+.hero-clip {
+    clip-path: polygon(
+        74.1% 44.1%,
+        100% 61.6%,
+        97.5% 26.9%,
+        85.5% 0.1%,
+        80.7% 2%,
+        72.5% 32.5%,
+        60.2% 62.4%,
+        52.4% 68.1%,
+        47.5% 58.3%,
+        45.2% 34.5%,
+        27.5% 76.7%,
+        0.1% 64.9%,
+        17.9% 100%,
+        27.6% 76.8%,
+        76.1% 97.7%,
+        74.1% 44.1%
+    );
 }

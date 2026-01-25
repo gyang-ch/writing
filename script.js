@@ -13,13 +13,36 @@ const sizeLabel = document.getElementById("currentSizeLabel");
 const assignmentsToggle = document.getElementById("assignmentsToggle");
 const assignmentsPanel = document.getElementById("assignmentsPanel");
 
+function isSettingsOpen() {
+  return settingsPanel && !settingsPanel.classList.contains("translate-x-[120%]");
+}
+
+function setSettingsOpen(open) {
+  if (!settingsPanel) return;
+  settingsPanel.classList.toggle("translate-x-[120%]", !open);
+}
+
+function isAssignmentsOpen() {
+  return assignmentsPanel && !assignmentsPanel.classList.contains("invisible");
+}
+
+function setAssignmentsMenu(open) {
+  if (!assignmentsPanel) return;
+
+  assignmentsPanel.classList.toggle("invisible", !open);
+  assignmentsPanel.classList.toggle("opacity-0", !open);
+  assignmentsPanel.classList.toggle("translate-y-1", !open);
+
+  // Prevent overlap: opening one panel closes the other.
+  if (open) setSettingsOpen(false);
+}
+
 let currentSize = 18;
 
 // --- INITIALIZATION ---
-window.onload = () => {
+document.addEventListener("DOMContentLoaded", () => {
   const savedTheme = localStorage.getItem("theme") || "light";
-  const savedFont =
-    localStorage.getItem("font") || "'Times New Roman', Times, serif";
+  const savedFont = localStorage.getItem("font") || "'Times New Roman', Times, serif";
   const savedWidth = localStorage.getItem("width") || "max-w-4xl";
   const savedSize = parseInt(localStorage.getItem("size")) || 18;
 
@@ -33,33 +56,23 @@ window.onload = () => {
 
   initUrlTooltips();
   initScrollAnimations();
-};
+});
 
 // --- SETTINGS PANEL TOGGLE ---
 if (settingsToggle) {
   settingsToggle.addEventListener("click", (e) => {
-    // Stop the click from bubbling up to the document (prevents immediate re-closing)
     e.stopPropagation();
 
-    // Check if the panel is currently closed
-    // (If it has the "translate-x-[120%]" class, it is closed/off-screen)
-    const isClosed = settingsPanel.classList.contains("translate-x-[120%]");
+    setSettingsOpen(!isSettingsOpen());
 
-    if (isClosed) {
-      // If closed, OPEN it:
-      settingsPanel.classList.remove("translate-x-[120%]");
-      // And make sure the assignments menu is closed so they don't overlap
-      closeAssignmentsMenu();
-    } else {
-      // If open, CLOSE it:
-      settingsPanel.classList.add("translate-x-[120%]");
-    }
+    // If opening settings, ensure assignments is closed so they don't overlap
+    if (isSettingsOpen()) setAssignmentsMenu(false);
   });
 }
 
 if (closeSettings) {
   closeSettings.addEventListener("click", () => {
-    settingsPanel.classList.add("translate-x-[120%]");
+    setSettingsOpen(false);
   });
 }
 
@@ -67,48 +80,27 @@ if (closeSettings) {
 if (assignmentsToggle && assignmentsPanel) {
   assignmentsToggle.addEventListener("click", (e) => {
     e.stopPropagation();
-    const isClosed = assignmentsPanel.classList.contains("invisible");
-
-    if (isClosed) {
-      openAssignmentsMenu();
-    } else {
-      closeAssignmentsMenu();
-    }
+    setAssignmentsMenu(!isAssignmentsOpen());
   });
-}
-
-function openAssignmentsMenu() {
-  if (!assignmentsPanel) return;
-  assignmentsPanel.classList.remove("invisible", "opacity-0", "translate-y-1");
-  // Close settings if open
-  if (settingsPanel) settingsPanel.classList.add("translate-x-[120%]");
-}
-
-function closeAssignmentsMenu() {
-  if (!assignmentsPanel) return;
-  assignmentsPanel.classList.add("invisible", "opacity-0", "translate-y-1");
 }
 
 // --- GLOBAL CLICK LISTENER (CLOSE PANELS) ---
 document.addEventListener("click", (event) => {
   // Close Settings Panel logic
-  if (
-    settingsPanel &&
-    !settingsPanel.classList.contains("translate-x-[120%]")
-  ) {
+  if (isSettingsOpen()) {
     const isClickInsidePanel = settingsPanel.contains(event.target);
     const isClickOnToggle = settingsToggle.contains(event.target);
     if (!isClickInsidePanel && !isClickOnToggle) {
-      settingsPanel.classList.add("translate-x-[120%]");
+      setSettingsOpen(false);
     }
   }
 
   // Close Assignments Menu logic
-  if (assignmentsPanel && !assignmentsPanel.classList.contains("invisible")) {
+  if (isAssignmentsOpen()) {
     const isClickInsideMenu = assignmentsPanel.contains(event.target);
     const isClickOnToggle = assignmentsToggle.contains(event.target);
     if (!isClickInsideMenu && !isClickOnToggle) {
-      closeAssignmentsMenu();
+      setAssignmentsMenu(false);
     }
   }
 });
@@ -127,8 +119,11 @@ function setTheme(themeName) {
 function setFont(fontValue) {
   if (!articleText) return;
   articleText.style.fontFamily = fontValue;
+
+  // Keep this to preserve your current behavior (your Tailwind typography sets headings to Inter)
   const headings = articleText.querySelectorAll("h1, h2, h3, h4");
   headings.forEach((h) => (h.style.fontFamily = fontValue));
+
   localStorage.setItem("font", fontValue);
 }
 
@@ -140,7 +135,7 @@ function setWidth(maxWidthClass) {
     "max-w-4xl",
     "max-w-5xl",
     "max-w-6xl",
-    "max-w-7xl",
+    "max-w-7xl"
   );
   contentContainer.classList.add(maxWidthClass);
   localStorage.setItem("width", maxWidthClass);
@@ -163,14 +158,17 @@ function applyFontSize() {
 // --- PROGRESS BAR ---
 window.onscroll = function () {
   let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-  let height =
-    document.documentElement.scrollHeight -
-    document.documentElement.clientHeight;
+  let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
   let scrolled = (winScroll / height) * 100;
   if (progressBar) progressBar.style.width = scrolled + "%";
 };
 
 // --- INTERACTIVE ARTEFACTS ---
+const TEI_ACTIVE_CLASS =
+  "px-3 py-1 text-xs font-semibold rounded-full transition-all duration-300 bg-gradient-to-r from-accent to-accent-hover text-white shadow-md shadow-accent/20";
+const TEI_INACTIVE_CLASS =
+  "px-3 py-1 text-xs font-medium rounded-full transition-all duration-300 text-secondary hover:text-primary hover:bg-primary/5";
+
 function toggleTei(mode) {
   const renderView = document.getElementById("tei-render");
   const codeView = document.getElementById("tei-code");
@@ -179,24 +177,18 @@ function toggleTei(mode) {
 
   if (!renderView || !codeView) return;
 
-  const activeClass =
-    "px-3 py-1 text-xs font-semibold rounded-full transition-all duration-300 bg-gradient-to-r from-accent to-accent-hover text-white shadow-md shadow-accent/20";
-
-  const inactiveClass =
-    "px-3 py-1 text-xs font-medium rounded-full transition-all duration-300 text-secondary hover:text-primary hover:bg-primary/5";
-
   if (mode === "render") {
     renderView.classList.remove("hidden");
     codeView.classList.add("hidden");
 
-    btnRender.className = activeClass;
-    btnCode.className = inactiveClass;
+    btnRender.className = TEI_ACTIVE_CLASS;
+    btnCode.className = TEI_INACTIVE_CLASS;
   } else {
     renderView.classList.add("hidden");
     codeView.classList.remove("hidden");
 
-    btnRender.className = inactiveClass;
-    btnCode.className = activeClass;
+    btnRender.className = TEI_INACTIVE_CLASS;
+    btnCode.className = TEI_ACTIVE_CLASS;
   }
 }
 
@@ -237,47 +229,41 @@ function initUrlTooltips() {
 
 function initScrollAnimations() {
   // 1. Setup Bibliography Staggering
-  // Find the bibliography list (assuming it's the <ul> inside the section with "Bibliography" heading)
   const bibliographySection = document.querySelector(
-    "#section-bibliography ul, section:last-of-type ul",
+    "#section-bibliography ul, section:last-of-type ul"
   );
 
   if (bibliographySection) {
     const items = bibliographySection.querySelectorAll("li");
     items.forEach((item, index) => {
-      // Add the reveal class
       item.classList.add("reveal-on-scroll");
-      // Add a staggered delay (modulus 3 keeps delays short and snappy)
-      // This makes item 1 wait 0ms, item 2 wait 100ms, item 3 wait 200ms, etc.
       const delay = (index % 3) * 100;
       item.style.transitionDelay = `${delay}ms`;
     });
   }
 
-  // 2. Setup Interactive Figures (Optional but recommended)
-  // Finds your interactive cards and adds the reveal effect
+  // 2. Setup Interactive Figures
   const interactiveCards = document.querySelectorAll(".not-prose");
   interactiveCards.forEach((card) => {
     card.classList.add("reveal-on-scroll");
   });
 
-  // 3. The Intersection Observer (The Engine)
+  // 3. Intersection Observer
   const observerOptions = {
     root: null,
     rootMargin: "0px",
-    threshold: 0.1, // Trigger when 10% of the item is visible
+    threshold: 0.1,
   };
 
   const observer = new IntersectionObserver((entries, observer) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target); // Run animation only once
+        observer.unobserve(entry.target);
       }
     });
   }, observerOptions);
 
-  // Start watching all elements with the class
   document.querySelectorAll(".reveal-on-scroll").forEach((el) => {
     observer.observe(el);
   });
